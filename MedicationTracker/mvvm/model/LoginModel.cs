@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MedicationTracker.MVVM.Model
 {
-    internal class LoginModel
+    public class LoginModel
     {
         public string Email { get; set; }
         public string Password { get; set; }

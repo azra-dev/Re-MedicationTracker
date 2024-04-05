@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +14,9 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
-
+    <Window.DataContext>
+        <VM:LoginViewModel />
+    </Window.DataContext>
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <ImageBrush ImageSource="/Images/bgLogin.png"/>
@@ -32,13 +35,13 @@
                            FontFamily="Comfortaa" FontSize="32">Welcome to Meditrack</TextBlock>
                 <TextBlock Foreground="#51628f" FontSize="18" FontFamily="Comfortaa">Keep your life on track.</TextBlock>
                 <Grid Margin="0, 30, 0, 0">
-                    <userControls:medTextBox TextboxPlaceholder="Email"/>
+                    <userControls:medTextBox TextboxPlaceholder="Email" TextInputted="{Binding LoginCredentials.Email, Mode=TwoWay}"/>
                 </Grid>
                 <Grid Margin="0, 6, 0, 0">
-                    <userControls:medPasswordBox PasswordPlaceholder="Password"/>
+                    <userControls:medTextBox TextboxPlaceholder="Password" TextInputted="{Binding LoginCredentials.Password, Mode=TwoWay}"/>
                 </Grid>
                 <Button Width="75" Height="25" Margin="0,30,0,0" HorizontalAlignment="Right"
-                        Background="#2a43de" Foreground="#fff">Log in</Button>
+                        Background="#2a43de" Foreground="#fff" Command="{Binding ValidateCredentialsCmd}">Log in</Button>
             </StackPanel>
         </Grid>
         

@@ -17,28 +17,40 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.Controls
 {
-    /// <summary>
-    /// Interaction logic for medTextBox.xaml
-    /// </summary>
-    public partial class medTextBox : UserControl, INotifyPropertyChanged
+
+    public partial class medTextBox : UserControl
     {
+
+        // DependencyProperty for SQL connection
+        public static readonly DependencyProperty TextInputtedProperty =
+        DependencyProperty.Register(
+            "TextInputted",
+            typeof(string),
+            typeof(medTextBox));
+
+        public string TextInputted
+        {
+            get { return (string)GetValue(TextInputtedProperty); }
+            set { SetValue(TextInputtedProperty, value); }
+        }
+
+
         public medTextBox()
         {
-            DataContext = this;
             InitializeComponent();
         }
 
-        // data binding
         public string textboxPlaceholder;
-        public string TextboxPlaceholder { get { return textboxPlaceholder; } set { textboxPlaceholder = value; OnPropertyChanged("TextboxPlaceholder"); } }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged( [CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public string TextboxPlaceholder 
+        { 
+            get { return textboxPlaceholder; } 
+            set 
+            { 
+                textboxPlaceholder = value;
+                textPlaceholder.Text = textboxPlaceholder;
+            } 
         }
 
-        
         // functions
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
@@ -48,8 +60,14 @@ namespace MedicationTracker.Controls
 
         private void textInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(textInput.Text)) textPlaceholder.Visibility = Visibility.Hidden;
-            else textPlaceholder.Visibility = Visibility.Visible;
+            if (!string.IsNullOrEmpty(textInput.Text))
+            {
+                textPlaceholder.Visibility = Visibility.Hidden;
+            }
+            else 
+            { 
+                textPlaceholder.Visibility = Visibility.Visible; 
+            }
         }
     }
 }

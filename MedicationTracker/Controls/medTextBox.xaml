@@ -12,7 +12,8 @@
         <TextBlock Name="textPlaceholder" Text="{Binding TextboxPlaceholder}" Foreground="#7898a1" VerticalAlignment="Center"
                    FontFamily="Comfortaa" FontSize="18" Margin="8, 0, 0 ,0"/>
         <TextBox Style="{DynamicResource textboxStyle}" Name="textInput" Background="Transparent" Height="25" FontFamily="Comfortaa" FontSize="18" 
-                 Foreground="#7898a1" Margin="8,0,0,0" BorderBrush="Transparent" TextChanged="textInput_TextChanged"/>
+                 Foreground="#7898a1" Margin="8,0,0,0" BorderBrush="Transparent" TextChanged="textInput_TextChanged"
+                 Text="{Binding TextInputted, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         <Button Name="btnClear" Content="x" FontFamily="Comfortaa" HorizontalAlignment="Right" Foreground="#7898a1"
                 Width="25" Height="25" Background="Transparent" BorderBrush="Transparent" Click="btnClear_Click"/>
     </Grid>
