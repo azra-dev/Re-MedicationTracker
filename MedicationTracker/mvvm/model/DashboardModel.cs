@@ -28,7 +28,6 @@ namespace MedicationTracker.MVVM.Model
 
         public class MedicationReminder
         {
-            public long MedicationScheduleID { get; set; }
             public string MedicationReminderTitle { get; set; }
             public string MedicationReminderMessage { get; set; }
         }

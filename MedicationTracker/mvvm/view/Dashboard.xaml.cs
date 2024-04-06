@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for Dashboard.xaml
-    /// </summary>
     public partial class Dashboard : Window
     {
         public Dashboard()
@@ -26,6 +23,7 @@ namespace MedicationTracker.MVVM.View
             DashboardViewModel vm = new DashboardViewModel();
             DataContext = vm;
             vm.ReadSchedules.Execute(null);
+            vm.ReadReminders.Execute(null);
         }
 
         // Drag the window without taskbar

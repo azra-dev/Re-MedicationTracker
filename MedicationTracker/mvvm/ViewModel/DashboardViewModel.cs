@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,14 +18,17 @@ namespace MedicationTracker.MVVM.ViewModel
 {
     internal class DashboardViewModel : ObservableObject
     {
-        int navMode = 0; // 0 is default (Home) <- What's this?
+        //int navMode = 0; // 0 is default (Home) <- What's this?
         public RelayCommand ReadSchedules => new RelayCommand(execute => ReadMedicationSchedules());
+        public RelayCommand ReadReminders => new RelayCommand(execute => ReadMedicationReminders());
 
         public ObservableCollection<DashboardModel.JoinedMedicationSchedule> JoinedMedicationsSchedulesContent { get; set; }
+        public ObservableCollection<DashboardModel.MedicationReminder> MedicationReminders {  get; set; }
 
         public DashboardViewModel()
         {
             JoinedMedicationsSchedulesContent = new ObservableCollection<DashboardModel.JoinedMedicationSchedule>();
+            MedicationReminders = new ObservableCollection<DashboardModel.MedicationReminder>();
 
         }
 
@@ -40,6 +44,56 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
+        private DashboardModel.MedicationReminder medicationRemindersContent;
+
+        public DashboardModel.MedicationReminder MedicationRemindersContent
+        {
+            get { return medicationRemindersContent; }
+            set 
+            { 
+                medicationRemindersContent = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        private void ReadMedicationReminders()
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_JoinsMedicationSchedulesReminders", connection);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", 1); // "1" user_id here is temporary
+
+            try
+            {
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        MedicationRemindersContent = new DashboardModel.MedicationReminder
+                        {
+                            MedicationReminderTitle = reader.GetString(0),
+                            MedicationReminderMessage = reader.GetString(1)
+                        };
+
+                        OnPropertyChanged();
+
+                        MedicationReminders.Add(MedicationRemindersContent);
+
+                        //Trace.WriteLine(MedicationRemindersContent.MedicationReminderTitle);
+                    }
+
+                }
+            }
+            catch (SqlException ex)
+            {
+
+            }
+
+        }
         private void ReadMedicationSchedules()
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -48,7 +102,7 @@ namespace MedicationTracker.MVVM.ViewModel
             using SqlCommand cmd = new SqlCommand("sp_JoinMedicationsSchedules", connection);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@user_id", 1);
+            cmd.Parameters.AddWithValue("@user_id", 1); // "1" user_id here is temporary
 
             try
             {
@@ -71,12 +125,11 @@ namespace MedicationTracker.MVVM.ViewModel
                         };
 
 
-                        //MedicationSchedulesContent = schedules;
                         OnPropertyChanged();
 
                         JoinedMedicationsSchedulesContent.Add(MedicationSchedulesContent);
 
-                        Trace.WriteLine(MedicationSchedulesContent.MedicationDosageForm);
+                        //Trace.WriteLine(MedicationSchedulesContent.MedicationDosageForm);
                     }
                     
                 }

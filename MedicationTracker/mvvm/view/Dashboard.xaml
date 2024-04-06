@@ -40,7 +40,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!--sidebar-->
+        <!--Sidebar-->
         <Border>
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10"
@@ -66,7 +66,7 @@
             </StackPanel>
         </Border>
 
-            <!--content-->
+            <!--Content-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36"/>
@@ -83,40 +83,27 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10">Your Schedule</TextBlock>
+                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10">Your Scheduled Medications</TextBlock>
                         </StackPanel>
-
-                        <ScrollViewer Grid.Row="1" Visibility="Visible" PanningMode="Both"
+                        
+                        <!--Scheduled Medications-->
+                        <ScrollViewer Grid.Row="1"
+                                      PanningMode="Both"
                                       VerticalScrollBarVisibility="Hidden" 
                                       HorizontalScrollBarVisibility="Hidden" 
                                       BorderBrush="Transparent"
-                                      Background="Transparent"
-                                      Height="172">
+                                      Background="Transparent">
                             <StackPanel>
-                            
-                            <!--databind here-->
-                            <!--
-                            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
-                              MedType="Capsule"
-                              MedAmount="1.5kg"
-                              MedSchedule="Weekly"
-                              MedTime="04/03/2024 12:00 PM"/>
-                            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
-                              MedType="Capsule"
-                              MedAmount="1.5kg"
-                              MedSchedule="Weekly"
-                              MedTime="04/03/2024 12:00 PM"/>
-                            -->
-
                                 <ListView ItemsSource="{Binding JoinedMedicationsSchedulesContent}"
                                           IsHitTestVisible="False"
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                           BorderBrush="Transparent"
                                           Background="Transparent"
-                                          ScrollViewer.CanContentScroll="True">  
+                                          ScrollViewer.CanContentScroll="True">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
+                                            <!--Revamped homeScheduleBox-->
                                             <Border BorderBrush="#c0c0c0" BorderThickness="1" CornerRadius="5" Margin="0 0 0 10">
                                                 <StackPanel Orientation="Vertical" Background="#f0f4f4" Width="660">
                                                     <StackPanel Margin="20 10">
@@ -130,7 +117,7 @@
                                                                 <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
                                                             </TextBlock>
                                                         </TextBlock>
-                                                                                                <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
+                                                        <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
                                                             <Run Text="Take: "/>
                                                             <Run Text="{Binding MedicationPeriodWeekday, StringFormat=dddd, Mode=TwoWay}"/>
                                                             <Run Text="at"/>
@@ -142,21 +129,67 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                            
-
                             </StackPanel>
                         </ScrollViewer>
-                        <StackPanel Grid.Row="2">
-                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10">Reminder</TextBlock>
-                            <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" Height="200">
-                                <userControls:reminderActive ReminderTitle="Take Blackezol" 
-                                     ReminderDescription="Lorem Ipsum you should take Blackezol 1.5kg."/>
-                                <userControls:reminderActive ReminderTitle="Take Strawberry-Flavoured Parachute" 
-                                     ReminderDescription="Lorem Ipsum you should take it 2Mg."/>
-                                <userControls:reminderActive ReminderTitle="Take Blackezol" 
-                                     ReminderDescription="Lorem Ipsum you should take Blackezol 1.5kg."/>
-                            </WrapPanel>
-                        </StackPanel>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="22*"/>
+                                <RowDefinition Height="87*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10">Your Reminders</TextBlock>
+                            
+                            <!--Revamped Reminders-->
+                            <ScrollViewer Grid.Row="1"
+                                          VerticalScrollBarVisibility="Auto" 
+                                          HorizontalScrollBarVisibility="Disabled" 
+                                          BorderBrush="Transparent"
+                                          Background="Transparent">
+                                
+                                <ListView ItemsSource="{Binding MedicationReminders}"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                  BorderBrush="Transparent"
+                                                  Background="Transparent"
+                                                  ScrollViewer.CanContentScroll="True">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListViewItem">
+                                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#e3f5f5" BorderBrush="#c0c0c0" BorderThickness="1" Padding="10" Width="200" Height="175" CornerRadius="5" Margin="0 0 10 10">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="16" TextWrapping="Wrap" Text="{Binding MedicationReminderTitle}"
+                                                               Margin="0 0 0 5" FontWeight="Black"/>
+                                                    <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="12" TextWrapping="Wrap" Text="{Binding MedicationReminderMessage}"
+                                                               Margin="0 0 0 5" TextAlignment="Justify"/>
+                                                    <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 0 0">Taken</Button>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                        </Grid>
+                        
                     </Grid>
                 </Grid>
                 
