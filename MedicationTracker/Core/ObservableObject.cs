@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Data.SqlClient;
 using System.Windows;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace MedicationTracker.Core
 {
-    internal class ObservableObject : INotifyPropertyChanged
+    internal class ObservableObject : INotifyPropertyChanged, IValueConverter
     {
         // SQL 
         public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
 
-        public int GetMediTrackUserID(string email)
+        public long GetMediTrackUserID(string email)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -27,10 +29,10 @@ namespace MedicationTracker.Core
 
             try
             {
-                int userID = (int)cmd.ExecuteScalar();
+                long userID = (long)cmd.ExecuteScalar();
                 return userID;
             } 
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
@@ -43,6 +45,24 @@ namespace MedicationTracker.Core
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        // IValueConverter
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is TimeSpan timeSpan)
+            {
+                int hours = timeSpan.Hours;
+                string period = hours >= 12 ? "PM" : "AM";
+                hours = hours > 12 ? hours - 12 : hours;
+                return $"{hours:h}:{timeSpan.Minutes:mm} {period}";
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException(); // Not required for one-way binding
         }
     }
 }

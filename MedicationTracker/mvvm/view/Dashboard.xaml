@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
+        xmlns:Core="clr-namespace:MedicationTracker.Core"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
         xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
@@ -18,6 +19,10 @@
     <Window.DataContext>
         <VM:DashboardViewModel />
     </Window.DataContext>
+
+    <Window.Resources>
+        <Core:TimeSpanToTimeStringConverter x:Key="TimeSpanToTimeStringConverter" />
+    </Window.Resources>
 
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
@@ -72,27 +77,76 @@
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="37.5*"/>
+                            <RowDefinition Height="52.5*"/>
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
-                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10">Your Schedule</TextBlock>
-                            <!--databind here-->
-                            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
-                              MedType="Capsule"
-                              MedAmount="1.5kg"
-                              MedSchedule="Weekly"
-                              MedTime="04/03/2024 12:00 PM"/>
-                            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
-                              MedType="Capsule"
-                              MedAmount="1.5kg"
-                              MedSchedule="Weekly"
-                              MedTime="04/03/2024 12:00 PM"/>
+                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10">Your Schedule</TextBlock>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1">
-                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10">Reminder</TextBlock>
+                        <ScrollViewer Grid.Row="1" Visibility="Visible" PanningMode="Both"
+                                      VerticalScrollBarVisibility="Hidden" 
+                                      HorizontalScrollBarVisibility="Hidden" 
+                                      BorderBrush="Transparent"
+                                      Background="Transparent">
+                            <StackPanel>
+                            
+                            <!--databind here-->
+                            <!--
+                            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
+                              MedType="Capsule"
+                              MedAmount="1.5kg"
+                              MedSchedule="Weekly"
+                              MedTime="04/03/2024 12:00 PM"/>
+                            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
+                              MedType="Capsule"
+                              MedAmount="1.5kg"
+                              MedSchedule="Weekly"
+                              MedTime="04/03/2024 12:00 PM"/>
+                            -->
+
+                                <ListView ItemsSource="{Binding JoinedMedicationsSchedulesContent}"
+                                          IsHitTestVisible="False"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                          BorderBrush="Transparent"
+                                          Background="Transparent"
+                                          ScrollViewer.CanContentScroll="True">  
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="#c0c0c0" BorderThickness="1" CornerRadius="5" Margin="0 0 0 10">
+                                                <StackPanel Orientation="Vertical" Background="#f0f4f4" Width="650">
+                                                    <StackPanel Margin="20 10">
+                                                        <TextBlock FontFamily="Comfortaa" FontSize="16" Foreground="#51628f" FontWeight="Bold" Text="{Binding MedicationName, Mode=TwoWay}" />
+                                                        <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
+                                                            <TextBlock>
+                                                                <Run Text="{Binding MedicationDosageForm, Mode=TwoWay}"/>         <Run Text=" | "/>
+                                                                <Run Text="{Binding MedicationDosageValue, Mode=TwoWay}"/>       <Run Text=" | "/>
+                                                                <Run Text="{Binding MedicationPeriod, Mode=TwoWay}"/> 
+                                                                <Run Text=" | "/>
+                                                                <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                            </TextBlock>
+                                                        </TextBlock>
+                                                                                                <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
+                                                            <Run Text="Take: "/>
+                                                            <Run Text="{Binding MedicationPeriodWeekday, StringFormat=dddd, Mode=TwoWay}"/>
+                                                            <Run Text="at"/>
+                                                            <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            
+
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel Grid.Row="2">
+                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10">Reminder</TextBlock>
                             <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" Height="200">
                                 <userControls:reminderActive ReminderTitle="Take Blackezol" 
                                      ReminderDescription="Lorem Ipsum you should take Blackezol 1.5kg."/>
