@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,9 @@ namespace MedicationTracker.MVVM.View
         public Dashboard()
         {
             InitializeComponent();
+            DashboardViewModel vm = new DashboardViewModel();
+            DataContext = vm;
+            vm.ReadSchedules.Execute(null);
         }
 
         // Drag the window without taskbar

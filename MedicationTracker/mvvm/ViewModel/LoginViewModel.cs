@@ -42,7 +42,7 @@ namespace MedicationTracker.MVVM.ViewModel
             connection.Open();
 
             using SqlCommand cmd = new SqlCommand("sp_ValidateUserLoginCredentials", connection);
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@em", LoginCredentials.Email);
             cmd.Parameters.AddWithValue("@pw", LoginCredentials.Password);
