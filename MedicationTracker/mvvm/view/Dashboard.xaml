@@ -146,7 +146,9 @@
                                                   Background="Transparent"
                                                   ScrollViewer.CanContentScroll="True"
                                                   Grid.Row="1"
-                                                  Height="Auto">
+                                                  Height="Auto"
+                                                  Width="676"
+                                                  HorizontalAlignment="Left">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
