@@ -77,28 +77,29 @@
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="37*"/>
+                            <RowDefinition Height="47*"/>
                             <RowDefinition Height="53*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0">
-                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10" Height="30">Your Scheduled Medications</TextBlock>
-                        </StackPanel>
-                        
-                        <!--Scheduled Medications-->
-                        <ScrollViewer Grid.Row="1"
-                                      VerticalScrollBarVisibility="Hidden" 
-                                      HorizontalScrollBarVisibility="Disabled" 
+                        <Grid Grid.Row="0" Margin="0 0 0 5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" />
+                                <RowDefinition Height="80*" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10" Height="30">Your Scheduled Medications</TextBlock>
+
+
+                            <!--Scheduled Medications-->
+                            <ListView Grid.Row="1"  
+                                      ItemsSource="{Binding JoinedMedicationsSchedulesContent}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                                       BorderBrush="Transparent"
-                                      Background="Transparent">
-                            <ListView ItemsSource="{Binding JoinedMedicationsSchedulesContent}"
-                                          IsHitTestVisible="False"
-                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                          BorderBrush="Transparent"
-                                          Background="Transparent"
-                                          ScrollViewer.CanContentScroll="True">
+                                      Background="Transparent"
+                                      ScrollViewer.CanContentScroll="True"
+                                      Width="676"
+                                      HorizontalAlignment="Left">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <!--Revamped homeScheduleBox-->
@@ -107,38 +108,40 @@
                                                 <StackPanel Margin="20 10">
                                                     <TextBlock FontFamily="Comfortaa" FontSize="16" Foreground="#51628f" FontWeight="ExtraBold" Text="{Binding MedicationName, Mode=TwoWay}" />
                                                     <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
-                                                            <TextBlock>
-                                                                <Run Text="{Binding MedicationDosageForm, Mode=TwoWay}"/>         <Run Text=" | "/>
-                                                                <Run Text="{Binding MedicationDosageValue, Mode=TwoWay}"/>       <Run Text=" | "/>
-                                                                <Run Text="{Binding MedicationPeriod, Mode=TwoWay}"/> 
-                                                                <Run Text=" | "/>
-                                                                <TextBlock FontWeight="Bold">
-                                                                    <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/> 
-                                                                    <Run Text="{Binding Time_2, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
-                                                                    <Run Text="{Binding Time_3, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
-                                                                    <Run Text="{Binding Time_4, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
-                                                                </TextBlock>
-                                                            </TextBlock>
-                                                        </TextBlock>
-                                                    <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
-                                                            <Run Text="Take"/>
-                                                            <Run Text="{Binding MedicationPeriod, StringFormat=dddd, Mode=TwoWay}"/>
-                                                            <Run Text="at"/>
-                                                            <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
-                                                            <Run Text="{Binding MedicationPeriodWeekday, Mode=TwoWay}"/>
+                                                <TextBlock>
+                                                    <Run Text="{Binding MedicationDosageForm, Mode=TwoWay}"/>         <Run Text=" | "/>
+                                                    <Run Text="{Binding MedicationDosageValue, Mode=TwoWay}"/>       <Run Text=" | "/>
+                                                    <Run Text="{Binding MedicationPeriod, Mode=TwoWay}"/> 
+                                                    <Run Text=" | "/>
+                                                    <TextBlock FontWeight="Bold">
+                                                        <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/> 
+                                                        <Run Text="{Binding Time_2, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        <Run Text="{Binding Time_3, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        <Run Text="{Binding Time_4, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
                                                     </TextBlock>
+                                                </TextBlock>
+                                                    </TextBlock>
+                                                <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
+                                                        <Run Text="Take"/>
+                                                        <Run Text="{Binding MedicationPeriod, StringFormat=dddd, Mode=TwoWay}"/>
+                                                        <Run Text="at"/>
+                                                        <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        <Run Text="{Binding MedicationPeriodWeekday, Mode=TwoWay}"/>
+                                                </TextBlock>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                        </ScrollViewer>
+                        </Grid>
+                        
+                        
 
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="1" Margin="0 0 0 5">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="22*"/>
-                                <RowDefinition Height="87*"/>
+                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="80*"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10" Height="30">Your Reminders</TextBlock>
