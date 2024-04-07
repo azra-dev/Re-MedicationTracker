@@ -15,7 +15,7 @@ namespace MedicationTracker.Core
     internal class ObservableObject : INotifyPropertyChanged, IValueConverter
     {
         // SQL 
-        public string connectionString = @"Server=192.168.1.2,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
+        public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
 
         public long GetMediTrackUserID(string email)
         {

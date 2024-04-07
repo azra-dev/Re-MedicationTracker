@@ -14,9 +14,11 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
+    
     <Window.DataContext>
         <VM:LoginViewModel />
     </Window.DataContext>
+    
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <ImageBrush ImageSource="/Images/bgLogin.png"/>
