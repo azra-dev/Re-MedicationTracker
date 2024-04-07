@@ -5,15 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicationTracker.Controls"
              mc:Ignorable="d" 
-             Height="25" d:DesignWidth="255">
-    <Grid>
-        <Rectangle Fill="#e5eae9" Height="25" Stroke="#FFABADB3" >
-        </Rectangle>
+             Height="25" d:DesignWidth="255"
+             x:Name="Root"
+             d:DataContext="{d:DesignInstance {x:Type local:medTextBox}}">
+    <Grid x:Name="RootUserControl">
+        <Rectangle Fill="#e5eae9" Height="25" Stroke="#FFABADB3" Panel.ZIndex="-2"/>
+        <TextBox Style="{DynamicResource textboxStyle}" Name="textInput" Background="Transparent" FontFamily="Comfortaa" FontSize="18" 
+                 Foreground="#7898a1" Margin="6 0 0 -2" BorderBrush="Transparent" TextChanged="textInput_TextChanged" Height="25"
+                 Text="{Binding TextInputted}"/>
         <TextBlock Name="textPlaceholder" Text="{Binding TextboxPlaceholder}" Foreground="#7898a1" VerticalAlignment="Center"
-                   FontFamily="Comfortaa" FontSize="18" Margin="8, 0, 0 ,0"/>
-        <TextBox Style="{DynamicResource textboxStyle}" Name="textInput" Background="Transparent" Height="25" FontFamily="Comfortaa" FontSize="18" 
-                 Foreground="#7898a1" Margin="8,0,0,0" BorderBrush="Transparent" TextChanged="textInput_TextChanged"
-                 Text="{Binding TextInputted, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+           FontFamily="Comfortaa" FontSize="18" Margin="8 0 0 0" Panel.ZIndex="-1"/>
         <Button Name="btnClear" Content="x" FontFamily="Comfortaa" HorizontalAlignment="Right" Foreground="#7898a1"
                 Width="25" Height="25" Background="Transparent" BorderBrush="Transparent" Click="btnClear_Click"/>
     </Grid>

@@ -40,7 +40,7 @@
                     <userControls:medTextBox TextboxPlaceholder="Email" TextInputted="{Binding LoginCredentials.Email, Mode=TwoWay}"/>
                 </Grid>
                 <Grid Margin="0, 6, 0, 0">
-                    <userControls:medTextBox TextboxPlaceholder="Password" TextInputted="{Binding LoginCredentials.Password, Mode=TwoWay}"/>
+                    <userControls:medPasswordBox PasswordPlaceholder="Password" PasswordInputted="{Binding LoginCredentials.Password, Mode=TwoWay}"/>
                 </Grid>
                 <Button Width="75" Height="25" Margin="0,30,0,0" HorizontalAlignment="Right"
                         Background="#2a43de" Foreground="#fff" Command="{Binding ValidateCredentialsCmd}">Log in</Button>

@@ -26,7 +26,8 @@ namespace MedicationTracker.Controls
         DependencyProperty.Register(
             "TextInputted",
             typeof(string),
-            typeof(medTextBox));
+            typeof(medTextBox),
+            new FrameworkPropertyMetadata(null));
 
         public string TextInputted
         {
@@ -38,6 +39,7 @@ namespace MedicationTracker.Controls
         public medTextBox()
         {
             InitializeComponent();
+            RootUserControl.DataContext = this;
         }
 
         public string textboxPlaceholder;
