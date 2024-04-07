@@ -99,7 +99,8 @@
                                       Background="Transparent"
                                       ScrollViewer.CanContentScroll="True"
                                       Width="676"
-                                      HorizontalAlignment="Left">
+                                      HorizontalAlignment="Left"
+                                      SelectionMode="Single">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <!--Revamped homeScheduleBox-->
@@ -155,9 +156,9 @@
                                                   Background="Transparent"
                                                   ScrollViewer.CanContentScroll="True"
                                                   Grid.Row="1"
-                                                  Height="Auto"
                                                   Width="676"
-                                                  HorizontalAlignment="Left">
+                                                  HorizontalAlignment="Left"
+                                                  SelectionMode="Single">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
