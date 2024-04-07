@@ -64,7 +64,7 @@ namespace MedicationTracker.MVVM.ViewModel
             using SqlCommand cmd = new SqlCommand("sp_JoinsMedicationSchedulesReminders", connection);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@user_id", 1); // "1" user_id here is temporary
+            cmd.Parameters.AddWithValue("@user_id", 1); // user_id here is temporary
 
             try
             {
@@ -82,8 +82,6 @@ namespace MedicationTracker.MVVM.ViewModel
                         OnPropertyChanged();
 
                         MedicationReminders.Add(MedicationRemindersContent);
-
-                        //Trace.WriteLine(MedicationRemindersContent.MedicationReminderTitle);
                     }
 
                 }
@@ -102,7 +100,7 @@ namespace MedicationTracker.MVVM.ViewModel
             using SqlCommand cmd = new SqlCommand("sp_JoinMedicationsSchedules", connection);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@user_id", 1); // "1" user_id here is temporary
+            cmd.Parameters.AddWithValue("@user_id", 1); // user_id here is temporary
 
             try
             {
@@ -120,8 +118,7 @@ namespace MedicationTracker.MVVM.ViewModel
                             Time_3 = reader.IsDBNull(6) ? null : reader.GetTimeSpan(6),
                             Time_4 = reader.IsDBNull(7) ? null : reader.GetTimeSpan(7),
                             MedicationPeriod = reader.GetString(8),
-                            MedicationPeriodDate = reader.IsDBNull(9) ? null : reader.GetString(9),
-                            MedicationPeriodWeekday = reader.IsDBNull(10) ? reader.GetString(8) : reader.GetString(10)
+                            MedicationPeriodWeekday = reader.IsDBNull(10) ? null : "every " + reader.GetString(10)
                         };
 
 
@@ -129,7 +126,6 @@ namespace MedicationTracker.MVVM.ViewModel
 
                         JoinedMedicationsSchedulesContent.Add(MedicationSchedulesContent);
 
-                        //Trace.WriteLine(MedicationSchedulesContent.MedicationDosageForm);
                     }
                     
                 }

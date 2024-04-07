@@ -21,7 +21,6 @@ namespace MedicationTracker.MVVM.Model
             public TimeSpan? Time_3 { get; set; }
             public TimeSpan? Time_4 { get; set; }
             public string MedicationPeriod { get; set; }
-            public string? MedicationPeriodDate { get; set; }
             public string? MedicationPeriodWeekday { get; set; }
 
         }

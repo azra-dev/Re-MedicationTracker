@@ -105,21 +105,27 @@
                                         <Border BorderBrush="#c0c0c0" BorderThickness="1" CornerRadius="5" Margin="0 0 0 10">
                                             <StackPanel Orientation="Vertical" Background="#f0f4f4" Width="660">
                                                 <StackPanel Margin="20 10">
-                                                    <TextBlock FontFamily="Comfortaa" FontSize="16" Foreground="#51628f" FontWeight="Bold" Text="{Binding MedicationName, Mode=TwoWay}" />
+                                                    <TextBlock FontFamily="Comfortaa" FontSize="16" Foreground="#51628f" FontWeight="ExtraBold" Text="{Binding MedicationName, Mode=TwoWay}" />
                                                     <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
                                                             <TextBlock>
                                                                 <Run Text="{Binding MedicationDosageForm, Mode=TwoWay}"/>         <Run Text=" | "/>
                                                                 <Run Text="{Binding MedicationDosageValue, Mode=TwoWay}"/>       <Run Text=" | "/>
                                                                 <Run Text="{Binding MedicationPeriod, Mode=TwoWay}"/> 
                                                                 <Run Text=" | "/>
-                                                                <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                                <TextBlock FontWeight="Bold">
+                                                                    <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/> 
+                                                                    <Run Text="{Binding Time_2, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                                    <Run Text="{Binding Time_3, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                                    <Run Text="{Binding Time_4, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                                </TextBlock>
                                                             </TextBlock>
                                                         </TextBlock>
                                                     <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
-                                                            <Run Text="Take: "/>
-                                                            <Run Text="{Binding MedicationPeriodWeekday, StringFormat=dddd, Mode=TwoWay}"/>
+                                                            <Run Text="Take"/>
+                                                            <Run Text="{Binding MedicationPeriod, StringFormat=dddd, Mode=TwoWay}"/>
                                                             <Run Text="at"/>
                                                             <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                            <Run Text="{Binding MedicationPeriodWeekday, Mode=TwoWay}"/>
                                                     </TextBlock>
                                                 </StackPanel>
                                             </StackPanel>
