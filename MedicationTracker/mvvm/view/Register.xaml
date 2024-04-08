@@ -67,10 +67,7 @@
                         </Grid>
                         <Grid>
                             <Rectangle Fill="#e5eae9" Margin="0 0 0 10"/>
-                            
-                           
                             <DatePicker FontFamily="Comfortaa" FontSize="18" Padding="5 1" Margin="0 0 0 10" />
-
                         </Grid>
                         <userControls:medTextBox TextboxPlaceholder="Email" Margin="0 0 0 10"/>
                         <userControls:medTextBox TextboxPlaceholder="Prefered Username" Margin="0 0 0 10"/>
