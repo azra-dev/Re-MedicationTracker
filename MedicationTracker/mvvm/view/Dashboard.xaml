@@ -48,7 +48,7 @@
                                       Opacity="0.45"
                                       Color="#bcbcbc"/>
                 </Border.Effect>
-                <Border CornerRadius="25 0 0 25">
+                <Border CornerRadius="25">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#e5edf3" Offset="0" />
@@ -82,7 +82,7 @@
                             <RowDefinition Height="47*"/>
                             <RowDefinition Height="53*"/>
                         </Grid.RowDefinitions>
-                        </Grid.RowDefinitions>
+
                         <Grid Grid.Row="0" Margin="0 0 0 5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" />
@@ -198,8 +198,6 @@
                         </Grid>
 
                     </Grid>
-                        </Border>
-                    </ListView>
                 </Grid>
                 
             </Grid>
