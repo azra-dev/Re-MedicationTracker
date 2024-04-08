@@ -1,3 +1,3 @@
 # :pill: MediTrack
 
-rjldg branch -> branch for SQL integration, data access, and business logic
+**rjldg-desktop-branch** -> Branch for SQL integration, Data Access, and Business Logic
