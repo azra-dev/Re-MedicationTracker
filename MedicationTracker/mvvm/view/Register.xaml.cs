@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for Register.xaml
-    /// </summary>
     public partial class Register : Window
     {
         public Register()
         {
             InitializeComponent();
+            RegisterViewModel vm = new RegisterViewModel();
+            DataContext = vm;
+
         }
 
         // Drag the window without taskbar
@@ -31,6 +32,9 @@ namespace MedicationTracker.MVVM.View
             {
                 DragMove();
             }
+
         }
+
+        
     }
 }

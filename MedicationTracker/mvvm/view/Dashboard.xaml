@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
+        xmlns:Core="clr-namespace:MedicationTracker.Core"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -13,6 +15,15 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
+
+    <Window.DataContext>
+        <VM:DashboardViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Core:TimeSpanToTimeStringConverter x:Key="TimeSpanToTimeStringConverter" />
+    </Window.Resources>
+
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -69,41 +80,124 @@
                     <userControls:home Visibility="Hidden"/>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="90*" />
+                            <RowDefinition Height="47*"/>
+                            <RowDefinition Height="53*"/>
                         </Grid.RowDefinitions>
 
-                        <!--Logs-->
-                        <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" 
-                                   FontWeight="Bold" Margin="0 0 0 10"/>
+                        <Grid Grid.Row="0" Margin="0 0 0 5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" />
+                                <RowDefinition Height="80*" />
+                            </Grid.RowDefinitions>
 
-                        <!--<TextBlock Text="Medication" Grid.Row="1" Grid.Column="0" 
-                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
-                                   Margin="0 0 0 10"/>
+                            <TextBlock Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10" Height="30">Your Scheduled Medications</TextBlock>
+
+
+                            <!--Scheduled Medications-->
+                            <ListView Grid.Row="1"  
+                                      ItemsSource="{Binding JoinedMedicationsSchedulesContent}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      BorderBrush="Transparent"
+                                      Background="Transparent"
+                                      ScrollViewer.CanContentScroll="True"
+                                      Width="676"
+                                      HorizontalAlignment="Left"
+                                      SelectionMode="Single">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <!--Revamped homeScheduleBox-->
+                                        <Border BorderBrush="#c0c0c0" BorderThickness="1" CornerRadius="5" Margin="0 0 0 10">
+                                            <StackPanel Orientation="Vertical" Background="#f0f4f4" Width="660">
+                                                <StackPanel Margin="20 10">
+                                                    <TextBlock FontFamily="Comfortaa" FontSize="16" Foreground="#51628f" FontWeight="ExtraBold" Text="{Binding MedicationName, Mode=TwoWay}" />
+                                                    <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
+                                                <TextBlock>
+                                                    <Run Text="{Binding MedicationDosageForm, Mode=TwoWay}"/>         <Run Text=" | "/>
+                                                    <Run Text="{Binding MedicationDosageValue, Mode=TwoWay}"/>       <Run Text=" | "/>
+                                                    <Run Text="{Binding MedicationPeriod, Mode=TwoWay}"/> 
+                                                    <Run Text=" | "/>
+                                                    <TextBlock FontWeight="Bold">
+                                                        <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/> 
+                                                        <Run Text="{Binding Time_2, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        <Run Text="{Binding Time_3, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        <Run Text="{Binding Time_4, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                    </TextBlock>
+                                                </TextBlock>
+                                                    </TextBlock>
+                                                <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
+                                                        <Run Text="Take"/>
+                                                        <Run Text="{Binding MedicationPeriod, StringFormat=dddd, Mode=TwoWay}"/>
+                                                        <Run Text="at"/>
+                                                        <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+                                                        <Run Text="{Binding MedicationPeriodWeekday, Mode=TwoWay}"/>
+                                                </TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
                         
-                        <TextBlock Text="Last Taken" Grid.Row="1" Grid.Column="1" 
-                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
-                                   Margin="0 0 0 10"/>
                         
-                        <TextBlock Text="Cumulative Dosage" Grid.Row="1" Grid.Column="2" 
-                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
-                                   Margin="0 0 0 10"/>-->
 
-                        <!--<TextBlock Text="Strawberry Flavored Parachute" Grid.Row="2" Grid.Column="0"
-                                   FontFamily="Comfortaa" FontSize="16" TextTrimming="CharacterEllipsis"/>-->
+                        <Grid Grid.Row="1" Margin="0 0 0 5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="80*"/>
+                            </Grid.RowDefinitions>
 
-                        <DataGrid Grid.Row="1" AutoGenerateColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}"
-                                                    Width="*"/>
-                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}"
-                                                    Width="*"/>
-                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}"
-                                                    Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-
-
+                            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10" Height="30">Your Reminders</TextBlock>
+                            
+                            <!--Revamped Reminders-->
+                                
+                                <ListView ItemsSource="{Binding MedicationReminders}"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                  BorderBrush="Transparent"
+                                                  Background="Transparent"
+                                                  ScrollViewer.CanContentScroll="True"
+                                                  Grid.Row="1"
+                                                  Width="676"
+                                                  HorizontalAlignment="Left"
+                                                  SelectionMode="Single">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListViewItem">
+                                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#e3f5f5" BorderBrush="#c0c0c0" BorderThickness="1" Padding="10" Width="200" Height="175" CornerRadius="5" Margin="0 0 10 10">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="16" TextWrapping="Wrap" Text="{Binding MedicationReminderTitle}"
+                                                               Margin="0 0 0 5" FontWeight="Black"/>
+                                                    <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="12" TextWrapping="Wrap" Text="{Binding MedicationReminderMessage}"
+                                                               Margin="0 0 0 5" TextAlignment="Justify"/>
+                                                    <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 0 0">Taken</Button>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                        </Grid>
+                        
                     </Grid>
                     
                     <!--Kurt's Datagrid goes here-->
