@@ -37,22 +37,24 @@
                                       Opacity="0.45"
                                       Color="#bcbcbc"/>
                 </Border.Effect>
-                <StackPanel>
-                    <StackPanel.Background>
+                <Border CornerRadius="25">
+                    <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#e5edf3" Offset="0" />
                             <GradientStop Color="#fff" Offset="0.33" />
                             <GradientStop Color="#e9f5f5" Offset="1" />
                         </LinearGradientBrush>
-                    </StackPanel.Background>
+                    </Border.Background>
+                    <StackPanel>
 
-                    <StackPanel Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
-                        <userControls:menuBox MenuIcon="/Images/DEFAULT_home.png" MenuText="Home"/>
-                        <userControls:menuBox MenuIcon="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
-                        <userControls:menuBox MenuIcon="/Images/DEFAULT_logs.png" MenuText="Logs"/>
+                        <StackPanel Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
+                            <userControls:menuBox MenuIcon="/Images/DEFAULT_home.png" MenuText="Home"/>
+                            <userControls:menuBox MenuIcon="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
+                            <userControls:menuBox MenuIcon="/Images/DEFAULT_logs.png" MenuText="Logs"/>
+                        </StackPanel>
+
                     </StackPanel>
-
-                </StackPanel>
+                </Border>
             </Border>
 
                 <!--content-->
@@ -103,6 +105,29 @@
 
 
                     </Grid>
+                    
+                    <!--Kurt's Datagrid goes here-->
+                    <DataGrid>
+                        
+                    </DataGrid>
+                    
+                    <!--Note: This is to be userControl'd-->
+                    <ListView Visibility="Hidden">
+                        <Border CornerRadius="10" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5">
+                            <StackPanel>
+                                <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold">Blackezol</TextBlock>
+                                <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa">Capsule | 1mL | Weekly (Monday) | 7:30am</TextBlock>
+                                <Grid Margin="0 5 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" Foreground="#2a43de">Update</TextBlock>
+                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Foreground="#2a43de">Delete</TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </ListView>
                 </Grid>
                 
             </Grid>
