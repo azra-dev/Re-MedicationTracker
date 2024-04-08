@@ -92,7 +92,16 @@ namespace MedicationTracker.MVVM.ViewModel
                 command.Parameters.AddWithValue("@em", RegisterCredentials.EmailAddress);
                 command.Parameters.AddWithValue("@pw", RegisterCredentials.Password);
                 command.Parameters.AddWithValue("@bd", RegisterCredentials.BirthDate);
-                command.Parameters.AddWithValue("@img_folder_path", RegisterCredentials.ProfilePicturePath);
+                
+                if (RegisterCredentials.ProfilePicturePath == "/Images/default_pfp.jpg")
+                {
+                    command.Parameters.AddWithValue("@img_folder_path", null);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@img_folder_path", RegisterCredentials.ProfilePicturePath);
+                }
+                
 
                 Trace.WriteLine(RegisterCredentials.FirstName);
                 Trace.WriteLine(RegisterCredentials.LastName);
@@ -105,11 +114,11 @@ namespace MedicationTracker.MVVM.ViewModel
                 try
                 {
                     command.ExecuteNonQuery();
-                    MessageBox.Show("User " + registerCredentials.Username + " created. Kindly Log In.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("User " + registerCredentials.Username + " created. Please log in.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (SqlException)
                 {
-                    MessageBox.Show("One of the fields is invalid.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Invalid input in one of the fields.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             

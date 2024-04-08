@@ -13,22 +13,22 @@ namespace MedicationTracker.MVVM.Model
     {
         public class JoinedMedicationSchedule
         {
-            public string MedicationName { get; set; }
-            public string MedicationDosageValue { get; set; }
-            public string MedicationDosageForm { get; set; }
+            public string? MedicationName { get; set; }
+            public string? MedicationDosageValue { get; set; }
+            public string? MedicationDosageForm { get; set; }
             public TimeSpan Time_1 { get; set; }
             public TimeSpan? Time_2 { get; set; }
             public TimeSpan? Time_3 { get; set; }
             public TimeSpan? Time_4 { get; set; }
-            public string MedicationPeriod { get; set; }
+            public string? MedicationPeriod { get; set; }
             public string? MedicationPeriodWeekday { get; set; }
 
         }
 
         public class MedicationReminder
         {
-            public string MedicationReminderTitle { get; set; }
-            public string MedicationReminderMessage { get; set; }
+            public string? MedicationReminderTitle { get; set; }
+            public string? MedicationReminderMessage { get; set; }
         }
     }
 }
