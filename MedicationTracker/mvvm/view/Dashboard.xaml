@@ -37,7 +37,7 @@
                                       Opacity="0.45"
                                       Color="#bcbcbc"/>
                 </Border.Effect>
-                <Border CornerRadius="25">
+                <Border CornerRadius="25 0 0 25">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#e5edf3" Offset="0" />
@@ -67,65 +67,66 @@
 
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
                     <userControls:home Visibility="Hidden"/>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="90*" />
-                        </Grid.RowDefinitions>
 
-                        <!--Logs-->
-                        <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" 
-                                   FontWeight="Bold" Margin="0 0 0 10"/>
-
-                        <!--<TextBlock Text="Medication" Grid.Row="1" Grid.Column="0" 
-                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
-                                   Margin="0 0 0 10"/>
-                        
-                        <TextBlock Text="Last Taken" Grid.Row="1" Grid.Column="1" 
-                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
-                                   Margin="0 0 0 10"/>
-                        
-                        <TextBlock Text="Cumulative Dosage" Grid.Row="1" Grid.Column="2" 
-                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
-                                   Margin="0 0 0 10"/>-->
-
-                        <!--<TextBlock Text="Strawberry Flavored Parachute" Grid.Row="2" Grid.Column="0"
-                                   FontFamily="Comfortaa" FontSize="16" TextTrimming="CharacterEllipsis"/>-->
-
-                        <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+                    <!--Logs-->
+                    <StackPanel Orientation="Vertical" Visibility="Hidden">
+                        <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10"/>
+                        <DataGrid AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}"
-                                                    Width="*"/>
-                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}"
-                                                    Width="*"/>
-                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}"
-                                                    Width="*"/>
+                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}" Width="*"/>
+                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                    </StackPanel>
 
-
-                    </Grid>
-                    
-                    <!--Kurt's Datagrid goes here-->
-                    <DataGrid>
-                        
-                    </DataGrid>
-                    
                     <!--Note: This is to be userControl'd-->
-                    <ListView Visibility="Hidden">
-                        <Border CornerRadius="10" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5">
-                            <StackPanel>
-                                <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold">Blackezol</TextBlock>
-                                <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa">Capsule | 1mL | Weekly (Monday) | 7:30am</TextBlock>
-                                <Grid Margin="0 5 0 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" Foreground="#2a43de">Update</TextBlock>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Foreground="#2a43de">Delete</TextBlock>
+                    <ListView HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <userControls:scheduleBox MedTitle="Blackezol" MedType="Capsule" MedAmount="1mL" MedSchedule="Weekly" MedTime="7:30 AM"/>
+                        <userControls:scheduleBox MedTitle="Strawberry-Flavoured Parachute" MedType="Capsule" MedAmount="1mL" MedSchedule="Weekly" MedTime="7:30 AM"/>
+                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
+                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
+                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
+                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
+                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
+                        <Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5" Width="325" Height="70">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="55"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold" Text="Create New Schedule"/>
+                                    <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa" Text="Click the add button to start"/>
+                                    <Grid Margin="0 5 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Margin="5">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=frame}"/>
+                                    </Grid.OpacityMask>
+                                    <Border x:Name="frame" BorderBrush="#6a787c" CornerRadius="512" BorderThickness="0" Background="#f0f4f4"/>
+                                    <Border BorderBrush="#6a787c" CornerRadius="512" BorderThickness="2" Background="#e5eae9">
+                                        <Button Foreground="#6a787c" FontFamily="Comfortaa" FontWeight="ExtraBlack" FontSize="24" BorderBrush="Transparent" Background="Transparent">+</Button>
+                                    </Border>
+                                    
                                 </Grid>
-                            </StackPanel>
+                                
+                                
+
+
+
+                            </Grid>
                         </Border>
                     </ListView>
                 </Grid>

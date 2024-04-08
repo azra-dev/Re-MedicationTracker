@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\scheduleBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\taskbarUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +116,9 @@
     </Compile>
     <Compile Include="Controls\reminderActive.xaml.cs">
       <DependentUpon>reminderActive.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\scheduleBox.xaml.cs">
+      <DependentUpon>scheduleBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\taskbarUI.xaml.cs">
       <DependentUpon>taskbarUI.xaml</DependentUpon>
