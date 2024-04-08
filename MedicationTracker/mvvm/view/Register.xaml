@@ -15,10 +15,12 @@
         Background="Transparent"
         Height="540" Width="960">
 
+
+
     <Window.DataContext>
         <VM:RegisterViewModel/>
     </Window.DataContext>
-    
+
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -62,17 +64,17 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <userControls:medTextBox Grid.Column="0" TextboxPlaceholder="First Name" Margin="0 0 5 0"/>
-                            <userControls:medTextBox Grid.Column="1" TextboxPlaceholder="Last Name" Margin="5 0 0 0"/>
+                            <userControls:medTextBox Grid.Column="0" TextboxPlaceholder="First Name" Margin="0 0 5 0" TextInputted="{Binding RegisterCredentials.FirstName, Mode=TwoWay}"/>
+                            <userControls:medTextBox Grid.Column="1" TextboxPlaceholder="Last Name" Margin="5 0 0 0" TextInputted="{Binding RegisterCredentials.LastName, Mode=TwoWay}"/>
                         </Grid>
                         <Grid>
                             <Rectangle Fill="#e5eae9" Margin="0 0 0 10"/>
-                            <DatePicker FontFamily="Comfortaa" FontSize="18" Padding="5 1" Margin="0 0 0 10" />
+                            <DatePicker FontFamily="Comfortaa" FontSize="18" Padding="5 1" Margin="0 0 0 10" BorderBrush="#FFABADB3" Text="{Binding RegisterCredentials.BirthDate, Mode=TwoWay}"/>
                         </Grid>
-                        <userControls:medTextBox TextboxPlaceholder="Email" Margin="0 0 0 10"/>
-                        <userControls:medTextBox TextboxPlaceholder="Prefered Username" Margin="0 0 0 10"/>
-                        <userControls:medPasswordBox PasswordPlaceholder="Password" Margin="0 0 100 10"/>
-                        <userControls:medPasswordBox PasswordPlaceholder="Confirm Password" Margin="0 0 100 10"/>
+                        <userControls:medTextBox TextboxPlaceholder="Email" Margin="0 0 0 10" TextInputted="{Binding RegisterCredentials.EmailAddress, Mode=TwoWay}"/>
+                        <userControls:medTextBox TextboxPlaceholder="Prefered Username" Margin="0 0 0 10" TextInputted="{Binding RegisterCredentials.Username, Mode=TwoWay}"/>
+                        <userControls:medPasswordBox PasswordPlaceholder="Password" Margin="0 0 100 10" PasswordInputted="{Binding RegisterCredentials.Password, Mode=TwoWay}"/>
+                        <userControls:medPasswordBox PasswordPlaceholder="Confirm Password" Margin="0 0 100 10" PasswordInputted="{Binding ConfirmPasswordInput}"/>
 
                     </StackPanel>
 
@@ -81,10 +83,10 @@
                 </Grid>
 
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Width="75" Height="25" Margin="0,10,10,0" HorizontalAlignment="Right"
-                Background="#fff" Foreground="#2a43de">Cancel</Button>
+                    <Button Name="CancelButton" Width="75" Height="25" Margin="0,10,10,0" HorizontalAlignment="Right"
+                Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Cancel</Button>
                     <Button Width="75" Height="25" Margin="0,10,0,0" HorizontalAlignment="Right"
-                Background="#2a43de" Foreground="#fff">Register</Button>
+                Background="#2a43de" Foreground="#fff" Command="{Binding RegisterUser}">Register</Button>
                 </StackPanel>
 
             </StackPanel>

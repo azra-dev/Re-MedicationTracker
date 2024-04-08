@@ -14,8 +14,6 @@ namespace MedicationTracker.MVVM.ViewModel
 {
     internal class LoginViewModel : ObservableObject
     {
-        // Insert bindings here
-
         public RelayCommand ValidateCredentialsCmd => new RelayCommand(execute => ValidateLoginCredentials());
 
         public LoginViewModel()

@@ -77,7 +77,6 @@
                 <userControls:taskbarUI/>
 
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
-                    <userControls:home Visibility="Hidden"/>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="47*"/>
@@ -139,8 +138,8 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Grid>
-                        
-                        
+
+
 
                         <Grid Grid.Row="1" Margin="0 0 0 5">
                             <Grid.RowDefinitions>
@@ -149,10 +148,10 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 10 0 10" Height="30">Your Reminders</TextBlock>
-                            
+
                             <!--Revamped Reminders-->
-                                
-                                <ListView ItemsSource="{Binding MedicationReminders}"
+
+                            <ListView ItemsSource="{Binding MedicationReminders}"
                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                                   BorderBrush="Transparent"
@@ -162,66 +161,43 @@
                                                   Width="676"
                                                   HorizontalAlignment="Left"
                                                   SelectionMode="Single">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="Background" Value="Transparent"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ListViewItem">
-                                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Background="#e3f5f5" BorderBrush="#c0c0c0" BorderThickness="1" Padding="10" Width="200" Height="175" CornerRadius="5" Margin="0 0 10 10">
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="16" TextWrapping="Wrap" Text="{Binding MedicationReminderTitle}"
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListViewItem">
+                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#e3f5f5" BorderBrush="#c0c0c0" BorderThickness="1" Padding="10" Width="200" Height="175" CornerRadius="5" Margin="0 0 10 10">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="16" TextWrapping="Wrap" Text="{Binding MedicationReminderTitle}"
                                                                Margin="0 0 0 5" FontWeight="Black"/>
-                                                    <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="12" TextWrapping="Wrap" Text="{Binding MedicationReminderMessage}"
+                                                <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="12" TextWrapping="Wrap" Text="{Binding MedicationReminderMessage}"
                                                                Margin="0 0 0 5" TextAlignment="Justify"/>
-                                                    <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
                                                             Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 0 0">Taken</Button>
-                                                </StackPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </Grid>
-                        
+
                     </Grid>
-                    
-                    <!--Kurt's Datagrid goes here-->
-                    <DataGrid>
-                        
-                    </DataGrid>
-                    
-                    <!--Note: This is to be userControl'd-->
-                    <ListView Visibility="Hidden">
-                        <Border CornerRadius="10" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5">
-                            <StackPanel>
-                                <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold">Blackezol</TextBlock>
-                                <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa">Capsule | 1mL | Weekly (Monday) | 7:30am</TextBlock>
-                                <Grid Margin="0 5 0 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" HorizontalAlignment="Center" Foreground="#2a43de">Update</TextBlock>
-                                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Foreground="#2a43de">Delete</TextBlock>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
-                    </ListView>
                 </Grid>
                 
             </Grid>

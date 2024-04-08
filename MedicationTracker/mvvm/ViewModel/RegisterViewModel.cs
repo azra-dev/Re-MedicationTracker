@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace MedicationTracker.MVVM.ViewModel
 {
@@ -37,6 +38,19 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
+        private string confirmPasswordInput;
+
+        public string ConfirmPasswordInput
+        {
+            get { return confirmPasswordInput; }
+            set 
+            { 
+                confirmPasswordInput = value; 
+                OnPropertyChanged();
+            }
+        }
+
+
         public void SetMediTrackUserProfilePicture()
         {
             OpenFileDialog fileDialog = new()
@@ -60,35 +74,46 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void RegisterMediTrackUser()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-
-            using SqlCommand command = new SqlCommand("sp_CreateMediTrackUser", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.AddWithValue("@fn", RegisterCredentials.FirstName);
-            command.Parameters.AddWithValue("@ln", RegisterCredentials.LastName);
-            command.Parameters.AddWithValue("@username", RegisterCredentials.Username);
-            command.Parameters.AddWithValue("@em", RegisterCredentials.EmailAddress);
-            command.Parameters.AddWithValue("@pw", RegisterCredentials.Password);
-            command.Parameters.AddWithValue("@bd", RegisterCredentials.BirthDate);
-
-            if (!string.IsNullOrEmpty(RegisterCredentials.ProfilePicturePath))
+            if (ConfirmPasswordInput != RegisterCredentials.Password)
             {
+                MessageBox.Show("Passwords do not match.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                using SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+
+                using SqlCommand command = new SqlCommand("sp_CreateMediTrackUser", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@fn", RegisterCredentials.FirstName);
+                command.Parameters.AddWithValue("@ln", RegisterCredentials.LastName);
+                command.Parameters.AddWithValue("@username", RegisterCredentials.Username);
+                command.Parameters.AddWithValue("@em", RegisterCredentials.EmailAddress);
+                command.Parameters.AddWithValue("@pw", RegisterCredentials.Password);
+                command.Parameters.AddWithValue("@bd", RegisterCredentials.BirthDate);
                 command.Parameters.AddWithValue("@img_folder_path", RegisterCredentials.ProfilePicturePath);
-            } else
-            {
-                command.Parameters.AddWithValue("@img_folder_path", null);
-            }
 
-            try
-            {
-                command.ExecuteNonQuery();
+                Trace.WriteLine(RegisterCredentials.FirstName);
+                Trace.WriteLine(RegisterCredentials.LastName);
+                Trace.WriteLine(RegisterCredentials.BirthDate);
+                Trace.WriteLine(RegisterCredentials.Username);
+                Trace.WriteLine(RegisterCredentials.EmailAddress);
+                Trace.WriteLine(RegisterCredentials.Password);
+                Trace.WriteLine(RegisterCredentials.ProfilePicturePath);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("User " + registerCredentials.Username + " created. Kindly Log In.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (SqlException)
+                {
+                    MessageBox.Show("One of the fields is invalid.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch (SqlException)
-            {
-                MessageBox.Show("One of the fields is invalid.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            
+            
         }
 
     }

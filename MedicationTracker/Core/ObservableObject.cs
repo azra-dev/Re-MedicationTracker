@@ -15,8 +15,9 @@ namespace MedicationTracker.Core
     internal class ObservableObject : INotifyPropertyChanged
     {
         // SQL 
-        public string connectionString = @"Server=10.2.43.249,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
 
+        //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
+        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
         public long GetMediTrackUserID(string email)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
