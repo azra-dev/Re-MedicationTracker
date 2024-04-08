@@ -44,13 +44,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0" Margin="0,0,0,120">
-                        <Grid>
+                    <Grid Grid.Column="0" Margin="0,0,0,120" Height="120" Width="120">
+                        <Grid >
                             <Grid.OpacityMask>
                                 <VisualBrush Visual="{Binding ElementName=ImageBorder}"/>
                             </Grid.OpacityMask>
                             <Border Name="ImageBorder" CornerRadius="255" BorderBrush="#6a787c" BorderThickness="2" Background="White"/>
-                            <Image Source="{Binding RegisterCredentials.ProfilePicturePath, Mode=TwoWay}" />
+                            <Image Source="{Binding RegisterCredentials.ProfilePicturePath, Mode=TwoWay}" Width="120" Height="120" Stretch="UniformToFill"/>
                         </Grid>
                         <Button Style="{DynamicResource taskButton}" Name="AddProfilePictureButton" Width="29" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                 Command="{Binding SetUserPFP}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">+</Button>

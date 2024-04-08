@@ -51,8 +51,11 @@ namespace MedicationTracker.MVVM.ViewModel
             {
                 string fullPath = fileDialog.FileName;
                 RegisterCredentials.ProfilePicturePath = fullPath;
+
                 OnPropertyChanged("RegisterCredentials");
+
             }
+
         }
 
         public void RegisterMediTrackUser()

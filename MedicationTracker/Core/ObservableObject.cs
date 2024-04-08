@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace MedicationTracker.Core
 {
-    internal class ObservableObject : INotifyPropertyChanged, IValueConverter
+    internal class ObservableObject : INotifyPropertyChanged
     {
         // SQL 
         public string connectionString = @"Server=10.2.43.249,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
@@ -47,22 +47,5 @@ namespace MedicationTracker.Core
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        // IValueConverter
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is TimeSpan timeSpan)
-            {
-                int hours = timeSpan.Hours;
-                string period = hours >= 12 ? "PM" : "AM";
-                hours = hours > 12 ? hours - 12 : hours;
-                return $"{hours:h}:{timeSpan.Minutes:mm} {period}";
-            }
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException(); // Not required for one-way binding
-        }
     }
 }
