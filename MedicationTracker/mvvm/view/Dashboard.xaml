@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
+        xmlns:Core="clr-namespace:MedicationTracker.Core"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -13,6 +15,15 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
+
+    <Window.DataContext>
+        <VM:DashboardViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Core:TimeSpanToTimeStringConverter x:Key="TimeSpanToTimeStringConverter" />
+    </Window.Resources>
+
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
