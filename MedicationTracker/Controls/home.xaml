@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MedicationTracker.Controls.home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedicationTracker.Controls"
+             xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10">Your Schedule</TextBlock>
+            <!--databind here-->
+            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
+  MedType="Capsule"
+  MedAmount="1.5kg"
+  MedSchedule="Weekly"
+  MedTime="04/03/2024 12:00 PM"/>
+            <userControls:homeScheduleBox HomeMedReminder="Parachute" 
+  MedType="Capsule"
+  MedAmount="1.5kg"
+  MedSchedule="Weekly"
+  MedTime="04/03/2024 12:00 PM"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10">Reminder</TextBlock>
+            <WrapPanel Orientation="Vertical" HorizontalAlignment="Left" Height="200">
+                <userControls:reminderActive ReminderTitle="Take Blackezol" 
+         ReminderDescription="Lorem Ipsum you should take Blackezol 1.5kg."/>
+                <userControls:reminderActive ReminderTitle="Take Strawberry-Flavoured Parachute" 
+         ReminderDescription="Lorem Ipsum you should take it 2Mg."/>
+                <userControls:reminderActive ReminderTitle="Take Blackezol" 
+         ReminderDescription="Lorem Ipsum you should take Blackezol 1.5kg."/>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicationTracker.Controls.Pages
+namespace MedicationTracker.Controls
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for home.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class home : UserControl
     {
-        public Home()
+        public home()
         {
             InitializeComponent();
         }
