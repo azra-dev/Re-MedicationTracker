@@ -71,6 +71,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Pages\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\reminderActive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +107,9 @@
     <Compile Include="Controls\menuBox.xaml.cs">
       <DependentUpon>menuBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Pages\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\reminderActive.xaml.cs">
       <DependentUpon>reminderActive.xaml</DependentUpon>
     </Compile>
@@ -124,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\datePickerInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\datePickerTextboxInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,7 +183,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\Pages\" />
     <Folder Include="Fonts\" />
     <Folder Include="Theme\" />
   </ItemGroup>

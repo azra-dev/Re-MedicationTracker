@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/textInput.xaml"/>
                 <ResourceDictionary Source="Styles/taskbar.xaml"/>
                 <ResourceDictionary Source="Styles/datePickerInput.xaml"/>
+                <ResourceDictionary Source="Styles/datePickerTextboxInput.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

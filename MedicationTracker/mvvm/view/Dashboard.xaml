@@ -63,6 +63,7 @@
                 </Grid.RowDefinitions>
 
                 <userControls:taskbarUI />
+                
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -97,6 +98,7 @@
                             </WrapPanel>
                         </StackPanel>
                     </Grid>
+                    
                 </Grid>
                 
             </Grid>
