@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -13,6 +14,11 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
+
+    <Window.DataContext>
+        <VM:RegisterViewModel/>
+    </Window.DataContext>
+    
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -39,10 +45,15 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" Margin="0,0,0,120">
-                        <Border CornerRadius="255" BorderBrush="#6a787c" BorderThickness="2">
-                            <Image Source="/Images/DEFAULT_userPfp.png"/>
-                        </Border>
-                        <Button Style="{DynamicResource taskButton}" Name="image_add" Width="29" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom">+</Button>
+                        <Grid>
+                            <Grid.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=ImageBorder}"/>
+                            </Grid.OpacityMask>
+                            <Border Name="ImageBorder" CornerRadius="255" BorderBrush="#6a787c" BorderThickness="2" Background="White"/>
+                            <Image Source="{Binding RegisterCredentials.ProfilePicturePath, Mode=TwoWay}" />
+                        </Grid>
+                        <Button Style="{DynamicResource taskButton}" Name="AddProfilePictureButton" Width="29" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                Command="{Binding SetUserPFP}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">+</Button>
                     </Grid>
 
                     <StackPanel Grid.Column="1" Margin="15 0">

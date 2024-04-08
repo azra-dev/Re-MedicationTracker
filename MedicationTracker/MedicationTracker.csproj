@@ -114,7 +114,9 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\TimeSpanToTimeStringConverter.cs" />
     <Compile Include="MVVM\Model\DashboardModel.cs" />
+    <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
@@ -187,6 +189,9 @@
     <Resource Include="Images\DEFAULT_logs.png" />
     <Resource Include="Images\DEFAULT_schedule.png" />
     <Resource Include="Images\DEFAULT_userPfp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\default_pfp.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
