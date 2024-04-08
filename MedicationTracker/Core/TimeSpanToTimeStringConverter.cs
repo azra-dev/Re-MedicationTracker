@@ -16,7 +16,7 @@ namespace MedicationTracker.Core
             {
                 int hours = timeSpan.Hours;
                 string period = hours >= 12 ? "PM" : "AM";
-                hours = hours > 12 ? hours - 12 : hours;
+                hours = (hours > 12 ? hours - 12 : (hours == 0 ? hours + 12 : hours));
                 return $"{hours}:{timeSpan.Minutes.ToString("00")} {period}";
             }
             return null;
