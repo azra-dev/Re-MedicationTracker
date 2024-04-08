@@ -61,10 +61,48 @@
                         <RowDefinition Height="36"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-
+                <userControls:taskbarUI/>
 
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
                     <userControls:home Visibility="Hidden"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="90*" />
+                        </Grid.RowDefinitions>
+
+                        <!--Logs-->
+                        <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" 
+                                   FontWeight="Bold" Margin="0 0 0 10"/>
+
+                        <!--<TextBlock Text="Medication" Grid.Row="1" Grid.Column="0" 
+                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
+                                   Margin="0 0 0 10"/>
+                        
+                        <TextBlock Text="Last Taken" Grid.Row="1" Grid.Column="1" 
+                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
+                                   Margin="0 0 0 10"/>
+                        
+                        <TextBlock Text="Cumulative Dosage" Grid.Row="1" Grid.Column="2" 
+                                   FontFamily="Comfortaa" FontSize="18" FontWeight="Medium" 
+                                   Margin="0 0 0 10"/>-->
+
+                        <!--<TextBlock Text="Strawberry Flavored Parachute" Grid.Row="2" Grid.Column="0"
+                                   FontFamily="Comfortaa" FontSize="16" TextTrimming="CharacterEllipsis"/>-->
+
+                        <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}"
+                                                    Width="*"/>
+                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}"
+                                                    Width="*"/>
+                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}"
+                                                    Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
+                    </Grid>
                 </Grid>
                 
             </Grid>
