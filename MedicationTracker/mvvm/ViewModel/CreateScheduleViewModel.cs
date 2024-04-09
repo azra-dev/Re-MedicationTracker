@@ -14,17 +14,17 @@ namespace MedicationTracker.MVVM.ViewModel
         public CreateScheduleViewModel()
         {
             DAL = new DataAccessLayer();
-            MedicationInfoSchedule = new CreateScheduleModel();
+            MedicationInfoAndSchedule = new CreateScheduleModel();
         }
 
-        private CreateScheduleModel medicationInfoSchedule;
+        private CreateScheduleModel medicationInfoAndSchedule;
 
-        public CreateScheduleModel MedicationInfoSchedule
+        public CreateScheduleModel MedicationInfoAndSchedule
         {
-            get { return medicationInfoSchedule; }
+            get { return medicationInfoAndSchedule; }
             set 
-            { 
-                medicationInfoSchedule = value; 
+            {
+                medicationInfoAndSchedule = value; 
                 OnPropertyChanged();
             }
         }

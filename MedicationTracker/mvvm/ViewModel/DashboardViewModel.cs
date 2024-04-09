@@ -66,7 +66,7 @@ namespace MedicationTracker.MVVM.ViewModel
         }
         private void ReadMedicationSchedules()
         {
-            DAL.JoinMedicationsSchedules(1, MedicationSchedulesContent, JoinedMedicationsSchedulesContent);
+            DAL.JoinMedicationsSchedules(1, MedicationSchedulesContent, JoinedMedicationsSchedulesContent); // user_id parameter here is temporary
 
         }
 
