@@ -48,7 +48,7 @@
                                       Opacity="0.45"
                                       Color="#bcbcbc"/>
                 </Border.Effect>
-                <Border CornerRadius="25">
+                <Border CornerRadius="25 0 0 25">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#e5edf3" Offset="0" />
@@ -158,15 +158,15 @@
                                                   Background="Transparent"
                                                   ScrollViewer.CanContentScroll="True"
                                                   Grid.Row="1"
-                                                  Width="676"
-                                                  HorizontalAlignment="Left"
+                                                  HorizontalAlignment="Stretch"
                                                   SelectionMode="Single">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" />
+                                        <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" Height="auto" />
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
-                                <ListView.ItemContainerStyle>
+                                
+                                <!--<ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Setter Property="Template">
@@ -179,10 +179,11 @@
                                             </Setter.Value>
                                         </Setter>
                                     </Style>
-                                </ListView.ItemContainerStyle>
+                                </ListView.ItemContainerStyle>-->
+                                
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border Background="#e3f5f5" BorderBrush="#c0c0c0" BorderThickness="1" Padding="10" Width="200" Height="175" CornerRadius="5" Margin="0 0 10 10">
+                                        <Border Background="#e3f5f5" BorderBrush="#c0c0c0" BorderThickness="1" Padding="10" Width="200" Height="auto" CornerRadius="5" Margin="0 0 10 10">
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="16" TextWrapping="Wrap" Text="{Binding MedicationReminderTitle}"
                                                                Margin="0 0 0 5" FontWeight="Black"/>
@@ -194,7 +195,9 @@
                                         </Border>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
+                                
                             </ListView>
+                            
                         </Grid>
 
                     </Grid>
