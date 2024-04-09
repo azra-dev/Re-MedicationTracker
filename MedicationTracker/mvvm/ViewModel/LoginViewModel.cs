@@ -14,11 +14,13 @@ namespace MedicationTracker.MVVM.ViewModel
 {
     internal class LoginViewModel : ObservableObject
     {
+        public DataAccessLayer DAL { get; set; }
         public RelayCommand ValidateCredentialsCmd => new RelayCommand(execute => ValidateLoginCredentials());
 
         public LoginViewModel()
         {
             LoginCredentials = new LoginModel();
+            DAL = new DataAccessLayer();
         }
 
         private LoginModel loginCredentials;
@@ -36,25 +38,7 @@ namespace MedicationTracker.MVVM.ViewModel
         public void ValidateLoginCredentials()
         {
             
-            using SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-
-            using SqlCommand cmd = new SqlCommand("sp_ValidateUserLoginCredentials", connection);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@em", LoginCredentials.Email);
-            cmd.Parameters.AddWithValue("@pw", LoginCredentials.Password);
-
-            int loginCredentialsIsValid = (int)cmd.ExecuteScalar();
-
-            if (loginCredentialsIsValid == 1)
-            {
-                MessageBox.Show("Login Success.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("Login Failed.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            DAL.ValidateUserLoginCredentials(LoginCredentials.Email, LoginCredentials.Password);
             
         }
     }

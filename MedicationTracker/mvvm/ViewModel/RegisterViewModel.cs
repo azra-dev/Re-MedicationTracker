@@ -16,12 +16,14 @@ namespace MedicationTracker.MVVM.ViewModel
     internal class RegisterViewModel : ObservableObject
     {
 
+        public DataAccessLayer DAL { get; set; }
         public RelayCommand RegisterUser => new RelayCommand(execute => RegisterMediTrackUser(), canexecute => RegisterCredentials != null);
         public RelayCommand SetUserPFP => new RelayCommand(execute => SetMediTrackUserProfilePicture());
 
 
         public RegisterViewModel() 
         {
+            DAL = new DataAccessLayer();
             RegisterCredentials = new RegisterModel();
             RegisterCredentials.ProfilePicturePath = "/Images/default_pfp.jpg";
         }
@@ -80,37 +82,8 @@ namespace MedicationTracker.MVVM.ViewModel
             }
             else
             {
-                using SqlConnection connection = new SqlConnection(connectionString);
-                connection.Open();
-
-                using SqlCommand command = new SqlCommand("sp_CreateMediTrackUser", connection);
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@fn", RegisterCredentials.FirstName);
-                command.Parameters.AddWithValue("@ln", RegisterCredentials.LastName);
-                command.Parameters.AddWithValue("@username", RegisterCredentials.Username);
-                command.Parameters.AddWithValue("@em", RegisterCredentials.EmailAddress);
-                command.Parameters.AddWithValue("@pw", RegisterCredentials.Password);
-                command.Parameters.AddWithValue("@bd", RegisterCredentials.BirthDate);
-                
-                if (RegisterCredentials.ProfilePicturePath == "/Images/default_pfp.jpg")
-                {
-                    command.Parameters.AddWithValue("@img_folder_path", null);
-                }
-                else
-                {
-                    command.Parameters.AddWithValue("@img_folder_path", RegisterCredentials.ProfilePicturePath);
-                }
-
-                try
-                {
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("User " + RegisterCredentials.Username + " created. Please log in.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (SqlException)
-                {
-                    MessageBox.Show("Invalid input in one of the fields.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                DAL.CreateMediTrackUser(RegisterCredentials.FirstName, RegisterCredentials.LastName, RegisterCredentials.Username,
+                    RegisterCredentials.EmailAddress, RegisterCredentials.Password, RegisterCredentials.BirthDate, RegisterCredentials.ProfilePicturePath);
             }
             
             

@@ -19,6 +19,8 @@ namespace MedicationTracker.MVVM.ViewModel
     internal class DashboardViewModel : ObservableObject
     {
         //int navMode = 0; // 0 is default (Home) <- What's this?
+
+        public DataAccessLayer DAL { get; set; }
         public RelayCommand ReadSchedules => new RelayCommand(execute => ReadMedicationSchedules());
         public RelayCommand ReadReminders => new RelayCommand(execute => ReadMedicationReminders());
 
@@ -27,6 +29,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public DashboardViewModel()
         {
+            DAL = new DataAccessLayer();
             JoinedMedicationsSchedulesContent = new ObservableCollection<DashboardModel.JoinedMedicationSchedule>();
             MedicationReminders = new ObservableCollection<DashboardModel.MedicationReminder>();
 
@@ -58,83 +61,12 @@ namespace MedicationTracker.MVVM.ViewModel
 
         private void ReadMedicationReminders()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-
-            using SqlCommand cmd = new SqlCommand("sp_JoinsMedicationSchedulesReminders", connection);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@user_id", 1); // user_id here is temporary
-
-            try
-            {
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        MedicationRemindersContent = new DashboardModel.MedicationReminder
-                        {
-                            MedicationReminderTitle = reader.GetString(0),
-                            MedicationReminderMessage = reader.GetString(1)
-                        };
-
-                        OnPropertyChanged();
-
-                        MedicationReminders.Add(MedicationRemindersContent);
-                    }
-
-                }
-            }
-            catch (SqlException)
-            {
-
-            }
+            DAL.JoinsMedicationSchedulesReminders(1, MedicationRemindersContent, MedicationReminders); // user_id parameter here is temporary
 
         }
         private void ReadMedicationSchedules()
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-
-            using SqlCommand cmd = new SqlCommand("sp_JoinMedicationsSchedules", connection);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@user_id", 1); // user_id here is temporary
-
-            try
-            {
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while(reader.Read()){
-                        MedicationSchedulesContent = new DashboardModel.JoinedMedicationSchedule
-                        {
-                            MedicationName = reader.GetString(0),
-                            MedicationDosageValue = reader.GetDecimal(1).ToString() + " " + reader.GetString(2),
-                            MedicationDosageForm = reader.GetString(3),
-                            Time_1 = reader.GetTimeSpan(4),
-                            Time_2 = reader.IsDBNull(5) ? null : reader.GetTimeSpan(5),
-                            Time_3 = reader.IsDBNull(6) ? null : reader.GetTimeSpan(6),
-                            Time_4 = reader.IsDBNull(7) ? null : reader.GetTimeSpan(7),
-                            MedicationPeriod = reader.GetString(8),
-                            MedicationPeriodWeekday = reader.IsDBNull(10) ? null : "every " + reader.GetString(10)
-                        };
-
-
-                        OnPropertyChanged();
-
-                        JoinedMedicationsSchedulesContent.Add(MedicationSchedulesContent);
-
-                    }
-                    
-                }
-            } 
-            catch (SqlException) 
-            {
-                MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);   
-            }
-
+            DAL.JoinMedicationsSchedules(1, MedicationSchedulesContent, JoinedMedicationsSchedulesContent);
 
         }
 

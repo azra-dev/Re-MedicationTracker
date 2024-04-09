@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace MedicationTracker.MVVM.View
         public CreateSchedule()
         {
             InitializeComponent();
+            CreateScheduleViewModel vm = new CreateScheduleViewModel();
+            DataContext = vm;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -10,8 +10,10 @@ namespace MedicationTracker.MVVM.ViewModel
 {
     internal class CreateScheduleViewModel : ObservableObject
     {
+        public DataAccessLayer DAL { get; set; }
         public CreateScheduleViewModel()
         {
+            DAL = new DataAccessLayer();
             MedicationInfoSchedule = new CreateScheduleModel();
         }
 
