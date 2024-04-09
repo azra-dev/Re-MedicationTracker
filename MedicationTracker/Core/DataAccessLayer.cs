@@ -37,7 +37,7 @@ namespace MedicationTracker.Core
                 long userID = (long)cmd.ExecuteScalar();
                 return userID;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
