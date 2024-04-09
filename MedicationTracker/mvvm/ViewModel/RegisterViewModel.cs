@@ -101,20 +101,11 @@ namespace MedicationTracker.MVVM.ViewModel
                 {
                     command.Parameters.AddWithValue("@img_folder_path", RegisterCredentials.ProfilePicturePath);
                 }
-                
-
-                Trace.WriteLine(RegisterCredentials.FirstName);
-                Trace.WriteLine(RegisterCredentials.LastName);
-                Trace.WriteLine(RegisterCredentials.BirthDate);
-                Trace.WriteLine(RegisterCredentials.Username);
-                Trace.WriteLine(RegisterCredentials.EmailAddress);
-                Trace.WriteLine(RegisterCredentials.Password);
-                Trace.WriteLine(RegisterCredentials.ProfilePicturePath);
 
                 try
                 {
                     command.ExecuteNonQuery();
-                    MessageBox.Show("User " + registerCredentials.Username + " created. Please log in.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("User " + RegisterCredentials.Username + " created. Please log in.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (SqlException)
                 {

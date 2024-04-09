@@ -86,7 +86,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
                 }
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
 
             }
@@ -130,7 +130,7 @@ namespace MedicationTracker.MVVM.ViewModel
                     
                 }
             } 
-            catch (SqlException ex) 
+            catch (SqlException) 
             {
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);   
             }

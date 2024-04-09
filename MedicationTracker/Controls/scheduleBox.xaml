@@ -24,8 +24,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" HorizontalAlignment="Center" Foreground="#2a43de">Update</TextBlock>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Foreground="#2a43de">Delete</TextBlock>
+                <!--<TextBlock Grid.Column="0" HorizontalAlignment="Center" Foreground="#2a43de">Update</TextBlock>-->
+                <!--<TextBlock Grid.Column="1" HorizontalAlignment="Center" Foreground="#2a43de">Delete</TextBlock>-->
+                <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                Foreground="#2a43de" FontFamily="Comfortaa">Update</Button>
+                <Button Grid.Column="1" Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                Foreground="#2a43de" FontFamily="Comfortaa">Delete</Button>
             </Grid>
         </StackPanel>
     </Border>
