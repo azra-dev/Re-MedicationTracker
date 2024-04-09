@@ -1,4 +1,4 @@
-﻿<Window x:Class="MedicationTracker.MVVM.View.MediTrackDashboard"
+﻿<Window x:Class="MedicationTracker.MVVM.View.CreateSchedule"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,7 +14,6 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
-    
     
     
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
@@ -37,9 +36,9 @@
             <Border>
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10"
-                                      ShadowDepth="0"
-                                      Opacity="0.45"
-                                      Color="#bcbcbc"/>
+                                  ShadowDepth="0"
+                                  Opacity="0.45"
+                                  Color="#bcbcbc"/>
                 </Border.Effect>
                 <Border CornerRadius="25 0 0 25">
                     <Border.Background>

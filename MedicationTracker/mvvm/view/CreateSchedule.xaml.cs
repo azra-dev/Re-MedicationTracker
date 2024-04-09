@@ -14,12 +14,9 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for MediTrackDashboard.xaml
-    /// </summary>
-    public partial class MediTrackDashboard : Window
+    public partial class CreateSchedule : Window
     {
-        public MediTrackDashboard()
+        public CreateSchedule()
         {
             InitializeComponent();
         }

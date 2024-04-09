@@ -88,6 +88,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\CreateSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Dashboard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +135,9 @@
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
+    <Compile Include="MVVM\View\CreateSchedule.xaml.cs">
+      <DependentUpon>CreateSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
@@ -138,10 +145,6 @@
       <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MVVM\View\MediTrackDashboard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MVVM\View\Register.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,9 +173,6 @@
   <ItemGroup>
     <Compile Include="MVVM\Model\LoginModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
-    <Compile Include="MVVM\View\MediTrackDashboard.xaml.cs">
-      <DependentUpon>MediTrackDashboard.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\View\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
