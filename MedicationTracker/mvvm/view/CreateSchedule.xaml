@@ -102,7 +102,48 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
 
+                        <ListView.Template>
+                            <ControlTemplate TargetType="ListView">
+                                <StackPanel>
+                                    <ItemsPresenter />
+                                    <Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5" Width="325" Height="70" Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="55"/>
+                                            </Grid.ColumnDefinitions>
 
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold" Text="Create New Schedule"/>
+                                                <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa" Text="Click the add button to start"/>
+                                                <Grid Margin="0 5 0 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                </Grid>
+                                            </StackPanel>
+                                            <Grid Grid.Column="1" Margin="5">
+                                                <Grid.OpacityMask>
+                                                    <VisualBrush Visual="{Binding ElementName=frame}"/>
+                                                </Grid.OpacityMask>
+                                                <Border x:Name="frame" BorderBrush="#6a787c" CornerRadius="512" BorderThickness="0" Background="#f0f4f4"/>
+                                                <Border BorderBrush="#6a787c" CornerRadius="512" BorderThickness="2" Background="#e5eae9"/>
+                                                <Button Foreground="#6a787c" FontFamily="Comfortaa" FontWeight="ExtraBlack" FontSize="24" BorderBrush="Transparent" Background="Transparent"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100">+</Button>
+
+                                            </Grid>
+
+
+
+
+
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </ListView.Template>
+                        
                         <!--<Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5" Width="325" Height="70">
                             <Grid>
                                 <Grid.ColumnDefinitions>

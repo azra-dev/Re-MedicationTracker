@@ -216,7 +216,7 @@ namespace MedicationTracker.Core
                             Time_3 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
                             Time_4 = reader.IsDBNull(12) ? null : reader.GetTimeSpan(12),
                             MedicationPeriod = reader.GetString(13),
-                            MedicationPeriodWeekday = "every " + reader.GetString(15)
+                            MedicationPeriodWeekday = reader.IsDBNull(15) ? null : "every " + reader.GetString(15)
 
                         };
 
