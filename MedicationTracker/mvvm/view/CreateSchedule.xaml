@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
         xmlns:Core="clr-namespace:MedicationTracker.Core"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -14,7 +15,10 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
-    
+
+    <Window.DataContext>
+        <VM:CreateScheduleViewModel/>
+    </Window.DataContext>
     
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
@@ -84,20 +88,63 @@
                     </StackPanel>
 
                     <!--Note: This is to be userControl'd-->
-                    <ListView HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent">
+                    <ListView HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent"
+                              ItemsSource="{Binding JoinedMedicationInfoAndSchedule}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                        <userControls:scheduleBox MedTitle="Blackezol" MedType="Capsule" MedAmount="1mL" MedSchedule="Weekly" MedTime="7:30 AM"/>
-                        <userControls:scheduleBox MedTitle="Strawberry-Flavoured Parachute" MedType="Capsule" MedAmount="1mL" MedSchedule="Weekly" MedTime="7:30 AM"/>
-                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
-                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
-                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
-                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
-                        <userControls:scheduleBox MedTitle="Darkacetamol" MedType="Pills" MedAmount="1kg" MedSchedule="Daily" MedTime="11:59 PM"/>
-                        <Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5" Width="325" Height="70">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <userControls:scheduleBox MedName="{Binding MedicationName}" MedType="{Binding MedicationDosageForm}" MedAmount="{Binding MedicationDosageValue}" MedPeriod="{Binding MedicationPeriod}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Template>
+                            <ControlTemplate TargetType="ListView">
+                                <StackPanel>
+                                    <ItemsPresenter />
+                                    <Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5" Width="325" Height="70" Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="55"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold" Text="Create New Schedule"/>
+                                                <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa" Text="Click the add button to start"/>
+                                                <Grid Margin="0 5 0 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                </Grid>
+                                            </StackPanel>
+                                            <Grid Grid.Column="1" Margin="5">
+                                                <Grid.OpacityMask>
+                                                    <VisualBrush Visual="{Binding ElementName=frame}"/>
+                                                </Grid.OpacityMask>
+                                                <Border x:Name="frame" BorderBrush="#6a787c" CornerRadius="512" BorderThickness="0" Background="#f0f4f4"/>
+                                                <Border BorderBrush="#6a787c" CornerRadius="512" BorderThickness="2" Background="#e5eae9"/>
+                                                <Button Foreground="#6a787c" FontFamily="Comfortaa" FontWeight="ExtraBlack" FontSize="24" BorderBrush="Transparent" Background="Transparent"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100">+</Button>
+
+                                            </Grid>
+
+
+
+
+
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </ListView.Template>
+                        
+                        <!--<Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5" Width="325" Height="70">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -130,7 +177,7 @@
 
 
                             </Grid>
-                        </Border>
+                        </Border>-->
                     </ListView>
                 </Grid>
 

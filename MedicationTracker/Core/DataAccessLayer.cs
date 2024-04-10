@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -182,5 +183,57 @@ namespace MedicationTracker.Core
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        public void JoinMedicationsSchedulesComplete(long user_id, ObservableCollection<CreateScheduleModel> JoinedMedicationInfoAndSchedule, CreateScheduleModel MedicationInfoAndSchedule)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_JoinMedicationsSchedulesComplete", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+
+            try
+            {
+                using SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        MedicationInfoAndSchedule = new CreateScheduleModel
+                        {
+                            MedicationName = reader.GetString(0),
+                            MedicationDosageValue = reader.GetDecimal(1).ToString() + " " + reader.GetString(2),
+                            MedicationDosageForm = reader.GetString(3),
+                            MedicationTotalAmountValue = reader.GetDecimal(4).ToString() + " " + reader.GetString(5),
+                            MedicationExpirationDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6).ToString(),
+                            MedicationNotes = reader.IsDBNull(7) ? null : reader.GetString(7),
+                            MedicationIsPrescribed = reader.GetBoolean(8),
+                            Time_1 = reader.GetTimeSpan(9),
+                            Time_2 = reader.IsDBNull(10) ? null : reader.GetTimeSpan(10),
+                            Time_3 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
+                            Time_4 = reader.IsDBNull(12) ? null : reader.GetTimeSpan(12),
+                            MedicationPeriod = reader.GetString(13),
+                            MedicationPeriodWeekday = reader.IsDBNull(15) ? null : "every " + reader.GetString(15)
+
+                        };
+
+                        OnPropertyChanged();
+
+                        Trace.WriteLine(MedicationInfoAndSchedule.MedicationPeriodWeekday);
+
+                        JoinedMedicationInfoAndSchedule.Add(MedicationInfoAndSchedule);
+                    }
+                }
+            }
+            catch(SqlException)
+            {
+                MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
+
+
 }
