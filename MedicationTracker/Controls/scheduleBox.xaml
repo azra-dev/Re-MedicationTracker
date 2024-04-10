@@ -5,18 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicationTracker.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="70" Width="325">
-    <Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5">
+             d:DesignHeight="70" Width="325"
+             x:Name="Root"
+             d:DataContext="{d:DesignInstance {x:Type local:scheduleBox}}">
+    
+    <Border CornerRadius="5" Background="#f0f4f4" BorderBrush="#c0c0c0" BorderThickness="1" Padding="15 10 15 5"
+            x:Name="RootUserControl">
         <StackPanel>
-            <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold" Text="{Binding MedTitle}" TextTrimming="CharacterEllipsis"/>
+            <TextBlock Foreground="#51628f" FontSize="16" FontFamily="Comfortaa" FontWeight="Bold" Text="{Binding MedName}" TextTrimming="CharacterEllipsis"/>
             <TextBlock Foreground="#51628f" FontSize="12" FontFamily="Comfortaa">
                 <TextBlock>
                     <Run Text="{Binding MedType}"/>         <Run Text=" | "/>
                     <Run Text="{Binding MedAmount}"/>       <Run Text=" | "/>
-                    <Run Text="{Binding MedSchedule}"/>     <Run Text=" ("/>
-                    <Run Text="{Binding MedTime, StringFormat=dddd}"/> 
-                    <Run Text=") | "/>
-                    <Run Text="{Binding MedTime, StringFormat='{}{0:hh\\:mm tt}'}"/>
+                    <Run Text="{Binding MedPeriod}"/>
                 </TextBlock>
             </TextBlock>
             <Grid Margin="0 5 0 0">

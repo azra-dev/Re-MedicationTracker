@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace MedicationTracker.MVVM.Model
 {
-    internal class CreateScheduleModel
+    public class CreateScheduleModel
     {
         public string? MedicationName { get; set; }
         public string? MedicationDosageValue { get; set; }
         public string? MedicationDosageForm { get; set; }
         public string? MedicationTotalAmountValue { get; set; }
         public string? MedicationExpirationDate { get; set; }
+        public string? MedicationNotes { get; set; }
         public bool? MedicationIsPrescribed { get; set; }
-        public TimeSpan Time_1 { get; set; }
+        public TimeSpan? Time_1 { get; set; }
         public TimeSpan? Time_2 { get; set; }
         public TimeSpan? Time_3 { get; set; }
         public TimeSpan? Time_4 { get; set; }
