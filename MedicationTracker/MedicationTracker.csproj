@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\prescriptionModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\reminderActive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +137,9 @@
     </Compile>
     <Compile Include="Controls\menuBox.xaml.cs">
       <DependentUpon>menuBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\prescriptionModal.xaml.cs">
+      <DependentUpon>prescriptionModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\reminderActive.xaml.cs">
       <DependentUpon>reminderActive.xaml</DependentUpon>
