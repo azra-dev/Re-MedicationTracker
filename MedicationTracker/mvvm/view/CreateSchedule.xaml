@@ -53,12 +53,22 @@
                         </LinearGradientBrush>
                     </Border.Background>
                     <StackPanel>
+                        <Grid Height="525">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
+                                <userControls:menuBox MenuIcon="/Images/DEFAULT_home.png" MenuText="Home"/>
+                                <userControls:menuBox MenuIcon="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
+                                <userControls:menuBox MenuIcon="/Images/DEFAULT_logs.png" MenuText="Logs"/>
+                            </StackPanel>
 
-                        <StackPanel Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
-                            <userControls:menuBox MenuIcon="/Images/DEFAULT_home.png" MenuText="Home"/>
-                            <userControls:menuBox MenuIcon="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
-                            <userControls:menuBox MenuIcon="/Images/DEFAULT_logs.png" MenuText="Logs"/>
-                        </StackPanel>
+                            <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <userControls:menuBox MenuIcon="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
+                            </StackPanel>
+                        </Grid>
+                        
 
                     </StackPanel>
                 </Border>
@@ -90,6 +100,7 @@
                     <!-- List View Create Schedule Content -->
                     <ListView HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent"
                               ItemsSource="{Binding JoinedMedicationInfoAndSchedule}">
+                        
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
@@ -98,7 +109,7 @@
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <userControls:scheduleBox MedName="{Binding MedicationName}" MedType="{Binding MedicationDosageForm}" MedAmount="{Binding MedicationDosageValue}" MedPeriod="{Binding MedicationPeriod}"/>
+                                <userControls:scheduleBox MedName="{Binding MedicationName}" MedType="{Binding MedicationDosageForm}" MedAmount="{Binding MedicationDosageValue}" MedPeriod="{Binding MedicationPeriod}" Margin="0 0 0 5"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
 
@@ -122,10 +133,6 @@
                     </Grid>
                 </Grid>
 
-            </Grid>
-
-            <Grid Grid.Column="5">
-                <userControls:scheduleModal/>
             </Grid>
 
         </Grid>

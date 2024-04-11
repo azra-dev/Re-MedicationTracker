@@ -40,6 +40,33 @@ namespace MedicationTracker.Controls
             set { menuIcon = value; OnPropertyChanged("MenuIcon"); }
         }
 
+        public string defaultIconMode = "Visible"; // either Collapsed or Visible
+        public string DefaultIconMode
+        {
+            get { return defaultIconMode; }
+            set { 
+                defaultIconMode = value;
+                if (defaultIconMode == "Collapsed") negateDefaultIconMode = "Visible";
+                else if (defaultIconMode == "Visible") negateDefaultIconMode = "Collapsed";
+                else negateDefaultIconMode = "undefined";
+                OnPropertyChanged("DefaultIconMode");
+                OnPropertyChanged("NegateDefaultIconMode");
+            }
+        }
+
+        public string negateDefaultIconMode = "Collapsed";
+        public string NegateDefaultIconMode
+        {
+            get { return negateDefaultIconMode; }
+            set { 
+                negateDefaultIconMode = value;
+                OnPropertyChanged("DefaultIconMode");
+                OnPropertyChanged("NegateDefaultIconMode");
+            }
+        }
+
+
+
 
         // event
         public event PropertyChangedEventHandler PropertyChanged;
