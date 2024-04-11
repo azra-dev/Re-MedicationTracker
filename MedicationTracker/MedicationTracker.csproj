@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\createNewSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +88,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\scheduleModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\scheduleTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\taskbarUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +115,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\createNewSchedule.xaml.cs">
+      <DependentUpon>createNewSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
@@ -124,6 +139,12 @@
     </Compile>
     <Compile Include="Controls\scheduleBox.xaml.cs">
       <DependentUpon>scheduleBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\scheduleModal.xaml.cs">
+      <DependentUpon>scheduleModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\scheduleTextBox.xaml.cs">
+      <DependentUpon>scheduleTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\taskbarUI.xaml.cs">
       <DependentUpon>taskbarUI.xaml</DependentUpon>
