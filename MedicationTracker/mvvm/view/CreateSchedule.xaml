@@ -7,6 +7,7 @@
         xmlns:Core="clr-namespace:MedicationTracker.Core"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
         xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
+        xmlns:M="clr-namespace:MedicationTracker.MVVM.Model"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -20,6 +21,7 @@
         <VM:CreateScheduleViewModel/>
     </Window.DataContext>
     
+    
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -30,7 +32,7 @@
         </Border.Background>
 
         <!--Dashboard-->
-        <Grid>
+        <Grid Name="RootUiControl">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="240"/>
                 <ColumnDefinition/>
@@ -98,7 +100,7 @@
                     </StackPanel>
 
                     <!-- List View Create Schedule Content -->
-                    <ListView HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent"
+                    <ListView Name="ScheduleContentListView" HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent"
                               ItemsSource="{Binding JoinedMedicationInfoAndSchedule}">
                         
                         <ListView.ItemsPanel>
@@ -109,7 +111,7 @@
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <userControls:scheduleBox MedName="{Binding MedicationName}" MedType="{Binding MedicationDosageForm}" MedAmount="{Binding MedicationDosageValue}" MedPeriod="{Binding MedicationPeriod}" Margin="0 0 0 5"/>
+                                <userControls:scheduleBox MedName="{Binding MedicationName}" MedType="{Binding MedicationDosageForm}" MedAmount="{Binding MedicationDosageValue}" MedPeriod="{Binding MedicationPeriod}" DeleteCommand="{Binding ElementName=RootUiControl, Path=DataContext.DeleteMedAndSched}" CommandParameter="{Binding}" Margin="0 0 0 5"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
 

@@ -73,8 +73,25 @@ namespace MedicationTracker.Controls
             set { SetValue(MedPeriodProperty, value); }
         }
 
+        public static readonly DependencyProperty DeleteCommandProperty =
+        DependencyProperty.Register("DeleteCommand", typeof(ICommand), typeof(scheduleBox));
 
-        
+        public ICommand DeleteCommand
+        {
+            get { return (ICommand)GetValue(DeleteCommandProperty); }
+            set { SetValue(DeleteCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
+        "CommandParameter", typeof(object), typeof(scheduleBox), new PropertyMetadata(null));
+
+        public object CommandParameter
+        {
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
+        }
+
+
         public scheduleBox()
         {
             InitializeComponent();

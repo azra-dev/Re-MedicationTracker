@@ -19,7 +19,7 @@ namespace MedicationTracker.Core
         // SQL Server Connection String
 
         //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
-        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
+        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
 
         
         // SQL Server Stored Procedures
@@ -216,13 +216,14 @@ namespace MedicationTracker.Core
                             Time_3 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
                             Time_4 = reader.IsDBNull(12) ? null : reader.GetTimeSpan(12),
                             MedicationPeriod = reader.GetString(13),
-                            MedicationPeriodWeekday = reader.IsDBNull(15) ? null : "every " + reader.GetString(15)
+                            MedicationPeriodWeekday = reader.IsDBNull(15) ? null : "every " + reader.GetString(15),
+                            MedicationID = reader.GetInt64(16)
 
                         };
 
                         OnPropertyChanged();
 
-                        Trace.WriteLine(MedicationInfoAndSchedule.MedicationPeriodWeekday);
+                        Trace.WriteLine(MedicationInfoAndSchedule.MedicationID);
 
                         JoinedMedicationInfoAndSchedule.Add(MedicationInfoAndSchedule);
                     }
@@ -233,7 +234,43 @@ namespace MedicationTracker.Core
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        public void DeleteMedication(CreateScheduleModel medicationInfoAndSched) 
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_DeleteMedication", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@med_id", medicationInfoAndSched.MedicationID);
+
+            try
+            {
+                var option = MessageBox.Show("Are you sure you want to delete " + medicationInfoAndSched.MedicationName + "?",
+                    "Delete Medication", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (option == MessageBoxResult.Yes)
+                {
+                    cmd.ExecuteNonQuery();
+
+                    //OnPropertyChanged();
+
+                } else
+                {
+                    Trace.WriteLine("Nigga");
+                }
+                
+                
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Med ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
+
+    
 
 
 }
