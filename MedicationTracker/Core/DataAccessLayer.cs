@@ -254,13 +254,8 @@ namespace MedicationTracker.Core
                 {
                     cmd.ExecuteNonQuery();
 
-                    //OnPropertyChanged();
 
-                } else
-                {
-                    Trace.WriteLine("Nigga");
                 }
-                
                 
             }
             catch (SqlException)
