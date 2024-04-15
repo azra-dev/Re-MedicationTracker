@@ -107,25 +107,27 @@
                         
                         <!--For Daily-->
                         <StackPanel Name="ScheduleList_Daily" Width="220" Visibility="Collapsed">
-                            <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 0"/>
+                            <StackPanel Orientation="Horizontal">
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                            </StackPanel>
                         </StackPanel>
                         <!--For Weekly-->
-                        <StackPanel Name="ScheduleList_Weekly" Visibility="Collapsed">
-                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                <userControls:scheduleTextBox Placeholder="Day: " WidthSize="100" Margin="0 0 10 0"/>
-                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 0"/>
+                        <StackPanel Name="ScheduleList_Weekly" Visibility="Collapsed" Margin="0 0 10 0">
+                            <Border CornerRadius="5" BorderThickness="1" BorderBrush="#6a787c" Margin="0 0 10 5" VerticalAlignment="Center">
+                                <DatePicker Style="{DynamicResource SelectDateOfWeek}"/>
+                            </Border>
+                            <StackPanel Orientation="Horizontal">
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                <userControls:scheduleTextBox Placeholder="Day: " WidthSize="100" Margin="0 0 10 0"/>
-                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 0"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                <userControls:scheduleTextBox Placeholder="Day: " WidthSize="100" Margin="0 0 10 0"/>
-                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 0"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                                <userControls:scheduleTextBox Placeholder="Day: " WidthSize="100" Margin="0 0 10 0"/>
-                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 0"/>
+                            <StackPanel Orientation="Horizontal">
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -134,7 +136,7 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0">
+                        <StackPanel Grid.Row="0" Visibility="Hidden">
                             <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 10" Foreground="#51628f">Custom Reminder:</TextBlock>
                             <userControls:scheduleTextBox Placeholder="Title: " WidthSize="270" Margin="0 0 0 5"/>
                             <userControls:scheduleTextBox Placeholder="Text: " WidthSize="270" TextboxHeightSize="90" Margin="0 0 0 15" TextPos="Top"/>
