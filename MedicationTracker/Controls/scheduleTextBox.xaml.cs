@@ -31,6 +31,7 @@ namespace MedicationTracker.Controls
         private string placeholder;
         private int widthSize;
         private int textboxHeightSize = 15;
+        private string textPos = "Center";
 
         public string Placeholder
         {
@@ -47,7 +48,11 @@ namespace MedicationTracker.Controls
             get => textboxHeightSize;
             set { textboxHeightSize = value; OnPropertyChanged("TextboxHeightSize"); }
         }
-
+        public string TextPos
+        {
+            get { return textPos; }
+            set { textPos = value; OnPropertyChanged("TextPos"); }
+        }
 
         // event
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

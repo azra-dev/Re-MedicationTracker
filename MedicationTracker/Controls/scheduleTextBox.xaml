@@ -12,9 +12,9 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Placeholder}" FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Text="{Binding Placeholder}" FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1" VerticalAlignment="{Binding TextPos}"/>
             <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
-                <TextBox Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="{Binding TextboxHeightSize}" FontSize="11" TextWrapping="Wrap"></TextBox>
+                <TextBox Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="{Binding TextboxHeightSize}" FontSize="11" TextWrapping="Wrap" TextAlignment="Justify"></TextBox>
             </Border>
         </Grid>
     </Border>

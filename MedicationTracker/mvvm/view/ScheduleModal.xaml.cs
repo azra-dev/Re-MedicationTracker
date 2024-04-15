@@ -29,6 +29,19 @@ namespace MedicationTracker.MVVM.View
         }
 
         private string scheduleMode = null;
+        private bool isPrescribed = false;
+
+        public bool IsPrescribed
+        {
+            get { return isPrescribed; }
+            set { 
+                isPrescribed = value;
+                if (isPrescribed) SubmitButton.Content = "Next";
+                else SubmitButton.Content = "Create";
+                OnPropertyChanged("IsPrescribed");
+            }
+        }
+
         public string ScheduleMode
         {
             get { return scheduleMode = null; }
