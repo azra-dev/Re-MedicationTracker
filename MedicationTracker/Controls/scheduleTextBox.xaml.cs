@@ -30,6 +30,7 @@ namespace MedicationTracker.Controls
 
         private string placeholder;
         private int widthSize;
+        private int textboxHeightSize = 15;
 
         public string Placeholder
         {
@@ -40,6 +41,11 @@ namespace MedicationTracker.Controls
         {
             get { return widthSize; }
             set { widthSize = value; OnPropertyChanged("WidthSize"); }
+        }
+        public int TextboxHeightSize
+        {
+            get => textboxHeightSize;
+            set { textboxHeightSize = value; OnPropertyChanged("TextboxHeightSize"); }
         }
 
 
