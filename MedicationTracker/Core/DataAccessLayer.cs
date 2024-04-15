@@ -40,6 +40,29 @@ namespace MedicationTracker.Core
             }
             catch (SqlException)
             {
+                MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+        }
+
+        public long SearchMedIDByUserIDAndMedName(long user_id, string med_name)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedIDByUserIDAndMedName", connection);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@med_name", med_name);
+
+            try
+            {
+                long medID = (long)cmd.ExecuteScalar();
+                return medID;
+            }
+            catch (SqlException)
+            {
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
@@ -261,6 +284,62 @@ namespace MedicationTracker.Core
             catch (SqlException)
             {
                 MessageBox.Show("Med ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void CreateMedication(ScheduleModalModel.MedicationInfo medInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateMedication", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", medInfo.UserID);
+            cmd.Parameters.AddWithValue("@md_name", medInfo.MedicationName);
+            cmd.Parameters.AddWithValue("@@md_dose", medInfo.MedicationDosageValue);
+            cmd.Parameters.AddWithValue("@md_doseform", medInfo.MedicationDosageForm);
+            cmd.Parameters.AddWithValue("@md_doseunit", medInfo.MedicationDosageUnit);
+            cmd.Parameters.AddWithValue("@md_totalamt", medInfo.MedicationTotalAmount);
+            cmd.Parameters.AddWithValue("@md_totalamt_unit", medInfo.MedicationTotalAmountUnit);
+            cmd.Parameters.AddWithValue("@md_exp", medInfo.MedicationExpirationDate);
+            cmd.Parameters.AddWithValue("@md_notes", medInfo.MedicationNotes);
+            cmd.Parameters.AddWithValue("@md_isprescribed", medInfo.MedicationIsPrescribed);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch(SqlException)
+            {
+                MessageBox.Show("Medication information creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        public void CreateSchedule(ScheduleModalModel.MedicationScheduleInfo medSchedInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateSchedule", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@med_id", medSchedInfo.MedicationID);
+            cmd.Parameters.AddWithValue("@mtime1", medSchedInfo.Time_1);
+            cmd.Parameters.AddWithValue("@mtime2", medSchedInfo.Time_2);
+            cmd.Parameters.AddWithValue("@mtime3", medSchedInfo.Time_3);
+            cmd.Parameters.AddWithValue("@mtime4", medSchedInfo.Time_4);
+            cmd.Parameters.AddWithValue("@med_period", medSchedInfo.Time_4);
+            cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.Time_4);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch(SqlException)
+            {
+                MessageBox.Show("Medication schedule creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

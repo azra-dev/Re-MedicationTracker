@@ -14,7 +14,7 @@
     <Border CornerRadius="5" Background="#f4fafa">
         <Grid>
             <!--Without prescription-->
-            <StackPanel Margin="30" Visibility="Visible">
+            <StackPanel Margin="30" Visibility="Collapsed">
                 <TextBlock FontFamily="Comfortaa" FontSize="20" FontWeight="Bold" Margin="0 0 0 10">Create Schedule</TextBlock>
 
                 <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 10" Foreground="#51628f">Medication Information:</TextBlock>
@@ -83,7 +83,7 @@
 
             </StackPanel>
             <!--With prescription-->
-            <StackPanel Margin="30" Visibility="Collapsed">
+            <StackPanel Margin="30" Visibility="Visible">
                 <TextBlock FontFamily="Comfortaa" FontSize="20" FontWeight="Bold" Margin="0 0 0 10">Create Schedule</TextBlock>
 
                 <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 5" Foreground="#51628f">Prescription Information:</TextBlock>
