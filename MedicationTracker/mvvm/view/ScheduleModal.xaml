@@ -117,7 +117,10 @@
                             </StackPanel>
                         </StackPanel>
                         <!--For Weekly-->
-                        <StackPanel Name="ScheduleList_Weekly" Visibility="Collapsed">
+                        <StackPanel Name="ScheduleList_Weekly" Visibility="Collapsed" Margin="0 0 10 0">
+                            <Border CornerRadius="5" BorderThickness="1" BorderBrush="#6a787c" Margin="0 0 10 5" VerticalAlignment="Center">
+                                <DatePicker Style="{DynamicResource SelectDateOfWeek}"/>
+                            </Border>
                             <StackPanel Orientation="Horizontal">
                                 <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
                                 <userControls:scheduleTextBox Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
