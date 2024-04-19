@@ -17,6 +17,8 @@ namespace MedicationTracker.MVVM.ViewModel
             MedicationInformation = new ScheduleModalModel.MedicationInfo();
             MedicationScheduleInformation = new ScheduleModalModel.MedicationScheduleInfo();
             MedicationReminderInformation = new ScheduleModalModel.MedicationReminderInfo();
+            MedicationPrescriptionInformation = new ScheduleModalModel.MedicationPrescriptionInfo();
+            MedicationPrescriptionDoctorInformation = new ScheduleModalModel.MedicationPrescriptionDoctor();
         }
 
         private ScheduleModalModel.MedicationInfo medicationInformation;
@@ -55,7 +57,30 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
+        private ScheduleModalModel.MedicationPrescriptionInfo medicationPrescriptionInformation;
 
+        public ScheduleModalModel.MedicationPrescriptionInfo  MedicationPrescriptionInformation
+        {
+            get { return medicationPrescriptionInformation; }
+            set 
+            { 
+
+                medicationPrescriptionInformation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ScheduleModalModel.MedicationPrescriptionDoctor medicationPrescriptionDoctorInformation;
+
+        public ScheduleModalModel.MedicationPrescriptionDoctor MedicationPrescriptionDoctorInformation
+        {
+            get { return medicationPrescriptionDoctorInformation; }
+            set 
+            { 
+                medicationPrescriptionDoctorInformation = value;
+                OnPropertyChanged();
+            }
+        }
         public void CreateMedication()
         {
             DAL.CreateMedication(MedicationInformation);
@@ -69,6 +94,7 @@ namespace MedicationTracker.MVVM.ViewModel
             {
                 DAL.CreateSchedule(MedicationScheduleInformation);
                 // To be implemented by Rance
+                
             }
         }
 
