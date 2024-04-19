@@ -352,17 +352,6 @@ namespace MedicationTracker.Core
                 cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.MedicationPeriodDate);
             }
 
-            
-            
-
-            Trace.WriteLine(medSchedInfo.MedicationID);
-            Trace.WriteLine(medSchedInfo.Time_1);
-            Trace.WriteLine(medSchedInfo.Time_2);
-            Trace.WriteLine(medSchedInfo.Time_3);
-            Trace.WriteLine(medSchedInfo.Time_4);
-            Trace.WriteLine(medSchedInfo.MedicationPeriod);
-            Trace.WriteLine(medSchedInfo.MedicationPeriodDate);
-
             try
             {
                 cmd.ExecuteNonQuery();
@@ -374,7 +363,7 @@ namespace MedicationTracker.Core
             }
         }
 
-        public void CreateSchedule(ScheduleModalModel.MedicationPrescriptionInfo medPrescription)
+        public void CreatePrescription(ScheduleModalModel.MedicationPrescriptionInfo medPrescription)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -397,7 +386,7 @@ namespace MedicationTracker.Core
             }
 
         }
-        public void CreateSchedule(ScheduleModalModel.MedicationPrescriptionDoctor medPrescriptionDoc)
+        public void CreateDoctor(ScheduleModalModel.MedicationPrescriptionDoctor medPrescriptionDoc)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
