@@ -184,7 +184,7 @@ namespace MedicationTracker.Core
                             MedicationName = reader.GetString(0),
                             MedicationDosageValue = reader.GetDecimal(1).ToString() + " " + reader.GetString(2),
                             MedicationDosageForm = reader.GetString(3),
-                            Time_1 = reader.GetTimeSpan(4),
+                            Time_1 = reader.IsDBNull(4) ? null : reader.GetTimeSpan(4),
                             Time_2 = reader.IsDBNull(5) ? null : reader.GetTimeSpan(5),
                             Time_3 = reader.IsDBNull(6) ? null : reader.GetTimeSpan(6),
                             Time_4 = reader.IsDBNull(7) ? null : reader.GetTimeSpan(7),
@@ -233,7 +233,7 @@ namespace MedicationTracker.Core
                             MedicationTotalAmountValue = reader.GetDecimal(4).ToString() + " " + reader.GetString(5),
                             MedicationExpirationDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6).ToString(),
                             MedicationIsPrescribed = reader.GetBoolean(7),
-                            Time_1 = reader.GetTimeSpan(8),
+                            Time_1 = reader.IsDBNull(8) ? null : reader.GetTimeSpan(8),
                             Time_2 = reader.IsDBNull(9) ? null : reader.GetTimeSpan(9),
                             Time_3 = reader.IsDBNull(10) ? null : reader.GetTimeSpan(10),
                             Time_4 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
@@ -321,9 +321,9 @@ namespace MedicationTracker.Core
                 cmd.ExecuteNonQuery();
                 Trace.WriteLine("Med created");
             }
-            catch(SqlException)
+            catch(SqlException ex)
             {
-                MessageBox.Show("Medication information creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication creation failed. \nERROR MESSAGE: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -336,13 +336,24 @@ namespace MedicationTracker.Core
             using SqlCommand cmd = new SqlCommand("sp_CreateSchedule", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@med_id", medSchedInfo.MedicationID);
-            cmd.Parameters.AddWithValue("@mtime1", medSchedInfo.Time_1);
-            cmd.Parameters.AddWithValue("@mtime2", medSchedInfo.Time_2);
-            cmd.Parameters.AddWithValue("@mtime3", medSchedInfo.Time_3);
-            cmd.Parameters.AddWithValue("@mtime4", medSchedInfo.Time_4);
-            cmd.Parameters.AddWithValue("@med_period", medSchedInfo.MedicationPeriod);
-            cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.MedicationPeriodDate);
+            if (medSchedInfo.MedicationPeriod is "As Needed'")
+            {
+                cmd.Parameters.AddWithValue("@med_id", medSchedInfo.MedicationID);
+                cmd.Parameters.AddWithValue("@med_period", medSchedInfo.MedicationPeriod);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@med_id", medSchedInfo.MedicationID);
+                cmd.Parameters.AddWithValue("@mtime1", medSchedInfo.Time_1);
+                cmd.Parameters.AddWithValue("@mtime2", medSchedInfo.Time_2);
+                cmd.Parameters.AddWithValue("@mtime3", medSchedInfo.Time_3);
+                cmd.Parameters.AddWithValue("@mtime4", medSchedInfo.Time_4);
+                cmd.Parameters.AddWithValue("@med_period", medSchedInfo.MedicationPeriod);
+                cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.MedicationPeriodDate);
+            }
+
+            
+            
 
             Trace.WriteLine(medSchedInfo.MedicationID);
             Trace.WriteLine(medSchedInfo.Time_1);

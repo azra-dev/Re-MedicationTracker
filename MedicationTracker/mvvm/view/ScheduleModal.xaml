@@ -105,7 +105,7 @@
                                 <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
                                     <ComboBox Name="SchedulePeriodComboBox" Text="{Binding MedicationScheduleInformation.MedicationPeriod, Mode=TwoWay}" Width="100"
                                               SelectionChanged="SchedulePeriodComboBox_Selected">
-                                        <ComboBoxItem Content="As needed" Name="Asneeded"/>
+                                        <ComboBoxItem Content="As Needed" Name="Asneeded"/>
                                         <ComboBoxItem Content="Daily" Name="Daily" />
                                         <ComboBoxItem Content="Weekly" Name="Weekly"/>
                                     </ComboBox>
@@ -130,12 +130,12 @@
                                 <DatePicker Text="{Binding MedicationScheduleInformation.MedicationPeriodDate, Mode=TwoWay}" Style="{DynamicResource SelectDateOfWeek}"/>
                             </Border>
                             <StackPanel Orientation="Horizontal">
-                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_1}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
-                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_2}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_1, Mode=TwoWay}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_2, Mode=TwoWay}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_3}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
-                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_4}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_3, Mode=TwoWay}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
+                                <userControls:scheduleTextBox TextInputted="{Binding MedicationScheduleInformation.Time_4, Mode=TwoWay}" Placeholder="Time: " WidthSize="100" Margin="0 0 10 5"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
