@@ -1,6 +1,10 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,11 +21,73 @@ namespace MedicationTracker.MVVM.View
     /// <summary>
     /// Interaction logic for ScheduleModal.xaml
     /// </summary>
-    public partial class ScheduleModal : Window
+    public partial class ScheduleModal : Window, INotifyPropertyChanged
     {
         public ScheduleModal()
         {
             InitializeComponent();
+            ScheduleModalViewModel vm = new ScheduleModalViewModel();
+            DataContext = vm;
+            PrescribedCheckBox.IsChecked = false;
+        }
+
+        private string scheduleMode = null;
+        private bool isPrescribed = false;
+
+        public bool IsPrescribed
+        {
+            get { return isPrescribed; }
+            set { 
+                isPrescribed = value;
+                OnPropertyChanged("IsPrescribed");
+            }
+        }
+
+        public string ScheduleMode
+        {
+            get { return scheduleMode = null; }
+            set { 
+                scheduleMode = value;
+                OnPropertyChanged("ScheduleMode"); 
+            }
+        }
+
+
+        // events
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void PrescribedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            SubmitButton.Content = "Next";
+        }
+
+        private void PrescribedCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SubmitButton.Content = "Create";
+        }
+
+        private void PrescribedCheckBox_Indeterminate(object sender, RoutedEventArgs e)
+        {
+            // Do nothing
+        }
+
+        private void SchedulePeriodComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+            string selectedValue = SchedulePeriodComboBox.SelectedValue.ToString();
+
+            Trace.WriteLine(SchedulePeriodComboBox.SelectedValue);
+            if (selectedValue == "System.Windows.Controls.ComboBoxItem: Daily") { ScheduleList_Daily.Visibility = Visibility.Visible; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
+            else if (selectedValue == "System.Windows.Controls.ComboBoxItem: Weekly") { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Visible; }
+            else { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

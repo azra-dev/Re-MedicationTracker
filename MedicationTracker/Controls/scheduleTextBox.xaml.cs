@@ -22,14 +22,31 @@ namespace MedicationTracker.Controls
     /// </summary>
     public partial class scheduleTextBox : UserControl, INotifyPropertyChanged
     {
+
+        // Dependency property for SQL connection
+        public static readonly DependencyProperty TextInputtedProperty =
+        DependencyProperty.Register(
+            "TextInputted",
+            typeof(string),
+            typeof(scheduleTextBox),
+            new FrameworkPropertyMetadata(null));
+
+        public string TextInputted
+        {
+            get { return (string)GetValue(TextInputtedProperty); }
+            set { SetValue(TextInputtedProperty, value); }
+        }
+
         public scheduleTextBox()
         {
-            DataContext = this;
             InitializeComponent();
+            RootUserControl.DataContext = this;
         }
 
         private string placeholder;
         private int widthSize;
+        private int textboxHeightSize = 15;
+        private string textPos = "Center";
 
         public string Placeholder
         {
@@ -41,7 +58,16 @@ namespace MedicationTracker.Controls
             get { return widthSize; }
             set { widthSize = value; OnPropertyChanged("WidthSize"); }
         }
-
+        public int TextboxHeightSize
+        {
+            get => textboxHeightSize;
+            set { textboxHeightSize = value; OnPropertyChanged("TextboxHeightSize"); }
+        }
+        public string TextPos
+        {
+            get { return textPos; }
+            set { textPos = value; OnPropertyChanged("TextPos"); }
+        }
 
         // event
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

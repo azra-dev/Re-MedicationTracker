@@ -40,6 +40,29 @@ namespace MedicationTracker.Core
             }
             catch (SqlException)
             {
+                MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+        }
+
+        public long SearchMedIDByUserIDAndMedName(long user_id, string med_name)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedIDByUserIDAndMedName", connection);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@med_name", med_name);
+
+            try
+            {
+                long medID = (long)cmd.ExecuteScalar();
+                return medID;
+            }
+            catch (SqlException)
+            {
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
@@ -161,7 +184,7 @@ namespace MedicationTracker.Core
                             MedicationName = reader.GetString(0),
                             MedicationDosageValue = reader.GetDecimal(1).ToString() + " " + reader.GetString(2),
                             MedicationDosageForm = reader.GetString(3),
-                            Time_1 = reader.GetTimeSpan(4),
+                            Time_1 = reader.IsDBNull(4) ? null : reader.GetTimeSpan(4),
                             Time_2 = reader.IsDBNull(5) ? null : reader.GetTimeSpan(5),
                             Time_3 = reader.IsDBNull(6) ? null : reader.GetTimeSpan(6),
                             Time_4 = reader.IsDBNull(7) ? null : reader.GetTimeSpan(7),
@@ -209,15 +232,14 @@ namespace MedicationTracker.Core
                             MedicationDosageForm = reader.GetString(3),
                             MedicationTotalAmountValue = reader.GetDecimal(4).ToString() + " " + reader.GetString(5),
                             MedicationExpirationDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6).ToString(),
-                            MedicationNotes = reader.IsDBNull(7) ? null : reader.GetString(7),
-                            MedicationIsPrescribed = reader.GetBoolean(8),
-                            Time_1 = reader.GetTimeSpan(9),
-                            Time_2 = reader.IsDBNull(10) ? null : reader.GetTimeSpan(10),
-                            Time_3 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
-                            Time_4 = reader.IsDBNull(12) ? null : reader.GetTimeSpan(12),
-                            MedicationPeriod = reader.GetString(13),
-                            MedicationPeriodWeekday = reader.IsDBNull(15) ? null : "every " + reader.GetString(15),
-                            MedicationID = reader.GetInt64(16)
+                            MedicationIsPrescribed = reader.GetBoolean(7),
+                            Time_1 = reader.IsDBNull(8) ? null : reader.GetTimeSpan(8),
+                            Time_2 = reader.IsDBNull(9) ? null : reader.GetTimeSpan(9),
+                            Time_3 = reader.IsDBNull(10) ? null : reader.GetTimeSpan(10),
+                            Time_4 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
+                            MedicationPeriod = reader.GetString(12),
+                            MedicationPeriodWeekday = reader.IsDBNull(14) ? null : "every " + reader.GetString(14),
+                            MedicationID = reader.GetInt64(15)
 
                         };
 
@@ -229,9 +251,9 @@ namespace MedicationTracker.Core
                     }
                 }
             }
-            catch(SqlException)
+            catch(SqlException ex)
             {
-                MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("User ID not found." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -263,6 +285,132 @@ namespace MedicationTracker.Core
                 MessageBox.Show("Med ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        public void CreateMedication(long user_id, ScheduleModalModel.MedicationInfo medInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateMedication", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            int isPrescribed = (medInfo.MedicationIsPrescribed == true) ? 1 : 0;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@md_name", medInfo.MedicationName);
+            cmd.Parameters.AddWithValue("@md_dose", medInfo.MedicationDosageValue);
+            cmd.Parameters.AddWithValue("@md_doseform", medInfo.MedicationDosageForm);
+            cmd.Parameters.AddWithValue("@md_doseunit", medInfo.MedicationDosageUnit);
+            cmd.Parameters.AddWithValue("@md_totalamt", medInfo.MedicationTotalAmount);
+            cmd.Parameters.AddWithValue("@md_totalamt_unit", medInfo.MedicationTotalAmountUnit);
+            cmd.Parameters.AddWithValue("@md_exp", medInfo.MedicationExpirationDate);
+            cmd.Parameters.AddWithValue("@md_isprescribed", isPrescribed);
+
+            Trace.WriteLine(user_id);
+            Trace.WriteLine(medInfo.MedicationName);
+            Trace.WriteLine(medInfo.MedicationDosageValue);
+            Trace.WriteLine(medInfo.MedicationDosageForm);
+            Trace.WriteLine(medInfo.MedicationDosageUnit);
+            Trace.WriteLine(medInfo.MedicationTotalAmount);
+            Trace.WriteLine(medInfo.MedicationTotalAmountUnit);
+            Trace.WriteLine(medInfo.MedicationExpirationDate);
+            Trace.WriteLine(isPrescribed);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                Trace.WriteLine("Med created");
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Medication creation failed. \nERROR MESSAGE: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        public void CreateSchedule(ScheduleModalModel.MedicationScheduleInfo medSchedInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateSchedule", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (medSchedInfo.MedicationPeriod is "As Needed'")
+            {
+                cmd.Parameters.AddWithValue("@med_id", medSchedInfo.MedicationID);
+                cmd.Parameters.AddWithValue("@med_period", medSchedInfo.MedicationPeriod);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@med_id", medSchedInfo.MedicationID);
+                cmd.Parameters.AddWithValue("@mtime1", medSchedInfo.Time_1);
+                cmd.Parameters.AddWithValue("@mtime2", medSchedInfo.Time_2);
+                cmd.Parameters.AddWithValue("@mtime3", medSchedInfo.Time_3);
+                cmd.Parameters.AddWithValue("@mtime4", medSchedInfo.Time_4);
+                cmd.Parameters.AddWithValue("@med_period", medSchedInfo.MedicationPeriod);
+                cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.MedicationPeriodDate);
+            }
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Medication and Schedule created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Medication schedule creation failed." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void CreatePrescription(ScheduleModalModel.MedicationPrescriptionInfo medPrescription)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreatePrescription", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@med_id", medPrescription.MedicationID);
+            cmd.Parameters.AddWithValue("@md_start", medPrescription.PrescriptionStartDate);
+            cmd.Parameters.AddWithValue("@md_end", medPrescription.PrescriptionEndDate);
+            cmd.Parameters.AddWithValue("@md_instructions", medPrescription.PrescriptionInstructions);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Medication prescription creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+        public void CreateDoctor(ScheduleModalModel.MedicationPrescriptionDoctor medPrescriptionDoc)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateDoctor", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@presc_id", medPrescriptionDoc.MedicationPrescriptionID);
+            cmd.Parameters.AddWithValue("@doc_name", medPrescriptionDoc.PrescriptionDoctorName);
+            cmd.Parameters.AddWithValue("doc_spec", medPrescriptionDoc.PrescriptionDoctorSpecialization);
+            cmd.Parameters.AddWithValue("doc_em", medPrescriptionDoc.PrescriptionDoctorEmail);
+            cmd.Parameters.AddWithValue("doc_affiliation", medPrescriptionDoc.PrescriptionDoctorAffiliation);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+
+                MessageBox.Show("Medication doctor creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 
     

@@ -5,16 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicationTracker.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="800">
-    <Border HorizontalAlignment="Left" BorderBrush="#6a787c" BorderThickness="1" Background="#e5eae9" CornerRadius="5" Width="{Binding WidthSize}">
+             d:DesignHeight="30" d:DesignWidth="800"
+             x:Name="Root"
+             d:DataContext="{d:DesignInstance {x:Type local:scheduleTextBox}}">
+    <Border x:Name="RootUserControl" HorizontalAlignment="Left" BorderBrush="#6a787c" BorderThickness="1" Background="#e5eae9" CornerRadius="5" Width="{Binding WidthSize}">
         <Grid Margin="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Placeholder}" FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1" VerticalAlignment="Center"/>
-            <Border Grid.Column="1" CornerRadius="15" BorderBrush="#d1d7d6" BorderThickness="1">
-                <TextBox Background="#eaf3f3" Width="auto" Height="15"></TextBox>
+            <TextBlock Grid.Column="0" Text="{Binding Placeholder}" FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1" VerticalAlignment="{Binding TextPos}"/>
+            <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
+                <TextBox Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="{Binding TextboxHeightSize}" FontSize="11" TextWrapping="Wrap" TextAlignment="Justify"
+                         Text="{Binding TextInputted}"></TextBox>
             </Border>
         </Grid>
     </Border>
