@@ -28,7 +28,6 @@ namespace MedicationTracker.MVVM.ViewModel
         }
 
         private CreateScheduleModel medicationInfoAndSchedule;
-
         public CreateScheduleModel MedicationInfoAndSchedule
         {
             get { return medicationInfoAndSchedule; }

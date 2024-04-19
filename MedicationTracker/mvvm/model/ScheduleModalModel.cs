@@ -44,14 +44,23 @@ namespace MedicationTracker.MVVM.Model
             public string? MedicationReminderMessage { get; set; }
         }
 
-        public class MedicationPrescription
+        public class MedicationPrescriptionInfo
         {
-            // Implement this Godwyn
+            public long? MedicationID { get; set;}
+            public string? PrescriptionStartDate {  get; set; }
+            public string? PrescriptionEndDate {  get; set; }
+            public string? PrescriptionInstructions { get; set; }
+
         }
 
         public class MedicationPrescriptionDoctor
         {
-            // Implement this Godwyn
+            public long? MedicationPrescriptionID { get; set; }
+            public string? PrescriptionDoctorName {  get; set; }
+            public string? PrescriptionDoctorSpecialization {  get; set; }
+            public string? PrescriptionDoctorEmail {  get; set; }
+            public string? PrescriptionDoctorAffiliation { get; set; }
+
         }
 
     }

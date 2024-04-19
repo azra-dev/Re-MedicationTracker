@@ -374,6 +374,54 @@ namespace MedicationTracker.Core
             }
         }
 
+        public void CreateSchedule(ScheduleModalModel.MedicationPrescriptionInfo medPrescription)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreatePrescription", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@med_id", medPrescription.MedicationID);
+            cmd.Parameters.AddWithValue("@md_start", medPrescription.PrescriptionStartDate);
+            cmd.Parameters.AddWithValue("@md_end", medPrescription.PrescriptionEndDate);
+            cmd.Parameters.AddWithValue("@md_instructions", medPrescription.PrescriptionInstructions);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Medication prescription creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+        public void CreateSchedule(ScheduleModalModel.MedicationPrescriptionDoctor medPrescriptionDoc)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateDoctor", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@presc_id", medPrescriptionDoc.MedicationPrescriptionID);
+            cmd.Parameters.AddWithValue("@doc_name", medPrescriptionDoc.PrescriptionDoctorName);
+            cmd.Parameters.AddWithValue("doc_spec", medPrescriptionDoc.PrescriptionDoctorSpecialization);
+            cmd.Parameters.AddWithValue("doc_em", medPrescriptionDoc.PrescriptionDoctorEmail);
+            cmd.Parameters.AddWithValue("doc_affiliation", medPrescriptionDoc.PrescriptionDoctorAffiliation);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+
+                MessageBox.Show("Medication doctor creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 
     
