@@ -1,3 +1,5 @@
 # :pill: MediTrack
 
-**rjldg-desktop-branch** -> Branch for SQL integration, Data Access, and Business Logic
+**minor-ui-branch** -> Branch for minor parts of UI such as:
+* Forget Password
+* Email Sent
