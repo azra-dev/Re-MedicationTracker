@@ -1,4 +1,5 @@
-﻿using MedicationTracker.MVVM.ViewModel;
+﻿using MedicationTracker.MVVM.View;
+using MedicationTracker.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,13 @@ namespace MedicationTracker
             {
                 DragMove();
             }
+        }
+
+        private void RegisterLink_Click(object sender, RoutedEventArgs e)
+        {
+            Register register = new Register();
+            register.Show();
+            this.Close();
         }
     }
 }
