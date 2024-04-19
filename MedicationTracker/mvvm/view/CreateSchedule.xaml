@@ -70,8 +70,6 @@
                                 <userControls:menuBox MenuIcon="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
                             </StackPanel>
                         </Grid>
-                        
-
                     </StackPanel>
                 </Border>
             </Border>
