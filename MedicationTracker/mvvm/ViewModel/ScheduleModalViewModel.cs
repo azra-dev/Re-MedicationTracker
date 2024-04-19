@@ -2,6 +2,7 @@
 using MedicationTracker.MVVM.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,11 @@ namespace MedicationTracker.MVVM.ViewModel
     internal class ScheduleModalViewModel : ObservableObject
     {
         public DataAccessLayer DAL { get; set; }
-        public RelayCommand CreateMed => new RelayCommand(execute => CreateMedication());
+        public RelayCommand CreateMed => new RelayCommand(execute => CreateMedicine());
+        public RelayCommand CreatePrescDoc => new RelayCommand(execute => CreatePrescriptionAndDoctor());
         public ScheduleModalViewModel()
         {
+            DAL = new DataAccessLayer();
             MedicationInformation = new ScheduleModalModel.MedicationInfo();
             MedicationScheduleInformation = new ScheduleModalModel.MedicationScheduleInfo();
             MedicationReminderInformation = new ScheduleModalModel.MedicationReminderInfo();
@@ -81,21 +84,20 @@ namespace MedicationTracker.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public void CreateMedication()
+
+        public void CreateMedicine()
         {
-            DAL.CreateMedication(MedicationInformation);
+            
+            DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
 
-            MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);
+            MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
 
-            if(MedicationReminderInformation.MedicationReminderMessage == null && MedicationReminderInformation.MedicationReminderTitle == null)
-            {
-                DAL.CreateSchedule(MedicationScheduleInformation);
-            } else
-            {
-                DAL.CreateSchedule(MedicationScheduleInformation);
-                // To be implemented by Rance
-                
-            }
+            DAL.CreateSchedule(MedicationScheduleInformation);
+        }
+
+        public void CreatePrescriptionAndDoctor()
+        {
+            // Godwyn will implement this
         }
 
 

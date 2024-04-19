@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -24,8 +25,10 @@ namespace MedicationTracker.MVVM.View
     {
         public ScheduleModal()
         {
-            DataContext = this;
             InitializeComponent();
+            ScheduleModalViewModel vm = new ScheduleModalViewModel();
+            DataContext = vm;
+            PrescribedCheckBox.IsChecked = false;
         }
 
         private string scheduleMode = null;
@@ -36,8 +39,6 @@ namespace MedicationTracker.MVVM.View
             get { return isPrescribed; }
             set { 
                 isPrescribed = value;
-                if (isPrescribed) SubmitButton.Content = "Next";
-                else SubmitButton.Content = "Create";
                 OnPropertyChanged("IsPrescribed");
             }
         }
@@ -47,10 +48,6 @@ namespace MedicationTracker.MVVM.View
             get { return scheduleMode = null; }
             set { 
                 scheduleMode = value;
-                Trace.WriteLine(scheduleMode);
-                if      (value == "System.Windows.Controls.ComboBoxItem: Daily")  { ScheduleList_Daily.Visibility = Visibility.Visible;   ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
-                else if (value == "System.Windows.Controls.ComboBoxItem: Weekly") { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Visible  ; }
-                else                                                              { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
                 OnPropertyChanged("ScheduleMode"); 
             }
         }
@@ -61,6 +58,36 @@ namespace MedicationTracker.MVVM.View
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void PrescribedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            SubmitButton.Content = "Next";
+        }
+
+        private void PrescribedCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SubmitButton.Content = "Create";
+        }
+
+        private void PrescribedCheckBox_Indeterminate(object sender, RoutedEventArgs e)
+        {
+            // Do nothing
+        }
+
+        private void SchedulePeriodComboBox_Selected(object sender, RoutedEventArgs e)
+        {
+            string selectedValue = SchedulePeriodComboBox.SelectedValue.ToString();
+
+            Trace.WriteLine(SchedulePeriodComboBox.SelectedValue);
+            if (selectedValue == "System.Windows.Controls.ComboBoxItem: Daily") { ScheduleList_Daily.Visibility = Visibility.Visible; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
+            else if (selectedValue == "System.Windows.Controls.ComboBoxItem: Weekly") { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Visible; }
+            else { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

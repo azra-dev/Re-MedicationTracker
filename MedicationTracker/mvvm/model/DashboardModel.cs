@@ -16,7 +16,7 @@ namespace MedicationTracker.MVVM.Model
             public string? MedicationName { get; set; }
             public string? MedicationDosageValue { get; set; }
             public string? MedicationDosageForm { get; set; }
-            public TimeSpan Time_1 { get; set; }
+            public TimeSpan? Time_1 { get; set; }
             public TimeSpan? Time_2 { get; set; }
             public TimeSpan? Time_3 { get; set; }
             public TimeSpan? Time_4 { get; set; }

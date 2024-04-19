@@ -59,9 +59,5 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
-
-
-
-
     }
 }
