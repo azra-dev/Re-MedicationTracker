@@ -19,7 +19,7 @@ namespace MedicationTracker.Core
         // SQL Server Connection String
 
         //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
-        public string connectionString = @"Server=DUSKBLADE\MERCADOSQL;Database=MediTrack;Trusted_Connection=True;";
+        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
 
         
         // SQL Server Stored Procedures
@@ -287,7 +287,7 @@ namespace MedicationTracker.Core
             }
         }
 
-        public void CreateMedication(ScheduleModalModel.MedicationInfo medInfo)
+        public void CreateMedication(long user_id, ScheduleModalModel.MedicationInfo medInfo)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -295,20 +295,32 @@ namespace MedicationTracker.Core
             using SqlCommand cmd = new SqlCommand("sp_CreateMedication", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@user_id", medInfo.UserID);
+            int isPrescribed = (medInfo.MedicationIsPrescribed == true) ? 1 : 0;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
             cmd.Parameters.AddWithValue("@md_name", medInfo.MedicationName);
-            cmd.Parameters.AddWithValue("@@md_dose", medInfo.MedicationDosageValue);
+            cmd.Parameters.AddWithValue("@md_dose", medInfo.MedicationDosageValue);
             cmd.Parameters.AddWithValue("@md_doseform", medInfo.MedicationDosageForm);
             cmd.Parameters.AddWithValue("@md_doseunit", medInfo.MedicationDosageUnit);
             cmd.Parameters.AddWithValue("@md_totalamt", medInfo.MedicationTotalAmount);
             cmd.Parameters.AddWithValue("@md_totalamt_unit", medInfo.MedicationTotalAmountUnit);
             cmd.Parameters.AddWithValue("@md_exp", medInfo.MedicationExpirationDate);
-            cmd.Parameters.AddWithValue("@md_notes", medInfo.MedicationNotes);
-            cmd.Parameters.AddWithValue("@md_isprescribed", medInfo.MedicationIsPrescribed);
+            cmd.Parameters.AddWithValue("@md_isprescribed", isPrescribed);
+
+            Trace.WriteLine(user_id);
+            Trace.WriteLine(medInfo.MedicationName);
+            Trace.WriteLine(medInfo.MedicationDosageValue);
+            Trace.WriteLine(medInfo.MedicationDosageForm);
+            Trace.WriteLine(medInfo.MedicationDosageUnit);
+            Trace.WriteLine(medInfo.MedicationTotalAmount);
+            Trace.WriteLine(medInfo.MedicationTotalAmountUnit);
+            Trace.WriteLine(medInfo.MedicationExpirationDate);
+            Trace.WriteLine(isPrescribed);
 
             try
             {
                 cmd.ExecuteNonQuery();
+                Trace.WriteLine("Med created");
             }
             catch(SqlException)
             {
@@ -330,18 +342,28 @@ namespace MedicationTracker.Core
             cmd.Parameters.AddWithValue("@mtime2", medSchedInfo.Time_2);
             cmd.Parameters.AddWithValue("@mtime3", medSchedInfo.Time_3);
             cmd.Parameters.AddWithValue("@mtime4", medSchedInfo.Time_4);
-            cmd.Parameters.AddWithValue("@med_period", medSchedInfo.Time_4);
-            cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.Time_4);
+            cmd.Parameters.AddWithValue("@med_period", medSchedInfo.MedicationPeriod);
+            cmd.Parameters.AddWithValue("@med_period_date", medSchedInfo.MedicationPeriodDate);
+
+            Trace.WriteLine(medSchedInfo.MedicationID);
+            Trace.WriteLine(medSchedInfo.Time_1);
+            Trace.WriteLine(medSchedInfo.Time_2);
+            Trace.WriteLine(medSchedInfo.Time_3);
+            Trace.WriteLine(medSchedInfo.Time_4);
+            Trace.WriteLine(medSchedInfo.MedicationPeriod);
+            Trace.WriteLine(medSchedInfo.MedicationPeriodDate);
 
             try
             {
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("Medication and Schedule created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch(SqlException)
+            catch(SqlException ex)
             {
-                MessageBox.Show("Medication schedule creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication schedule creation failed." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 
     

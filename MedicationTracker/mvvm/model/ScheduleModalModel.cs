@@ -13,25 +13,23 @@ namespace MedicationTracker.MVVM.Model
     {
         public class MedicationInfo
         {
-            public long? UserID { get; set; }
             public string? MedicationName { get; set; }
-            public Decimal? MedicationDosageValue { get; set; }
+            public double? MedicationDosageValue { get; set; }
             public string? MedicationDosageUnit { get; set; }
             public string? MedicationDosageForm { get; set; }
-            public Decimal? MedicationTotalAmount { get; set; }
+            public double? MedicationTotalAmount { get; set; }
             public string? MedicationTotalAmountUnit { get; set; }
             public string? MedicationExpirationDate { get; set; }
-            public string? MedicationNotes { get; set; }
             public bool? MedicationIsPrescribed { get; set; }
         }
 
         public class MedicationScheduleInfo
         {
             public long? MedicationID { get; set; }
-            public TimeSpan? Time_1 { get; set; }
-            public TimeSpan? Time_2 { get; set; }
-            public TimeSpan? Time_3 { get; set; }
-            public TimeSpan? Time_4 { get; set; }
+            public string? Time_1 { get; set; }
+            public string? Time_2 { get; set; }
+            public string? Time_3 { get; set; }
+            public string? Time_4 { get; set; }
             public string? MedicationPeriod { get; set; }
             public string? MedicationPeriodDate { get; set; }
             public string? MedicationPeriodWeekday { get; set; }

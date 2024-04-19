@@ -99,7 +99,7 @@
                                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                                       BorderBrush="Transparent"
                                       Background="Transparent"
-                                      ScrollViewer.CanContentScroll="True"
+                                      ScrollViewer.CanContentScroll="False"
                                       Width="676"
                                       HorizontalAlignment="Left"
                                       SelectionMode="Single">

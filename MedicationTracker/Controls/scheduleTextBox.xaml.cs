@@ -22,10 +22,25 @@ namespace MedicationTracker.Controls
     /// </summary>
     public partial class scheduleTextBox : UserControl, INotifyPropertyChanged
     {
+
+        // Dependency property for SQL connection
+        public static readonly DependencyProperty TextInputtedProperty =
+        DependencyProperty.Register(
+            "TextInputted",
+            typeof(string),
+            typeof(scheduleTextBox),
+            new FrameworkPropertyMetadata(null));
+
+        public string TextInputted
+        {
+            get { return (string)GetValue(TextInputtedProperty); }
+            set { SetValue(TextInputtedProperty, value); }
+        }
+
         public scheduleTextBox()
         {
-            DataContext = this;
             InitializeComponent();
+            RootUserControl.DataContext = this;
         }
 
         private string placeholder;
