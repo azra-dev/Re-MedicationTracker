@@ -232,15 +232,14 @@ namespace MedicationTracker.Core
                             MedicationDosageForm = reader.GetString(3),
                             MedicationTotalAmountValue = reader.GetDecimal(4).ToString() + " " + reader.GetString(5),
                             MedicationExpirationDate = reader.IsDBNull(6) ? null : reader.GetDateTime(6).ToString(),
-                            MedicationNotes = reader.IsDBNull(7) ? null : reader.GetString(7),
-                            MedicationIsPrescribed = reader.GetBoolean(8),
-                            Time_1 = reader.GetTimeSpan(9),
-                            Time_2 = reader.IsDBNull(10) ? null : reader.GetTimeSpan(10),
-                            Time_3 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
-                            Time_4 = reader.IsDBNull(12) ? null : reader.GetTimeSpan(12),
-                            MedicationPeriod = reader.GetString(13),
-                            MedicationPeriodWeekday = reader.IsDBNull(15) ? null : "every " + reader.GetString(15),
-                            MedicationID = reader.GetInt64(16)
+                            MedicationIsPrescribed = reader.GetBoolean(7),
+                            Time_1 = reader.GetTimeSpan(8),
+                            Time_2 = reader.IsDBNull(9) ? null : reader.GetTimeSpan(9),
+                            Time_3 = reader.IsDBNull(10) ? null : reader.GetTimeSpan(10),
+                            Time_4 = reader.IsDBNull(11) ? null : reader.GetTimeSpan(11),
+                            MedicationPeriod = reader.GetString(12),
+                            MedicationPeriodWeekday = reader.IsDBNull(14) ? null : "every " + reader.GetString(14),
+                            MedicationID = reader.GetInt64(15)
 
                         };
 
@@ -252,9 +251,9 @@ namespace MedicationTracker.Core
                     }
                 }
             }
-            catch(SqlException)
+            catch(SqlException ex)
             {
-                MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("User ID not found." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
