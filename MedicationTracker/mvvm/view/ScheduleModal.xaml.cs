@@ -62,12 +62,14 @@ namespace MedicationTracker.MVVM.View
 
         private void PrescribedCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            SubmitButton.Content = "Next";
+            SubmitButton.Visibility = Visibility.Collapsed;
+            NextButton.Visibility = Visibility.Visible;
         }
 
         private void PrescribedCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            SubmitButton.Content = "Create";
+            SubmitButton.Visibility = Visibility.Visible;
+            NextButton.Visibility = Visibility.Collapsed;
         }
 
         private void PrescribedCheckBox_Indeterminate(object sender, RoutedEventArgs e)
@@ -80,14 +82,24 @@ namespace MedicationTracker.MVVM.View
             string selectedValue = SchedulePeriodComboBox.SelectedValue.ToString();
 
             Trace.WriteLine(SchedulePeriodComboBox.SelectedValue);
-            if (selectedValue == "System.Windows.Controls.ComboBoxItem: Daily") { ScheduleList_Daily.Visibility = Visibility.Visible; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
-            else if (selectedValue == "System.Windows.Controls.ComboBoxItem: Weekly") { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Visible; }
-            else { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
+            if      (selectedValue == "System.Windows.Controls.ComboBoxItem: Daily")    { ScheduleList_Daily.Visibility = Visibility.Visible; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
+            else if (selectedValue == "System.Windows.Controls.ComboBoxItem: Weekly")   { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Visible; }
+            else                                                                        { ScheduleList_Daily.Visibility = Visibility.Collapsed; ScheduleList_Weekly.Visibility = Visibility.Collapsed; }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (sender.Equals(CancelButton))    { Close(); }
+            else if (sender.Equals(BackButton)) {
+                MedicationSchedulePage.Visibility = Visibility.Visible;
+                PrescriptionPage.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            MedicationSchedulePage.Visibility = Visibility.Collapsed;
+            PrescriptionPage.Visibility = Visibility.Visible;
         }
     }
 }

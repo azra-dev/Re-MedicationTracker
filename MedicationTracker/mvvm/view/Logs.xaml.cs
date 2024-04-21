@@ -1,6 +1,4 @@
-﻿using MedicationTracker.MVVM.View;
-using MedicationTracker.MVVM.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,20 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicationTracker
+namespace MedicationTracker.MVVM.View
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for Logs.xaml
+    /// </summary>
+    public partial class Logs : Window
     {
-        public MainWindow()
+        public Logs()
         {
             InitializeComponent();
-            LoginViewModel vm = new LoginViewModel();
-            DataContext = vm;
         }
-
+        
         // Drag the window without taskbar
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -33,13 +31,6 @@ namespace MedicationTracker
             {
                 DragMove();
             }
-        }
-
-        private void RegisterLink_Click(object sender, RoutedEventArgs e)
-        {
-            Register register = new Register();
-            register.Show();
-            this.Close();
         }
     }
 }
