@@ -61,6 +61,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\emailSent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,6 +127,9 @@
     </Compile>
     <Compile Include="Controls\createNewSchedule.xaml.cs">
       <DependentUpon>createNewSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\emailSent.xaml.cs">
+      <DependentUpon>emailSent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
@@ -267,6 +274,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\default_pfp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Email_Check.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
