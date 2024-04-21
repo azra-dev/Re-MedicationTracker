@@ -38,7 +38,7 @@
                             <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
                                 <TextBox Text="{Binding MedicationInformation.MedicationDosageValue, Mode=TwoWay}" Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="15" FontSize="11"></TextBox>
                             </Border>
-                            <ComboBox Text="{Binding MedicationInformation.MedicationDosageUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
+                            <ComboBox FontFamily="Comfortaa" Text="{Binding MedicationInformation.MedicationDosageUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
                                 <ComboBoxItem Content="mL"/>
                                 <ComboBoxItem Content="mg"/>
                                 <ComboBoxItem Content="cc"/>
@@ -61,7 +61,7 @@
                             <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
                                 <TextBox Text="{Binding MedicationInformation.MedicationTotalAmount, Mode=TwoWay}" Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="15" FontSize="11"></TextBox>
                             </Border>
-                            <ComboBox Text="{Binding MedicationInformation.MedicationTotalAmountUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
+                            <ComboBox FontFamily="Comfortaa" Text="{Binding MedicationInformation.MedicationTotalAmountUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
                                 <ComboBoxItem Content="mL"/>
                                 <ComboBoxItem Content="mg"/>
                                 <ComboBoxItem Content="cc"/>
@@ -103,7 +103,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="Period: " FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1" VerticalAlignment="Center"/>
                                 <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
-                                    <ComboBox Name="SchedulePeriodComboBox" Text="{Binding MedicationScheduleInformation.MedicationPeriod, Mode=TwoWay}" Width="100"
+                                    <ComboBox FontFamily="Comfortaa" Name="SchedulePeriodComboBox" Text="{Binding MedicationScheduleInformation.MedicationPeriod, Mode=TwoWay}" Width="100"
                                               SelectionChanged="SchedulePeriodComboBox_Selected">
                                         <ComboBoxItem Content="As Needed" Name="Asneeded"/>
                                         <ComboBoxItem Content="Daily" Name="Daily" />
