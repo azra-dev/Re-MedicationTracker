@@ -45,6 +45,10 @@ namespace MedicationTracker.Core
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public long SearchMedIDByUserIDAndMedName(long user_id, string med_name)
@@ -68,6 +72,10 @@ namespace MedicationTracker.Core
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public long SearchPrescID(long med_id)
@@ -89,6 +97,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -113,6 +125,8 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Login Failed.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            connection.Close();
         }
 
         public void CreateMediTrackUser(string fn, string ln, string username, string em, string pw, string bd, string path) 
@@ -148,6 +162,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Invalid input in one of the fields.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void JoinsMedicationSchedulesReminders(long user_id, DashboardModel.MedicationReminder MedicationRemindersContent, ObservableCollection<DashboardModel.MedicationReminder> MedicationReminders)
@@ -182,7 +200,11 @@ namespace MedicationTracker.Core
             }
             catch (SqlException)
             {
-
+                // To be implemented accordingly
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -228,6 +250,10 @@ namespace MedicationTracker.Core
             catch (SqlException)
             {
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -279,6 +305,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("User ID not found.\n ERROR:" + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void DeleteMedication(CreateScheduleModel medicationInfoAndSched) 
@@ -307,6 +337,10 @@ namespace MedicationTracker.Core
             catch (SqlException)
             {
                 MessageBox.Show("Med ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -337,6 +371,10 @@ namespace MedicationTracker.Core
             catch(SqlException ex)
             {
                 MessageBox.Show("Medication creation failed. \nERROR MESSAGE: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
 
         }
@@ -374,6 +412,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Medication schedule creation failed." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void CreatePrescription(ScheduleModalModel.MedicationPrescriptionInfo medPrescription)
@@ -396,6 +438,10 @@ namespace MedicationTracker.Core
             catch (SqlException ex)
             {
                 MessageBox.Show("Medication prescription creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
 
         }
@@ -422,6 +468,10 @@ namespace MedicationTracker.Core
             {
 
                 MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
