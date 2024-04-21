@@ -113,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MVVM\View\ForgetPassword.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MVVM\View\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,10 +167,12 @@
     <Compile Include="Core\TimeSpanToTimeStringConverter.cs" />
     <Compile Include="MVVM\Model\CreateScheduleModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel.cs" />
+    <Compile Include="MVVM\Model\ForgetPasswordModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\ScheduleModalModel.cs" />
     <Compile Include="MVVM\ViewModel\CreateScheduleViewModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\ForgetPasswordViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ScheduleModalViewModel.cs" />
     <Compile Include="MVVM\View\CreateSchedule.xaml.cs">
@@ -174,6 +180,9 @@
     </Compile>
     <Compile Include="MVVM\View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\ForgetPassword.xaml.cs">
+      <DependentUpon>ForgetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -274,6 +283,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\default_pfp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Email_Check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Email.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
