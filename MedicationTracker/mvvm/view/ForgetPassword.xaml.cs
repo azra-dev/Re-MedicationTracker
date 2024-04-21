@@ -28,5 +28,10 @@ namespace MedicationTracker.MVVM.View
         {
             this.Close();
         }
+
+        private void SendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            // not being used
+        }
     }
 }

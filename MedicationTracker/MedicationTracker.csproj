@@ -61,10 +61,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\emailSent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,9 +128,6 @@
     <Compile Include="Controls\createNewSchedule.xaml.cs">
       <DependentUpon>createNewSchedule.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\emailSent.xaml.cs">
-      <DependentUpon>emailSent.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
     </Compile>
@@ -174,10 +167,12 @@
     <Compile Include="Core\TimeSpanToTimeStringConverter.cs" />
     <Compile Include="MVVM\Model\CreateScheduleModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel.cs" />
+    <Compile Include="MVVM\Model\ForgetPasswordModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\ScheduleModalModel.cs" />
     <Compile Include="MVVM\ViewModel\CreateScheduleViewModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\ForgetPasswordViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ScheduleModalViewModel.cs" />
     <Compile Include="MVVM\View\CreateSchedule.xaml.cs">
@@ -284,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Email_Check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Email.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
