@@ -87,7 +87,6 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void CreateMedicine()
         {
-            
             DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
 
             MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
@@ -97,7 +96,17 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void CreatePrescriptionAndDoctor()
         {
-            // Godwyn will implement this
+            DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
+
+            MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
+            MedicationPrescriptionInformation.MedicationID = MedicationScheduleInformation.MedicationID;
+
+            DAL.CreateSchedule(MedicationScheduleInformation);
+            DAL.CreatePrescription(MedicationPrescriptionInformation);
+
+            MedicationPrescriptionDoctorInformation.MedicationPrescriptionID = DAL.SearchPrescID(MedicationPrescriptionInformation.MedicationID);
+
+            DAL.CreateDoctor(MedicationPrescriptionDoctorInformation);
         }
 
 
