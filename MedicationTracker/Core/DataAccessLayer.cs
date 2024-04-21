@@ -1,5 +1,6 @@
 ﻿using MedicationTracker.MVVM.Model;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -65,6 +66,28 @@ namespace MedicationTracker.Core
             catch (SqlException)
             {
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+        }
+
+        public long SearchPrescID(long med_id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchPrescID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@mid", med_id);
+
+            try
+            {
+                long medpresc_id = (long)cmd.ExecuteScalar();
+                return medpresc_id;
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
         }
@@ -254,7 +277,7 @@ namespace MedicationTracker.Core
             }
             catch(SqlException ex)
             {
-                MessageBox.Show("User ID not found." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("User ID not found.\n ERROR:" + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -307,20 +330,9 @@ namespace MedicationTracker.Core
             cmd.Parameters.AddWithValue("@md_exp", medInfo.MedicationExpirationDate);
             cmd.Parameters.AddWithValue("@md_isprescribed", isPrescribed);
 
-            Trace.WriteLine(user_id);
-            Trace.WriteLine(medInfo.MedicationName);
-            Trace.WriteLine(medInfo.MedicationDosageValue);
-            Trace.WriteLine(medInfo.MedicationDosageForm);
-            Trace.WriteLine(medInfo.MedicationDosageUnit);
-            Trace.WriteLine(medInfo.MedicationTotalAmount);
-            Trace.WriteLine(medInfo.MedicationTotalAmountUnit);
-            Trace.WriteLine(medInfo.MedicationExpirationDate);
-            Trace.WriteLine(isPrescribed);
-
             try
             {
                 cmd.ExecuteNonQuery();
-                Trace.WriteLine("Med created");
             }
             catch(SqlException ex)
             {
@@ -356,7 +368,7 @@ namespace MedicationTracker.Core
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Medication and Schedule created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Medication and schedule information created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(SqlException ex)
             {
@@ -381,9 +393,9 @@ namespace MedicationTracker.Core
             {
                 cmd.ExecuteNonQuery();
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Medication prescription creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication prescription creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -404,11 +416,12 @@ namespace MedicationTracker.Core
             try
             {
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("Medication prescription and doctor information created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
 
-                MessageBox.Show("Medication doctor creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
