@@ -61,7 +61,6 @@ namespace MedicationTracker.MVVM.ViewModel
             MediTrackUserInfo = (CreateScheduleModel.MediTrackUser)DAL.ReadMediTrackUserByID(1);
 
             byte[] imageData = MediTrackUserInfo.Image;
-            Trace.WriteLine(imageData.ToString());
             var image = new BitmapImage();
             using (var mem = new MemoryStream(imageData))
             {

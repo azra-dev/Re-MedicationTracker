@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static MedicationTracker.MVVM.Model.CreateScheduleModel;
 using static MedicationTracker.MVVM.Model.DashboardModel;
 
 #nullable enable
@@ -540,12 +541,9 @@ namespace MedicationTracker.Core
                         BirthDate = reader.GetDateTime(6)
                     };
 
-                    OnPropertyChanged("CreateScheduleModel.MediTrackUser");
-
-                    Trace.WriteLine("DAL: " + meditrackuser.FullName);
+                    OnPropertyChanged();
 
                     return meditrackuser;
-
                 }
                 else
                 {
