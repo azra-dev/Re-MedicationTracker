@@ -20,6 +20,8 @@ namespace MedicationTracker.Core
         // SQL Server Connection String
 
         //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
+        //public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
+        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
         public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
 
 
