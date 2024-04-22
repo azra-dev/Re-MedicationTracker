@@ -25,6 +25,7 @@ namespace MedicationTracker.MVVM.View
             CreateScheduleViewModel vm = new CreateScheduleViewModel();
             DataContext = vm;
             vm.ReadMedAndSched.Execute(null);
+            vm.ReadUserInfo.Execute(null);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -1,4 +1,5 @@
-﻿using MedicationTracker.MVVM.Model;
+﻿using Mailjet.Client.Resources;
+using MedicationTracker.MVVM.Model;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -13,13 +14,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using static MedicationTracker.MVVM.Model.DashboardModel;
 
+#nullable enable
+
 namespace MedicationTracker.Core
 {
     internal class DataAccessLayer : ObservableObject
     {
-        // Logged-In User Information
-        public byte[] ProfilePicture { get; set; }
-        public string FullName { get; set; }
+        // Logged-In MediTrack User Information
+        
         
         // SQL Server Connection String
 
@@ -497,6 +499,61 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void ReadMediTrackUserByID(long user_id, CreateScheduleModel.MediTrackUser meditrackuser)
+        {
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_ReadMediTrackUserByID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+
+            try
+            {
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        long imageLength = reader.GetBytes(3, 0, null, 0, 0);
+                        byte[] imageData = (byte[])reader[3];
+                        long bytesRead = reader.GetBytes(3, 0, imageData, 0, imageData.Length);
+
+                        Trace.WriteLine(imageData.ToString());
+
+                        meditrackuser = new CreateScheduleModel.MediTrackUser
+                        {
+                            FullName = reader.GetString(0) + " " + reader.GetString(1),
+                            Username = reader.GetString(2),
+                            Image = imageData,
+                            Email = reader.GetString(4),
+                            Password = reader.GetString(5),
+                            BirthDate = reader.GetDateTime(6)
+                        };
+
+                        OnPropertyChanged();
+
+                        Trace.WriteLine("DAL: " + meditrackuser.FullName);
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("User does not exist.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("User information cannot be read.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

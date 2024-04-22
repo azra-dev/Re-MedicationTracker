@@ -16,13 +16,14 @@ namespace MedicationTracker.MVVM.ViewModel
         public DataAccessLayer DAL { get; set; }
 
         public ObservableCollection<CreateScheduleModel> JoinedMedicationInfoAndSchedule { get; set; }
-
+        public RelayCommand ReadUserInfo => new RelayCommand(execute => ReadMediTrackUserInformation());
         public RelayCommand ReadMedAndSched => new RelayCommand(execute => ReadMedicationsAndSchedules());
         public RelayCommand DeleteMedAndSched => new RelayCommand(execute => DeleteMedicationsAndSchedules(execute));
 
         public CreateScheduleViewModel()
         {
             DAL = new DataAccessLayer();
+            User = new CreateScheduleModel.MediTrackUser();
             JoinedMedicationInfoAndSchedule = new ObservableCollection<CreateScheduleModel>();
             MedicationInfoAndSchedule = new CreateScheduleModel();
         }
@@ -37,6 +38,26 @@ namespace MedicationTracker.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private CreateScheduleModel.MediTrackUser user;
+
+        public CreateScheduleModel.MediTrackUser User
+        {
+            get { return user; }
+            set 
+            { 
+                user = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void ReadMediTrackUserInformation()
+        {
+            DAL.ReadMediTrackUserByID(1, User);
+
+            Trace.WriteLine("Viewmodel: " + User.FullName);
+        }
+
 
         public void ReadMedicationsAndSchedules()
         {
