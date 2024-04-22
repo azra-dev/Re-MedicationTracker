@@ -347,11 +347,13 @@
     <Compile Include="MVVM\Model\CreateScheduleModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel.cs" />
     <Compile Include="MVVM\Model\ForgetPasswordModel.cs" />
+    <Compile Include="MVVM\Model\LogsModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\ScheduleModalModel.cs" />
     <Compile Include="MVVM\ViewModel\CreateScheduleViewModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ForgetPasswordViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\LogsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ScheduleModalViewModel.cs" />
     <Compile Include="MVVM\View\CreateSchedule.xaml.cs">

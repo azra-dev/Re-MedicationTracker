@@ -1,5 +1,6 @@
 ﻿using MedicationTracker.MVVM.Model;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -21,7 +22,8 @@ namespace MedicationTracker.Core
         //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
         //public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
         //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
+        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
+
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -43,6 +45,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -67,6 +73,36 @@ namespace MedicationTracker.Core
                 MessageBox.Show("Medication ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public long SearchPrescID(long med_id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchPrescID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@mid", med_id);
+
+            try
+            {
+                long medpresc_id = (long)cmd.ExecuteScalar();
+                return medpresc_id;
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void ValidateUserLoginCredentials(string email, string password)
@@ -90,6 +126,8 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Login Failed.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            connection.Close();
         }
 
         public void CreateMediTrackUser(string fn, string ln, string username, string em, string pw, string bd, string path) 
@@ -125,6 +163,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Invalid input in one of the fields.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void JoinsMedicationSchedulesReminders(long user_id, DashboardModel.MedicationReminder MedicationRemindersContent, ObservableCollection<DashboardModel.MedicationReminder> MedicationReminders)
@@ -159,7 +201,11 @@ namespace MedicationTracker.Core
             }
             catch (SqlException)
             {
-
+                // To be implemented accordingly
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -205,6 +251,10 @@ namespace MedicationTracker.Core
             catch (SqlException)
             {
                 MessageBox.Show("User ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -254,7 +304,11 @@ namespace MedicationTracker.Core
             }
             catch(SqlException ex)
             {
-                MessageBox.Show("User ID not found." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("User ID not found.\n ERROR:" + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -285,6 +339,10 @@ namespace MedicationTracker.Core
             {
                 MessageBox.Show("Med ID not found.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void CreateMedication(long user_id, ScheduleModalModel.MedicationInfo medInfo)
@@ -307,24 +365,17 @@ namespace MedicationTracker.Core
             cmd.Parameters.AddWithValue("@md_exp", medInfo.MedicationExpirationDate);
             cmd.Parameters.AddWithValue("@md_isprescribed", isPrescribed);
 
-            Trace.WriteLine(user_id);
-            Trace.WriteLine(medInfo.MedicationName);
-            Trace.WriteLine(medInfo.MedicationDosageValue);
-            Trace.WriteLine(medInfo.MedicationDosageForm);
-            Trace.WriteLine(medInfo.MedicationDosageUnit);
-            Trace.WriteLine(medInfo.MedicationTotalAmount);
-            Trace.WriteLine(medInfo.MedicationTotalAmountUnit);
-            Trace.WriteLine(medInfo.MedicationExpirationDate);
-            Trace.WriteLine(isPrescribed);
-
             try
             {
                 cmd.ExecuteNonQuery();
-                Trace.WriteLine("Med created");
             }
             catch(SqlException ex)
             {
                 MessageBox.Show("Medication creation failed. \nERROR MESSAGE: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
 
         }
@@ -356,11 +407,15 @@ namespace MedicationTracker.Core
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Medication and Schedule created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Medication and schedule information created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(SqlException ex)
             {
                 MessageBox.Show("Medication schedule creation failed." + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -381,9 +436,13 @@ namespace MedicationTracker.Core
             {
                 cmd.ExecuteNonQuery();
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Medication prescription creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication prescription creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
             }
 
         }
@@ -404,17 +463,44 @@ namespace MedicationTracker.Core
             try
             {
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("Medication prescription and doctor information created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
 
-                MessageBox.Show("Medication doctor creation failed.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public void CreateLogs(LogsModel logsInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateLog", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", logsInfo.User_ID);
+            cmd.Parameters.AddWithValue("@med_id", logsInfo.Med_ID);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Medication logs created..", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
     }
-
-    
-
-
 }

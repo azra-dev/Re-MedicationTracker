@@ -38,7 +38,7 @@
                             <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
                                 <TextBox Text="{Binding MedicationInformation.MedicationDosageValue, Mode=TwoWay}" Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="15" FontSize="11"></TextBox>
                             </Border>
-                            <ComboBox Text="{Binding MedicationInformation.MedicationDosageUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
+                            <ComboBox FontFamily="Comfortaa" Text="{Binding MedicationInformation.MedicationDosageUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
                                 <ComboBoxItem Content="mL"/>
                                 <ComboBoxItem Content="mg"/>
                                 <ComboBoxItem Content="cc"/>
@@ -61,7 +61,7 @@
                             <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
                                 <TextBox Text="{Binding MedicationInformation.MedicationTotalAmount, Mode=TwoWay}" Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="15" FontSize="11"></TextBox>
                             </Border>
-                            <ComboBox Text="{Binding MedicationInformation.MedicationTotalAmountUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
+                            <ComboBox FontFamily="Comfortaa" Text="{Binding MedicationInformation.MedicationTotalAmountUnit, Mode=TwoWay}" Grid.Column="2" Margin="3 0 0 0" Background="#fff">
                                 <ComboBoxItem Content="mL"/>
                                 <ComboBoxItem Content="mg"/>
                                 <ComboBoxItem Content="cc"/>
@@ -103,7 +103,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="Period: " FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1" VerticalAlignment="Center"/>
                                 <Border Grid.Column="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
-                                    <ComboBox Name="SchedulePeriodComboBox" Text="{Binding MedicationScheduleInformation.MedicationPeriod, Mode=TwoWay}" Width="100"
+                                    <ComboBox FontFamily="Comfortaa" Name="SchedulePeriodComboBox" Text="{Binding MedicationScheduleInformation.MedicationPeriod, Mode=TwoWay}" Width="100"
                                               SelectionChanged="SchedulePeriodComboBox_Selected">
                                         <ComboBoxItem Content="As Needed" Name="Asneeded"/>
                                         <ComboBoxItem Content="Daily" Name="Daily" />
@@ -175,10 +175,12 @@
                         <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 5" Foreground="#51628f">Prescription Information:</TextBlock>
                         <StackPanel Orientation="Horizontal"  Margin="0 0 0 5">
                             <Border CornerRadius="5" BorderThickness="1" BorderBrush="#6a787c" Margin="0 0 10 0">
-                                <DatePicker Style="{DynamicResource StartDate}" Width="125"/>
+                                <DatePicker Style="{DynamicResource StartDate}" Width="125"
+                                            Text="{Binding MedicationPrescriptionInformation.PrescriptionStartDate, Mode=TwoWay}"/>
                             </Border>
                             <Border CornerRadius="5" BorderThickness="1" BorderBrush="#6a787c" Margin="0 0 10 0">
-                                <DatePicker Style="{DynamicResource EndDate}" Width="125"/>
+                                <DatePicker Style="{DynamicResource EndDate}" Width="125"
+                                            Text="{Binding MedicationPrescriptionInformation.PrescriptionEndDate, Mode=TwoWay}"/>
                             </Border>
                         </StackPanel>
                         <Border HorizontalAlignment="Left" BorderBrush="#6a787c" BorderThickness="1" Background="#e5eae9" CornerRadius="5" Width="510">
@@ -189,19 +191,20 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="Medication Instructions:" FontSize="12" FontFamily="Comfortaa" Foreground="#7898a1"/>
                                 <Border Grid.Row="1" CornerRadius="5" BorderBrush="#d1d7d6" BorderThickness="1">
-                                    <TextBox Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="80" FontSize="11" TextWrapping="Wrap" TextAlignment="Justify"></TextBox>
+                                    <TextBox Foreground="#7898a1" BorderBrush="Transparent" Background="#fff" Width="auto" Height="80" FontSize="11" TextWrapping="Wrap" TextAlignment="Justify"
+                                             Text="{Binding MedicationPrescriptionInformation.PrescriptionInstructions, Mode=TwoWay}"></TextBox>
                                 </Border>
                             </Grid>
                         </Border>
 
                         <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 20 0 10" Foreground="#51628f">Doctor Information:</TextBlock>
                         <StackPanel Orientation="Horizontal"  Margin="0 0 0 5">
-                            <userControls:scheduleTextBox Placeholder="Doctor Name: "     WidthSize="250" Margin="0 0 10 0"/>
-                            <userControls:scheduleTextBox Placeholder="Specialization: "  WidthSize="250" Margin="0 0 10 0"/>
+                            <userControls:scheduleTextBox Placeholder="Doctor Name: "     WidthSize="250" Margin="0 0 10 0" TextInputted="{Binding MedicationPrescriptionDoctorInformation.PrescriptionDoctorName, Mode=TwoWay}"/>
+                            <userControls:scheduleTextBox Placeholder="Specialization: "  WidthSize="250" Margin="0 0 10 0" TextInputted="{Binding MedicationPrescriptionDoctorInformation.PrescriptionDoctorSpecialization, Mode=TwoWay}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Margin="0 0 0 5">
-                            <userControls:scheduleTextBox Placeholder="Doctor email: "    WidthSize="250" Margin="0 0 10 0"/>
-                            <userControls:scheduleTextBox Placeholder="Affiliation: "     WidthSize="250" Margin="0 0 10 0"/>
+                            <userControls:scheduleTextBox Placeholder="Doctor Email: "    WidthSize="250" Margin="0 0 10 0" TextInputted="{Binding MedicationPrescriptionDoctorInformation.PrescriptionDoctorEmail, Mode=TwoWay}"/>
+                            <userControls:scheduleTextBox Placeholder="Affiliation: "     WidthSize="250" Margin="0 0 10 0" TextInputted="{Binding MedicationPrescriptionDoctorInformation.PrescriptionDoctorAffiliation, Mode=TwoWay}"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -209,7 +212,7 @@
                         <Button Name="BackButton" Width="60" Height="20" Margin="0,10,10,0" HorizontalAlignment="Right"
 Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Back</Button>
                         <Button Width="60" Height="20" Margin="0,10,0,0" HorizontalAlignment="Right"
-Background="#2a43de" Foreground="#fff" Command="{Binding CreateMed}">Create</Button>
+Background="#2a43de" Foreground="#fff" Command="{Binding CreatePrescDoc}">Create</Button>
                     </StackPanel>
                 </Grid>
             </StackPanel>
