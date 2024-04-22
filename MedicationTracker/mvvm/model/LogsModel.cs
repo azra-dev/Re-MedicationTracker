@@ -18,6 +18,7 @@ namespace MedicationTracker.MVVM.Model
 
         public string? MedCumulativeIntake { get; set; }
 
-
+        // PFP Image in MenuBar
+        public byte[]? ProfilePicture { get; set; }
     }
 }

@@ -5,20 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicationTracker.Controls"
              mc:Ignorable="d" 
-             Height="29" d:DesignWidth="300">
+             Height="29" d:DesignWidth="300"
+             x:Name="Root"
+             d:DataContext="{d:DesignInstance {x:Type local:menuBox}}">
     
-    <StackPanel FlowDirection="LeftToRight" Orientation="Horizontal" Height="25" Margin="0 2">
+    <StackPanel x:Name="RootUiControl" FlowDirection="LeftToRight" Orientation="Horizontal" Height="25" Margin="0 2">
         <Grid Margin="0 0 12 0" Visibility="{Binding NegateDefaultIconMode}">
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=bFrame}"/>
             </Grid.OpacityMask>
             <Border BorderBrush="Transparent" BorderThickness="1" Background="#e5eae9" Name="bFrame" CornerRadius="255" Width="25"/>
             <Border BorderBrush="#6a787c" BorderThickness="1" CornerRadius="255" Width="25">
-                <Image Source="{Binding MenuIcon}" Width="25" VerticalAlignment="Center"/>
+                <Image Source="{Binding ImageSource}" Width="25" VerticalAlignment="Center"/>
             </Border>
             <!-- /Images/default_pfp.jpg -->
         </Grid>
-        <Image Source="{Binding MenuIcon}" Width="32" VerticalAlignment="Center" Margin="0 0 12 0" Visibility="{Binding DefaultIconMode}"/>
+        <Image Source="{Binding ImageSource}" Width="32" VerticalAlignment="Center" Margin="0 0 12 0" Visibility="{Binding DefaultIconMode}"/>
         <Border BorderBrush="{x:Null}" Margin="0 5 0 0">
             <TextBlock FontFamily="Comfortaa" FontSize="18"
                        VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding MenuText, TargetNullValue={StaticResource Button.Disabled.Background}}"></TextBlock>

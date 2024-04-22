@@ -25,5 +25,8 @@ namespace MedicationTracker.MVVM.Model
         public string? MedicationPeriod { get; set; }
         public string? MedicationPeriodWeekday { get; set; }
 
+        // PFP Image in MenuBar
+        public byte[]? ProfilePicture { get; set; }
+
     }
 }
