@@ -9,7 +9,7 @@
              x:Name="Root"
              d:DataContext="{d:DesignInstance {x:Type local:menuBox}}">
     
-    <StackPanel x:Name="RootUiControl" FlowDirection="LeftToRight" Orientation="Horizontal" Height="25" Margin="0 2">
+    <StackPanel x:Name="RootUserControl" FlowDirection="LeftToRight" Orientation="Horizontal" Height="25" Margin="0 2">
         <Grid Margin="0 0 12 0" Visibility="{Binding NegateDefaultIconMode}">
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=bFrame}"/>

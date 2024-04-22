@@ -67,7 +67,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                <userControls:menuBox ImageSource="{Binding User.Image, Mode=TwoWay}" MenuText="{Binding User.FullName, Mode=TwoWay}" DefaultIconMode="Collapsed"/>
+                                <userControls:menuBox ImageSource="{Binding MediTrackUserInfo.ProfilePicture, Mode=TwoWay}" MenuText="{Binding MediTrackUserInfo.FullName, Mode=TwoWay}" DefaultIconMode="Collapsed"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>

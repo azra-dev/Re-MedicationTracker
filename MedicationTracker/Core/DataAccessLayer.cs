@@ -506,7 +506,7 @@ namespace MedicationTracker.Core
             }
         }
 
-        public void ReadMediTrackUserByID(long user_id, CreateScheduleModel.MediTrackUser meditrackuser)
+        public object? ReadMediTrackUserByID(long user_id)
         {
 
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -522,38 +522,41 @@ namespace MedicationTracker.Core
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    while (reader.Read())
+                    reader.Read();
+
+                    long imageLength = reader.GetBytes(3, 0, null, 0, 0);
+                    byte[] imageData = (byte[])reader[3];
+                    long bytesRead = reader.GetBytes(3, 0, imageData, 0, imageData.Length);
+
+                    Trace.WriteLine(imageData.ToString());
+
+                    CreateScheduleModel.MediTrackUser meditrackuser = new() 
                     {
-                        long imageLength = reader.GetBytes(3, 0, null, 0, 0);
-                        byte[] imageData = (byte[])reader[3];
-                        long bytesRead = reader.GetBytes(3, 0, imageData, 0, imageData.Length);
+                        FullName = reader.GetString(0) + " " + reader.GetString(1),
+                        Username = reader.GetString(2),
+                        Image = imageData,
+                        Email = reader.GetString(4),
+                        Password = reader.GetString(5),
+                        BirthDate = reader.GetDateTime(6)
+                    };
 
-                        Trace.WriteLine(imageData.ToString());
+                    OnPropertyChanged("CreateScheduleModel.MediTrackUser");
 
-                        meditrackuser = new CreateScheduleModel.MediTrackUser
-                        {
-                            FullName = reader.GetString(0) + " " + reader.GetString(1),
-                            Username = reader.GetString(2),
-                            Image = imageData,
-                            Email = reader.GetString(4),
-                            Password = reader.GetString(5),
-                            BirthDate = reader.GetDateTime(6)
-                        };
+                    Trace.WriteLine("DAL: " + meditrackuser.FullName);
 
-                        OnPropertyChanged();
+                    return meditrackuser;
 
-                        Trace.WriteLine("DAL: " + meditrackuser.FullName);
-
-                    }
                 }
                 else
                 {
                     MessageBox.Show("User does not exist.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return null;
                 }
             }
             catch (SqlException)
             {
                 MessageBox.Show("User information cannot be read.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
             }
             finally
             {

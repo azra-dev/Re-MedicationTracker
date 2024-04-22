@@ -24,7 +24,7 @@ namespace MedicationTracker.Controls
         public menuBox()
         {
             InitializeComponent();
-            RootUiControl.DataContext = this;
+            RootUserControl.DataContext = this;
         }
 
         // Dependency property bindings
@@ -39,7 +39,11 @@ namespace MedicationTracker.Controls
         }
 
         public static readonly DependencyProperty MenuTextProperty =
-        DependencyProperty.Register("MenuText", typeof(string), typeof(menuBox), new FrameworkPropertyMetadata(null));
+        DependencyProperty.Register(
+            "MenuText",
+            typeof(string),
+            typeof(menuBox),
+            new FrameworkPropertyMetadata(null));
 
         public string MenuText
         {

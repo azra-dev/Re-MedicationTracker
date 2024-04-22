@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 #nullable enable
 
@@ -30,6 +31,7 @@ namespace MedicationTracker.MVVM.Model
             public string? FullName { get; set; }
             public string? Username { get; set; }
             public byte[]? Image { get; set; }
+            public BitmapImage? ProfilePicture { get; set; }
             public string? Email { get; set; }
             public string? Password { get; set; }
             public DateTime? BirthDate { get; set; }

@@ -1,13 +1,18 @@
-﻿using MedicationTracker.Core;
+﻿using Mailjet.Client.Resources;
+using MedicationTracker.Core;
 using MedicationTracker.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.ViewModel
 {
@@ -23,7 +28,7 @@ namespace MedicationTracker.MVVM.ViewModel
         public CreateScheduleViewModel()
         {
             DAL = new DataAccessLayer();
-            User = new CreateScheduleModel.MediTrackUser();
+            MediTrackUserInfo = new CreateScheduleModel.MediTrackUser();
             JoinedMedicationInfoAndSchedule = new ObservableCollection<CreateScheduleModel>();
             MedicationInfoAndSchedule = new CreateScheduleModel();
         }
@@ -39,23 +44,40 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
-        private CreateScheduleModel.MediTrackUser user;
+        private CreateScheduleModel.MediTrackUser meditrackuserinfo;
 
-        public CreateScheduleModel.MediTrackUser User
+        public CreateScheduleModel.MediTrackUser MediTrackUserInfo
         {
-            get { return user; }
+            get { return meditrackuserinfo; }
             set 
-            { 
-                user = value;
+            {
+                meditrackuserinfo = value;
                 OnPropertyChanged();
             }
         }
 
         public void ReadMediTrackUserInformation()
         {
-            DAL.ReadMediTrackUserByID(1, User);
+            MediTrackUserInfo = (CreateScheduleModel.MediTrackUser)DAL.ReadMediTrackUserByID(1);
 
-            Trace.WriteLine("Viewmodel: " + User.FullName);
+            byte[] imageData = MediTrackUserInfo.Image;
+            Trace.WriteLine(imageData.ToString());
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+
+            MediTrackUserInfo.ProfilePicture = image;
+
+            OnPropertyChanged("MediTrackUserInfo");
         }
 
 
