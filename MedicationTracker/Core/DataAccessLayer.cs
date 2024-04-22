@@ -473,10 +473,32 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
         }
+        public void CreateLogs(LogsModel logsInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_CreateLog", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", logsInfo.User_ID);
+            cmd.Parameters.AddWithValue("@med_id", logsInfo.Med_ID);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Medication logs created..", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
     }
-
-    
-
-
 }
