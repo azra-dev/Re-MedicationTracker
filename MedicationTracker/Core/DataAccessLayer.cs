@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using static MedicationTracker.MVVM.Model.CreateScheduleModel;
 using static MedicationTracker.MVVM.Model.DashboardModel;
 
@@ -22,13 +23,20 @@ namespace MedicationTracker.Core
     internal class DataAccessLayer : ObservableObject
     {
         // Logged-In MediTrack User Information
-        
-        
-        // SQL Server Connection String
+        public class MediTrackUser
+        {
+            public string? FullName { get; set; }
+            public string? Username { get; set; }
+            public byte[]? Image { get; set; }
+            public BitmapImage? ProfilePicture { get; set; }
+            public string? Email { get; set; }
+            public string? Password { get; set; }
+            public DateTime? BirthDate { get; set; }
+        }
 
-        //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
-        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
+        // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!)
+
+        public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -529,9 +537,7 @@ namespace MedicationTracker.Core
                     byte[] imageData = (byte[])reader[3];
                     long bytesRead = reader.GetBytes(3, 0, imageData, 0, imageData.Length);
 
-                    Trace.WriteLine(imageData.ToString());
-
-                    CreateScheduleModel.MediTrackUser meditrackuser = new() 
+                    MediTrackUser meditrackuser = new() 
                     {
                         FullName = reader.GetString(0) + " " + reader.GetString(1),
                         Username = reader.GetString(2),
@@ -545,15 +551,12 @@ namespace MedicationTracker.Core
 
                     return meditrackuser;
                 }
-                else
-                {
-                    MessageBox.Show("User does not exist.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return null;
-                }
+
+                return null;
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("User information cannot be read.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("User information cannot be read.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
             finally

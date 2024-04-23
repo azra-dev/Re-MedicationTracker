@@ -28,7 +28,7 @@ namespace MedicationTracker.MVVM.ViewModel
         public CreateScheduleViewModel()
         {
             DAL = new DataAccessLayer();
-            MediTrackUserInfo = new CreateScheduleModel.MediTrackUser();
+            MediTrackUserInfo = new DataAccessLayer.MediTrackUser();
             JoinedMedicationInfoAndSchedule = new ObservableCollection<CreateScheduleModel>();
             MedicationInfoAndSchedule = new CreateScheduleModel();
         }
@@ -44,9 +44,9 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
-        private CreateScheduleModel.MediTrackUser meditrackuserinfo;
+        private DataAccessLayer.MediTrackUser meditrackuserinfo;
 
-        public CreateScheduleModel.MediTrackUser MediTrackUserInfo
+        public DataAccessLayer.MediTrackUser MediTrackUserInfo
         {
             get { return meditrackuserinfo; }
             set 
@@ -58,7 +58,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void ReadMediTrackUserInformation()
         {
-            MediTrackUserInfo = (CreateScheduleModel.MediTrackUser)DAL.ReadMediTrackUserByID(1);
+            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(1);    // user_id here is temporary
 
             byte[] imageData = MediTrackUserInfo.Image;
             var image = new BitmapImage();

@@ -69,7 +69,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                <userControls:menuBox ImageSource="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
+                                <userControls:menuBox ImageSource="{Binding MediTrackUserInfo.Image}" MenuText="{Binding MediTrackUserInfo.FullName}" DefaultIconMode="Collapsed"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
