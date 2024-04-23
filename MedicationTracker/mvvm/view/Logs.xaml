@@ -82,11 +82,12 @@
                     <!--Logs-->
                     <StackPanel Orientation="Vertical" Visibility="Visible">
                         <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10"/>
-                        <DataGrid AutoGenerateColumns="False">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding JoinedMedicationLogInformation}"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}" Width="*"/>
-                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}" Width="*"/>
+                                <DataGridTextColumn Header="Medication" Binding="{Binding MedicationName}" Width="*"/>
+                                <DataGridTextColumn Header="Last Taken" Binding="{Binding MedLastTaken}" Width="*"/>
+                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding MedCumulativeIntake}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

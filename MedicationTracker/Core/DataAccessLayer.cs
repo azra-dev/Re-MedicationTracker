@@ -488,7 +488,7 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
         }
-        public void CreateLogs(LogsModel logsInfo)
+        public void CreateLogs(long user_id, long med_id)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -496,8 +496,8 @@ namespace MedicationTracker.Core
             using SqlCommand cmd = new SqlCommand("sp_CreateLog", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@user_id", logsInfo.User_ID);
-            cmd.Parameters.AddWithValue("@med_id", logsInfo.Med_ID);
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@med_id", med_id);
 
             try
             {
@@ -563,6 +563,48 @@ namespace MedicationTracker.Core
             {
                 connection.Close();
             }
+        }
+
+        public void JoinMedicationsLogsByUserID(long user_id, ObservableCollection<LogsModel> joinedMedicationLogsInfo, LogsModel logsInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_JoinMedicationsLogsByUserID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+
+            try
+            {
+                using SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        logsInfo = new LogsModel
+                        {
+                            MedicationName = reader.GetString(0),
+                            MedLastTaken = reader.GetDateTime(1).ToString(),
+                            MedCumulativeIntake = reader.GetDecimal(2)
+                        };
+
+                        OnPropertyChanged();
+
+                        joinedMedicationLogsInfo.Add(logsInfo);
+                    }
+                }
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("User_ID not found.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            
         }
 
     }

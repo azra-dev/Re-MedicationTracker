@@ -23,6 +23,7 @@ namespace MedicationTracker.MVVM.View
             LogsViewModel vm = new LogsViewModel();
             DataContext = vm;
             vm.ReadUserInfo.Execute(null);
+            vm.ReadJoinedLogInfo.Execute(null);
         }
         
         // Drag the window without taskbar

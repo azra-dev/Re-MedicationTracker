@@ -15,14 +15,17 @@ namespace MedicationTracker.MVVM.ViewModel
     {
         public DataAccessLayer DAL {  get; set; }
 
+        public ObservableCollection<LogsModel> JoinedMedicationLogInformation { get; set; }
+
         public RelayCommand ReadUserInfo => new RelayCommand(execute => ReadMediTrackUserInformation());
-        public RelayCommand CreateLogInfo => new RelayCommand(execute => CreateLogs());
+        public RelayCommand ReadJoinedLogInfo => new RelayCommand(execute => ReadJoinedLogInformation());
 
         public LogsViewModel()
         {
             DAL = new DataAccessLayer();
             MediTrackUserInfo = new DataAccessLayer.MediTrackUser();
             LogsInformation = new LogsModel();
+            JoinedMedicationLogInformation = new ObservableCollection<LogsModel>();
         }
 
         private LogsModel logsInformation;
@@ -72,9 +75,9 @@ namespace MedicationTracker.MVVM.ViewModel
             OnPropertyChanged("MediTrackUserInfo");
         }
 
-        public void CreateLogs()
+        public void ReadJoinedLogInformation()
         {
-            // To be implemented by rjldg
+            DAL.JoinMedicationsLogsByUserID(1, JoinedMedicationLogInformation, LogsInformation);
         }
 
         }

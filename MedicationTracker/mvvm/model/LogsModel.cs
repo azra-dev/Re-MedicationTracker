@@ -10,13 +10,11 @@ namespace MedicationTracker.MVVM.Model
 {
     public class LogsModel
     {
-        public long? User_ID { get; set; }
-
-        public long? Med_ID { get; set; }
+        public string? MedicationName { get; set; }
 
         public string? MedLastTaken { get; set; }
 
-        public string? MedCumulativeIntake { get; set; }
+        public decimal? MedCumulativeIntake { get; set; }
 
     }
 }
