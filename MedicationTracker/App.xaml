@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Styles/taskbar.xaml"/>
                 <ResourceDictionary Source="Styles/datePickerInput.xaml"/>
                 <ResourceDictionary Source="Styles/datePickerTextboxInput.xaml"/>
+                <ResourceDictionary Source="Styles/dropboxStyle.xaml"/>
                 <ResourceDictionary Source="Styles/listViewReminder.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

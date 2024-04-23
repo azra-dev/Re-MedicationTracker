@@ -57,13 +57,21 @@
                         </LinearGradientBrush>
                     </Border.Background>
                     <StackPanel>
+                        <Grid Height="525">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_home.png" MenuText="Home"/>
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_logs.png" MenuText="Logs"/>
+                            </StackPanel>
 
-                        <StackPanel Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
-                            <userControls:menuBox MenuIcon="/Images/DEFAULT_home.png" MenuText="Home"/>
-                            <userControls:menuBox MenuIcon="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
-                            <userControls:menuBox MenuIcon="/Images/DEFAULT_logs.png" MenuText="Logs"/>
-                        </StackPanel>
-
+                            <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <userControls:menuBox ImageSource="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
                 </Border>
             </Border>
@@ -99,7 +107,7 @@
                                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                                       BorderBrush="Transparent"
                                       Background="Transparent"
-                                      ScrollViewer.CanContentScroll="True"
+                                      ScrollViewer.CanContentScroll="False"
                                       Width="676"
                                       HorizontalAlignment="Left"
                                       SelectionMode="Single">
@@ -158,8 +166,9 @@
                                                   Background="Transparent"
                                                   ScrollViewer.CanContentScroll="True"
                                                   Grid.Row="1"
-                                                  HorizontalAlignment="Stretch"
-                                                  SelectionMode="Single">
+                                                  HorizontalAlignment="Left"
+                                                  SelectionMode="Single"
+                                                  Width="676">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" Height="auto" />

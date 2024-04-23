@@ -30,7 +30,7 @@
                 <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
                 Foreground="#2a43de" FontFamily="Comfortaa">Update</Button>
                 <Button Grid.Column="1" Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                Foreground="#2a43de" FontFamily="Comfortaa">Delete</Button>
+                Foreground="#2a43de" FontFamily="Comfortaa" Command="{Binding DeleteCommand}" CommandParameter="{Binding CommandParameter}">Delete</Button>
             </Grid>
         </StackPanel>
     </Border>

@@ -1,8 +1,5 @@
-﻿using MedicationTracker.MVVM.Model;
-using MedicationTracker.MVVM.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,17 +14,17 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    public partial class CreateSchedule : Window
+    /// <summary>
+    /// Interaction logic for Logs.xaml
+    /// </summary>
+    public partial class Logs : Window
     {
-        public CreateSchedule()
+        public Logs()
         {
             InitializeComponent();
-            CreateScheduleViewModel vm = new CreateScheduleViewModel();
-            DataContext = vm;
-            vm.ReadMedAndSched.Execute(null);
-            vm.ReadUserInfo.Execute(null);
         }
-
+        
+        // Drag the window without taskbar
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
