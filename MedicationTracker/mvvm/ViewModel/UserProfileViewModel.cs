@@ -16,8 +16,8 @@ namespace MedicationTracker.MVVM.ViewModel
     {
         public DataAccessLayer DAL { get; set; }
 
-        // Add relaycommand for the confirm edits button
-        public RelayCommand SetUserPFP => new RelayCommand(execute => SetMediTrackUserProfilePicture());
+        // public RelayCommand UpdateInfo => new RelayCommand(execute => SetMediTrackUserProfilePicture());
+        public RelayCommand SetUserPFP => new RelayCommand(execute => UpdateUserInformation());
         public UserProfileViewModel() 
         { 
             DAL = new DataAccessLayer();
