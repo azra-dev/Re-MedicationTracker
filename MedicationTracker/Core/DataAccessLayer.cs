@@ -137,6 +137,33 @@ namespace MedicationTracker.Core
             }
             catch(SqlException ex)
             {
+                MessageBox.Show("Reminder ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public long SearchMedIDByUserIDAndRemTitle(long user_id, string remtitle)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedIDByUserIDAndRemTitle", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@mrt", remtitle);
+
+            try
+            {
+                long med_id = (long)cmd.ExecuteScalar();
+                return med_id;
+            }
+            catch (SqlException ex)
+            {
                 MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
@@ -516,8 +543,11 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
         }
-        public void CreateLogs(long user_id, long med_id)
+        public void CreateLogs(long user_id, string rem_title)
         {
+
+            long med_id = SearchMedIDByUserIDAndRemTitle(user_id, rem_title);
+            
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
@@ -530,11 +560,11 @@ namespace MedicationTracker.Core
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Medication logs created..", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Log created. Kindly view logs.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Failed to create log.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
             finally

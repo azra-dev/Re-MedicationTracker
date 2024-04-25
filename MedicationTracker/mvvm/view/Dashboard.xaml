@@ -204,7 +204,8 @@
                                                             Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0"
                                                             Command="{Binding ElementName=RootUiControl, Path=DataContext.GetInitialRemTitle}" CommandParameter="{Binding MedicationReminderTitle}">Edit</Button>
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="20 5 0 0">Taken</Button>
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="20 5 0 0"
+                                                            Command="{Binding ElementName=RootUiControl, Path=DataContext.MakeLog}" CommandParameter="{Binding MedicationReminderTitle}">Taken</Button>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MedicationTracker.MVVM.Model
 {
-    internal class CustomReminderModel
+    public class CustomReminderModel
     {
         public string? CustomReminderTitle;
 

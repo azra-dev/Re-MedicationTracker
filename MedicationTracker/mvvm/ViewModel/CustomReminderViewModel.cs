@@ -13,7 +13,7 @@ namespace MedicationTracker.MVVM.ViewModel
     {
 
         public RelayCommand UpdateRemInfo => new RelayCommand(execute => UpdateReminderInformation());
-        CustomReminderViewModel() 
+        public CustomReminderViewModel() 
         {
             CustomerReminderInfo = new CustomReminderModel();
         }
