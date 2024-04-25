@@ -24,6 +24,7 @@ namespace MedicationTracker.MVVM.View
             DataContext = vm;
             vm.ReadSchedules.Execute(null);
             vm.ReadReminders.Execute(null);
+            vm.ReadUserInfo.Execute(null);
         }
 
         // Drag the window without taskbar

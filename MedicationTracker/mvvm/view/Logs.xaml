@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -13,6 +14,11 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
+
+    <Window.DataContext>
+        <VM:LogsViewModel/>
+    </Window.DataContext>
+    
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -58,7 +64,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                <userControls:menuBox ImageSource="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
+                                <userControls:menuBox ImageSource="{Binding MediTrackUserInfo.Image}" MenuText="{Binding MediTrackUserInfo.FullName}" DefaultIconMode="Collapsed"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -76,11 +82,12 @@
                     <!--Logs-->
                     <StackPanel Orientation="Vertical" Visibility="Visible">
                         <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10"/>
-                        <DataGrid AutoGenerateColumns="False">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding JoinedMedicationLogInformation}"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}" Width="*"/>
-                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}" Width="*"/>
+                                <DataGridTextColumn Header="Medication" Binding="{Binding MedicationName}" Width="*"/>
+                                <DataGridTextColumn Header="Last Taken" Binding="{Binding MedLastTaken}" Width="*"/>
+                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding MedCumulativeIntake}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

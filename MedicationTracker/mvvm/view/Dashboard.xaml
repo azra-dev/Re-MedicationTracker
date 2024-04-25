@@ -69,7 +69,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                <userControls:menuBox ImageSource="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
+                                <userControls:menuBox ImageSource="{Binding MediTrackUserInfo.Image}" MenuText="{Binding MediTrackUserInfo.FullName}" DefaultIconMode="Collapsed"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -198,8 +198,12 @@
                                                                Margin="0 0 0 5" FontWeight="Black"/>
                                                 <TextBlock Foreground="#51628f" FontFamily="Comfortaa" FontSize="12" TextWrapping="Wrap" Text="{Binding MedicationReminderMessage}"
                                                                Margin="0 0 0 5" TextAlignment="Justify"/>
-                                                <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 0 0">Taken</Button>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0">Edit</Button>
+                                                    <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="20 5 0 0">Taken</Button>
+                                                </StackPanel>
                                             </StackPanel>
                                         </Border>
                                     </DataTemplate>

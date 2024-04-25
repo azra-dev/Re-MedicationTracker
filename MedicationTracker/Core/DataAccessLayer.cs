@@ -1,4 +1,5 @@
-﻿using MedicationTracker.MVVM.Model;
+﻿using Mailjet.Client.Resources;
+using MedicationTracker.MVVM.Model;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -11,21 +12,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
+using static MedicationTracker.MVVM.Model.CreateScheduleModel;
 using static MedicationTracker.MVVM.Model.DashboardModel;
+
+#nullable enable
 
 namespace MedicationTracker.Core
 {
     internal class DataAccessLayer : ObservableObject
     {
-        // Logged-In User Information
-        public byte[] ProfilePicture { get; set; }
-        public string FullName { get; set; }
-        
-        // SQL Server Connection String
+        // Logged-In MediTrack User Information
+        public class MediTrackUser
+        {
+            public string? FullName { get; set; }
+            public string? Username { get; set; }
+            public byte[]? Image { get; set; }
+            public BitmapImage? ProfilePicture { get; set; }
+            public string? Email { get; set; }
+            public string? Password { get; set; }
+            public DateTime? BirthDate { get; set; }
+        }
 
-        //public string connectionString = @"Server=192.168.1.4,1433;Database=MediTrack;User ID=tester;Password=meditrack;Integrated Security=False;Trusted_Connection=False;";
-        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
+        // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!)
+
+        public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -477,7 +488,7 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
         }
-        public void CreateLogs(LogsModel logsInfo)
+        public void CreateLogs(long user_id, long med_id)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -485,8 +496,8 @@ namespace MedicationTracker.Core
             using SqlCommand cmd = new SqlCommand("sp_CreateLog", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@user_id", logsInfo.User_ID);
-            cmd.Parameters.AddWithValue("@med_id", logsInfo.Med_ID);
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@med_id", med_id);
 
             try
             {
@@ -502,6 +513,98 @@ namespace MedicationTracker.Core
             {
                 connection.Close();
             }
+        }
+
+        public object? ReadMediTrackUserByID(long user_id)
+        {
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_ReadMediTrackUserByID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+
+            try
+            {
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    long imageLength = reader.GetBytes(3, 0, null, 0, 0);
+                    byte[] imageData = (byte[])reader[3];
+                    long bytesRead = reader.GetBytes(3, 0, imageData, 0, imageData.Length);
+
+                    MediTrackUser meditrackuser = new() 
+                    {
+                        FullName = reader.GetString(0) + " " + reader.GetString(1),
+                        Username = reader.GetString(2),
+                        Image = imageData,
+                        Email = reader.GetString(4),
+                        Password = reader.GetString(5),
+                        BirthDate = reader.GetDateTime(6)
+                    };
+
+                    OnPropertyChanged();
+
+                    return meditrackuser;
+                }
+
+                return null;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("User information cannot be read.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void JoinMedicationsLogsByUserID(long user_id, ObservableCollection<LogsModel> joinedMedicationLogsInfo, LogsModel logsInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_JoinMedicationsLogsByUserID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+
+            try
+            {
+                using SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        logsInfo = new LogsModel
+                        {
+                            MedicationName = reader.GetString(0),
+                            MedLastTaken = reader.GetDateTime(1).ToString(),
+                            MedCumulativeIntake = reader.GetDecimal(2)
+                        };
+
+                        OnPropertyChanged();
+
+                        joinedMedicationLogsInfo.Add(logsInfo);
+                    }
+                }
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("User_ID not found.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            
         }
 
     }
