@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for ScheduleModal.xaml
-    /// </summary>
     public partial class ScheduleModal : Window, INotifyPropertyChanged
     {
         public ScheduleModal()
@@ -53,7 +50,7 @@ namespace MedicationTracker.MVVM.View
         }
 
 
-        // events
+        // Event handlers
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

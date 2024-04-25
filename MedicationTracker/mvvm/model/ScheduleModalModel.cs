@@ -25,7 +25,7 @@ namespace MedicationTracker.MVVM.Model
 
         public class MedicationScheduleInfo
         {
-            public long? MedicationID { get; set; }
+            public long MedicationID { get; set; }
             public string? Time_1 { get; set; }
             public string? Time_2 { get; set; }
             public string? Time_3 { get; set; }
@@ -39,14 +39,14 @@ namespace MedicationTracker.MVVM.Model
 
         public class MedicationReminderInfo
         {
-            public long? MedicationScheduleID { get; set; }
+            public long MedicationScheduleID { get; set; }
             public string? MedicationReminderTitle { get; set;}
             public string? MedicationReminderMessage { get; set; }
         }
 
         public class MedicationPrescriptionInfo
         {
-            public long? MedicationID { get; set;}
+            public long MedicationID { get; set;}
             public string? PrescriptionStartDate {  get; set; }
             public string? PrescriptionEndDate {  get; set; }
             public string? PrescriptionInstructions { get; set; }
@@ -55,7 +55,7 @@ namespace MedicationTracker.MVVM.Model
 
         public class MedicationPrescriptionDoctor
         {
-            public long? MedicationPrescriptionID { get; set; }
+            public long MedicationPrescriptionID { get; set; }
             public string? PrescriptionDoctorName {  get; set; }
             public string? PrescriptionDoctorSpecialization {  get; set; }
             public string? PrescriptionDoctorEmail {  get; set; }
