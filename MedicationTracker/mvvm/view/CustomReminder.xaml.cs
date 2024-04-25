@@ -23,5 +23,10 @@ namespace MedicationTracker.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
