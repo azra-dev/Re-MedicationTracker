@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace MedicationTracker.MVVM.ViewModel
         public RelayCommand ReadUserInfo => new RelayCommand(execute => ReadMediTrackUserInformation());
         public RelayCommand ReadSchedules => new RelayCommand(execute => ReadMedicationSchedules());
         public RelayCommand ReadReminders => new RelayCommand(execute => ReadMedicationReminders());
+        public RelayCommand GetInitialRemTitle => new RelayCommand(execute => GetInitialReminderTitle(execute));
 
         public ObservableCollection<DashboardModel.JoinedMedicationSchedule> JoinedMedicationsSchedulesContent { get; set; }
         public ObservableCollection<DashboardModel.MedicationReminder> MedicationReminders {  get; set; }
@@ -110,6 +112,17 @@ namespace MedicationTracker.MVVM.ViewModel
 
         }
 
+        private void GetInitialReminderTitle(object parameter)
+        {
+            string reminderToUpdate = parameter as string;
+
+            if (reminderToUpdate != null)
+            {
+                Trace.WriteLine(reminderToUpdate);
+
+                // TO BE IMPLEMENTED BY RJLDG WHEN CONNECTED TO CUSTOMREMINDER MODAL
+            }
+        }
 
 
 

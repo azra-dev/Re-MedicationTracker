@@ -168,7 +168,8 @@
                                                   Grid.Row="1"
                                                   HorizontalAlignment="Left"
                                                   SelectionMode="Single"
-                                                  Width="676">
+                                                  Width="676"
+                                                  Name="RootUiControl">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" Width="675" HorizontalAlignment="Left" Height="auto" />
@@ -200,7 +201,8 @@
                                                                Margin="0 0 0 5" TextAlignment="Justify"/>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0">Edit</Button>
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0"
+                                                            Command="{Binding ElementName=RootUiControl, Path=DataContext.GetInitialRemTitle}" CommandParameter="{Binding MedicationReminderTitle}">Edit</Button>
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
                                                             Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="20 5 0 0">Taken</Button>
                                                 </StackPanel>
