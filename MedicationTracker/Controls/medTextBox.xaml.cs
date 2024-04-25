@@ -35,12 +35,27 @@ namespace MedicationTracker.Controls
             set { SetValue(TextInputtedProperty, value); }
         }
 
+        public static readonly DependencyProperty TextboxPlaceholderProperty =
+        DependencyProperty.Register(
+            "TextboxPlaceholder",
+            typeof(string),
+            typeof(medTextBox),
+            new FrameworkPropertyMetadata(null));
+
+        public string TextboxPlaceholder
+        {
+            get { return (string)GetValue(TextboxPlaceholderProperty); }
+            set { SetValue(TextboxPlaceholderProperty, value); }
+        }
+
 
         public medTextBox()
         {
             InitializeComponent();
             RootUserControl.DataContext = this;
         }
+
+        /*
 
         public string textboxPlaceholder;
         public string TextboxPlaceholder 
@@ -52,6 +67,8 @@ namespace MedicationTracker.Controls
                 textPlaceholder.Text = textboxPlaceholder;
             } 
         }
+
+        */
 
         // functions
         private void btnClear_Click(object sender, RoutedEventArgs e)

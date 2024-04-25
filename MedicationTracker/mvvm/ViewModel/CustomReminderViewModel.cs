@@ -11,10 +11,11 @@ namespace MedicationTracker.MVVM.ViewModel
 {
     internal class CustomReminderViewModel : ObservableObject
     {
-
+        public DataAccessLayer DAL { get; set; }
         public RelayCommand UpdateRemInfo => new RelayCommand(execute => UpdateReminderInformation());
         public CustomReminderViewModel() 
         {
+            DAL = new DataAccessLayer();
             CustomerReminderInfo = new CustomReminderModel();
         }
 

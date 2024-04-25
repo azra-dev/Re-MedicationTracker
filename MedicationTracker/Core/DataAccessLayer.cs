@@ -1,5 +1,6 @@
 ﻿using Mailjet.Client.Resources;
 using MedicationTracker.MVVM.Model;
+using RestSharp;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -32,7 +33,9 @@ namespace MedicationTracker.Core
             public BitmapImage? ProfilePicture { get; set; }
             public string? Email { get; set; }
             public string? Password { get; set; }
-            public DateTime? BirthDate { get; set; }
+            public string? BirthDate { get; set; }
+            public string? FirstName { get; set; }
+            public string? LastName { get; set; }
         }
 
         // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!)
@@ -602,8 +605,12 @@ namespace MedicationTracker.Core
                         Image = imageData,
                         Email = reader.GetString(4),
                         Password = reader.GetString(5),
-                        BirthDate = reader.GetDateTime(6)
+                        BirthDate = reader.GetDateTime(6).ToString("dd MMMM yyyy"),
+                        FirstName = reader.GetString(0), 
+                        LastName = reader.GetString(1)
                     };
+
+                    Trace.WriteLine(meditrackuser.BirthDate);
 
                     OnPropertyChanged();
 
@@ -700,6 +707,33 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
 
+
+        }
+
+        public void UpdateUserInformation(long user_id, UserProfileModel userInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand updateFirstNameCmd = new SqlCommand("sp_UpdateMediTrackUserFirstName", connection);
+            updateFirstNameCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateLastNameCmd = new SqlCommand("sp_UpdateMediTrackUserLastName", connection);
+            updateLastNameCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateUsernameCmd = new SqlCommand("sp_UpdateMediTrackUsername", connection);
+            updateUsernameCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updatePasswordCmd = new SqlCommand("sp_UpdateMediTrackUserPassword", connection);
+            updatePasswordCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateEmailCmd = new SqlCommand("sp_UpdateMediTrackUserEmail", connection);
+            updateEmailCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateBirthDateCmd = new SqlCommand("sp_UpdateMediTrackUserBirthDate", connection);
+            updateBirthDateCmd.CommandType = CommandType.StoredProcedure;
+
+            // To be implemented further by rjldg
 
         }
 
