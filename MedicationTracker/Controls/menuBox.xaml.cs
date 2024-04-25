@@ -18,18 +18,41 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.Controls
 {
-    /// <summary>
-    /// Interaction logic for menuBox.xaml
-    /// </summary>
     public partial class menuBox : UserControl, INotifyPropertyChanged
     {
+
         public menuBox()
         {
-            DataContext = this;
             InitializeComponent();
+            RootUserControl.DataContext = this;
         }
 
-        // data binding
+        // Dependency property bindings
+
+        public static readonly DependencyProperty ImageSourceProperty =
+        DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(menuBox));
+
+        public ImageSource ImageSource
+        {
+            get { return base.GetValue(ImageSourceProperty) as ImageSource; }
+            set { base.SetValue(ImageSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty MenuTextProperty =
+        DependencyProperty.Register(
+            "MenuText",
+            typeof(string),
+            typeof(menuBox),
+            new FrameworkPropertyMetadata(null));
+
+        public string MenuText
+        {
+            get { return (string)GetValue(MenuTextProperty); }
+            set { SetValue(MenuTextProperty, value); }
+        }
+
+        // Data binding
+        /*
         public string menuText;
         public string MenuText { get { return menuText; } set { menuText = value; OnPropertyChanged("MenuText"); } }
 
@@ -39,6 +62,7 @@ namespace MedicationTracker.Controls
             get { return menuIcon; }
             set { menuIcon = value; OnPropertyChanged("MenuIcon"); }
         }
+        */
 
         public string defaultIconMode = "Visible"; // either Collapsed or Visible
         public string DefaultIconMode
@@ -64,9 +88,6 @@ namespace MedicationTracker.Controls
                 OnPropertyChanged("NegateDefaultIconMode");
             }
         }
-
-
-
 
         // event
         public event PropertyChangedEventHandler PropertyChanged;

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace MedicationTracker.MVVM.ViewModel
 {
@@ -21,6 +23,7 @@ namespace MedicationTracker.MVVM.ViewModel
         //int navMode = 0; // 0 is default (Home) <- What's this?
 
         public DataAccessLayer DAL { get; set; }
+        public RelayCommand ReadUserInfo => new RelayCommand(execute => ReadMediTrackUserInformation());
         public RelayCommand ReadSchedules => new RelayCommand(execute => ReadMedicationSchedules());
         public RelayCommand ReadReminders => new RelayCommand(execute => ReadMedicationReminders());
 
@@ -30,6 +33,7 @@ namespace MedicationTracker.MVVM.ViewModel
         public DashboardViewModel()
         {
             DAL = new DataAccessLayer();
+            MediTrackUserInfo = new DataAccessLayer.MediTrackUser();
             JoinedMedicationsSchedulesContent = new ObservableCollection<DashboardModel.JoinedMedicationSchedule>();
             MedicationReminders = new ObservableCollection<DashboardModel.MedicationReminder>();
 
@@ -57,6 +61,42 @@ namespace MedicationTracker.MVVM.ViewModel
                 medicationRemindersContent = value; 
                 OnPropertyChanged();
             }
+        }
+
+        private DataAccessLayer.MediTrackUser meditrackuserinfo;
+
+        public DataAccessLayer.MediTrackUser MediTrackUserInfo
+        {
+            get { return meditrackuserinfo; }
+            set 
+            { 
+                meditrackuserinfo = value; 
+                OnPropertyChanged();
+            }
+        }
+
+
+        public void ReadMediTrackUserInformation()
+        {
+            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(1);    // user_id here is temporary
+
+            byte[] imageData = MediTrackUserInfo.Image;
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+
+            MediTrackUserInfo.ProfilePicture = image;
+
+            OnPropertyChanged("MediTrackUserInfo");
         }
 
         private void ReadMedicationReminders()

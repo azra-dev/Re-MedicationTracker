@@ -61,13 +61,13 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
-                                <userControls:menuBox MenuIcon="/Images/DEFAULT_home.png" MenuText="Home"/>
-                                <userControls:menuBox MenuIcon="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
-                                <userControls:menuBox MenuIcon="/Images/DEFAULT_logs.png" MenuText="Logs"/>
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_home.png" MenuText="Home"/>
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_logs.png" MenuText="Logs"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                <userControls:menuBox MenuIcon="/Images/default_pfp.jpg" MenuText="MediTrack User" DefaultIconMode="Collapsed"/>
+                                <userControls:menuBox ImageSource="{Binding MediTrackUserInfo.ProfilePicture}" MenuText="{Binding MediTrackUserInfo.FullName}" DefaultIconMode="Collapsed"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
