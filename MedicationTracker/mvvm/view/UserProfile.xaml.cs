@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace MedicationTracker.MVVM.View
         public UserProfile()
         {
             InitializeComponent();
+            UserProfileViewModel vm = new UserProfileViewModel();
+            DataContext = vm;
         }
 
         // Drag the window without taskbar

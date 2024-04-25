@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,6 +27,8 @@ namespace MedicationTracker.MVVM.ViewModel
         public RelayCommand ReadUserInfo => new RelayCommand(execute => ReadMediTrackUserInformation());
         public RelayCommand ReadSchedules => new RelayCommand(execute => ReadMedicationSchedules());
         public RelayCommand ReadReminders => new RelayCommand(execute => ReadMedicationReminders());
+        public RelayCommand GetInitialRemTitle => new RelayCommand(execute => GetInitialReminderTitle(execute));
+        public RelayCommand MakeLog => new RelayCommand(execute => CreateNewLog(execute));
 
         public ObservableCollection<DashboardModel.JoinedMedicationSchedule> JoinedMedicationsSchedulesContent { get; set; }
         public ObservableCollection<DashboardModel.MedicationReminder> MedicationReminders {  get; set; }
@@ -99,17 +102,38 @@ namespace MedicationTracker.MVVM.ViewModel
             OnPropertyChanged("MediTrackUserInfo");
         }
 
-        private void ReadMedicationReminders()
+        public void ReadMedicationReminders()
         {
             DAL.JoinsMedicationSchedulesReminders(1, MedicationRemindersContent, MedicationReminders); // user_id parameter here is temporary
 
         }
-        private void ReadMedicationSchedules()
+        public void ReadMedicationSchedules()
         {
             DAL.JoinMedicationsSchedules(1, MedicationSchedulesContent, JoinedMedicationsSchedulesContent); // user_id parameter here is temporary
 
         }
 
+        public void GetInitialReminderTitle(object parameter)
+        {
+            string reminderToUpdate = parameter as string;
+
+            if (reminderToUpdate != null)
+            {
+                Trace.WriteLine(reminderToUpdate);
+
+                // TO BE IMPLEMENTED BY RJLDG WHEN CONNECTED TO CUSTOMREMINDER MODAL
+            }
+        }
+
+        public void CreateNewLog(object parameter)
+        {
+            string reminderTitle = parameter as string;
+
+            if(reminderTitle != null)
+            {
+                DAL.CreateLogs(1, reminderTitle);   // user_id here is temporary
+            }
+        }
 
 
 

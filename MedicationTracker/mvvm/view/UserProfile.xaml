@@ -14,6 +14,12 @@
         AllowsTransparency="True"
         Background="Transparent"
         Height="540" Width="960">
+
+    <Window.DataContext>
+        <VM:UserProfileViewModel/>
+    </Window.DataContext>
+    
+    
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -45,7 +51,8 @@
                                 <VisualBrush Visual="{Binding ElementName=ImageBorder}"/>
                             </Grid.OpacityMask>
                             <Border Name="ImageBorder" CornerRadius="255" BorderBrush="#6a787c" BorderThickness="2" Background="White"/>
-                            <Image Source="{Binding RegisterCredentials.ProfilePicturePath, Mode=TwoWay}" Width="120" Height="120" Stretch="UniformToFill"/>
+                            <Image Source="{Binding CurrentUserInfo.ProfilePicture, Mode=TwoWay}" Width="120" Height="120" Stretch="UniformToFill"/>
+                            <Image Source="{Binding NewUserInformation.ProfilePicturePath, Mode=TwoWay}" Width="120" Height="120" Stretch="UniformToFill"/>
                         </Grid>
                         <Button Style="{DynamicResource taskButton}" Name="AddProfilePictureButton" Width="29" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                             Command="{Binding SetUserPFP}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">+</Button>
@@ -57,17 +64,17 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <userControls:medTextBox Grid.Column="0" TextboxPlaceholder="First Name" Margin="0 0 5 0" TextInputted="{Binding RegisterCredentials.FirstName, Mode=TwoWay}"/>
-                            <userControls:medTextBox Grid.Column="1" TextboxPlaceholder="Last Name" Margin="5 0 0 0" TextInputted="{Binding RegisterCredentials.LastName, Mode=TwoWay}"/>
+                            <userControls:medTextBox Grid.Column="0" TextboxPlaceholder="{Binding CurrentUserInfo.FirstName}" Margin="0 0 5 0" TextInputted="{Binding NewUserInformation.FirstName, Mode=TwoWay}"/>
+                            <userControls:medTextBox Grid.Column="1" TextboxPlaceholder="{Binding CurrentUserInfo.LastName}" Margin="5 0 0 0" TextInputted="{Binding NewUserInformation.LastName, Mode=TwoWay}"/>
                         </Grid>
                         <Grid>
                             <Rectangle Fill="#e5eae9" Margin="0 0 0 10"/>
-                            <DatePicker FontFamily="Comfortaa" FontSize="18" Padding="5 1" Margin="0 0 0 10" BorderBrush="#FFABADB3" Text="{Binding RegisterCredentials.BirthDate, Mode=TwoWay}"/>
+                            <DatePicker FontFamily="Comfortaa" FontSize="18" SelectedDate="{Binding Path=CurrentUserBirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="5 1" Margin="0 0 0 10" BorderBrush="#FFABADB3" Text="{Binding NewUserInformation.BirthDate, Mode=TwoWay}"/>
                         </Grid>
-                        <userControls:medTextBox TextboxPlaceholder="Email" Margin="0 0 0 10" TextInputted="{Binding RegisterCredentials.EmailAddress, Mode=TwoWay}"/>
-                        <userControls:medTextBox TextboxPlaceholder="Prefered Username" Margin="0 0 0 10" TextInputted="{Binding RegisterCredentials.Username, Mode=TwoWay}"/>
-                        <userControls:medPasswordBox PasswordPlaceholder="Password" Margin="0 0 100 10" PasswordInputted="{Binding RegisterCredentials.Password, Mode=TwoWay}"/>
-                        <userControls:medPasswordBox PasswordPlaceholder="Confirm Password" Margin="0 0 100 10" PasswordInputted="{Binding ConfirmPasswordInput}"/>
+                        <userControls:medTextBox TextboxPlaceholder="{Binding CurrentUserInfo.Email}" Margin="0 0 0 10" TextInputted="{Binding NewUserInformation.EmailAddress, Mode=TwoWay}"/>
+                        <userControls:medTextBox TextboxPlaceholder="{Binding CurrentUserInfo.Username}" Margin="0 0 0 10" TextInputted="{Binding NewUserInformation.Username, Mode=TwoWay}"/>
+                        <userControls:medPasswordBox PasswordPlaceholder="New Password" Margin="0 0 100 10" PasswordInputted="{Binding NewUserInformation.Password, Mode=TwoWay}"/>
+                        <userControls:medPasswordBox PasswordPlaceholder="Confirm New Password" Margin="0 0 100 10" PasswordInputted="{Binding ConfirmPasswordInput}"/>
 
                     </StackPanel>
 
