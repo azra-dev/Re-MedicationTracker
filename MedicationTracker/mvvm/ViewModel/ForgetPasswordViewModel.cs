@@ -48,10 +48,10 @@ namespace MedicationTracker.MVVM.ViewModel
             string subject = "MediTrack";
             string body = "this is a test email. you have forgoten your password due to not taking your memory-allocation medication.";
             MailMessage message = new MailMessage(from, to, subject, body);
-            SmtpClient smtp = new SmtpClient("in-v3.mailjet.com");
-            smtp.Port = 587;
+            SmtpClient smtp = new SmtpClient("in-v3.mailjet.com", 587);
             smtp.Credentials = new NetworkCredential("473c936e94650da78c723e31ce02bda9", "7c7cd63a1299381acec1483b3bae1ac2");
             smtp.EnableSsl = true;
+            smtp.Timeout = 5000;
             smtp.Send(message);
 
 

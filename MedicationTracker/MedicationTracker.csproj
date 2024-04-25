@@ -287,6 +287,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\CustomReminder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Dashboard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -358,6 +362,9 @@
     <Compile Include="MVVM\ViewModel\ScheduleModalViewModel.cs" />
     <Compile Include="MVVM\View\CreateSchedule.xaml.cs">
       <DependentUpon>CreateSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CustomReminder.xaml.cs">
+      <DependentUpon>CustomReminder.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>

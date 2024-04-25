@@ -44,7 +44,7 @@ namespace MedicationTracker.Controls
         }
 
         private string placeholder;
-        private int widthSize;
+        private dynamic widthSize = "auto";
         private int textboxHeightSize = 15;
         private string textPos = "Center";
 
@@ -53,7 +53,7 @@ namespace MedicationTracker.Controls
             get { return placeholder; }
             set { placeholder = value; OnPropertyChanged("Placeholder"); }
         }
-        public int WidthSize
+        public dynamic WidthSize
         {
             get { return widthSize; }
             set { widthSize = value; OnPropertyChanged("WidthSize"); }
