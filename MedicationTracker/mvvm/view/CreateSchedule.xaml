@@ -83,19 +83,6 @@
                 <userControls:taskbarUI/>
 
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
-                    <userControls:home Visibility="Hidden"/>
-
-                    <!--Logs-->
-                    <StackPanel Orientation="Vertical" Visibility="Hidden">
-                        <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10"/>
-                        <DataGrid AutoGenerateColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Medication" Binding="{Binding Id}" Width="*"/>
-                                <DataGridTextColumn Header="Last Taken" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="Cumulative Dosage" Binding="{Binding Age}" Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
 
                     <!-- List View Create Schedule Content -->
                     <ListView Name="ScheduleContentListView" HorizontalAlignment="Stretch" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" BorderBrush="Transparent"

@@ -11,13 +11,13 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="CustomReminder" Height="250" Width="400">
+        Title="CustomReminder" Height="250" Width="500">
 
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2" Background="#e5edf3">
         <StackPanel Margin="30">
             <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 10" Foreground="#51628f">Custom Reminder:</TextBlock>
             <userControls:scheduleTextBox Placeholder="Title: " WidthSize="100" Margin="0 0 0 5"/>
-            <userControls:scheduleTextBox Placeholder="Text: " WidthSize="330" TextboxHeightSize="80" Margin="0 0 0 15" TextPos="Top"/>
+            <userControls:scheduleTextBox Placeholder="Text: " WidthSize="435" TextboxHeightSize="80" Margin="0 0 0 15" TextPos="Top"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Row="1">
                 <Button Name="CancelButton" Width="60" Height="20" Margin="0,0,10,0" HorizontalAlignment="Right"
             Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Cancel</Button>

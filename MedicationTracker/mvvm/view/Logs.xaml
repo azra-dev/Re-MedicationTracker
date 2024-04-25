@@ -78,7 +78,6 @@
                 </Grid.RowDefinitions>
                 <userControls:taskbarUI/>
                 <Grid Grid.Row="1" Margin="20" HorizontalAlignment="Stretch">
-                    <userControls:home Visibility="Hidden"/>
                     <!--Logs-->
                     <StackPanel Orientation="Vertical" Visibility="Visible">
                         <TextBlock Text="Logs" Grid.Row="0" FontFamily="Comfortaa" FontSize="24" FontWeight="Bold" Margin="0 0 0 10"/>

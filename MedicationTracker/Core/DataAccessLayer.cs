@@ -34,9 +34,10 @@ namespace MedicationTracker.Core
             public DateTime? BirthDate { get; set; }
         }
 
-        // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!)
+        // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!) 
 
-        public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
+        //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
+        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
