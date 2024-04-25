@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.PeerToPeer;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -106,6 +107,33 @@ namespace MedicationTracker.Core
             {
                 long medpresc_id = (long)cmd.ExecuteScalar();
                 return medpresc_id;
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public long SearchMedRemByUserIDAndTitle(long user_id, string remtitle)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedRemByUserIDAndTitle", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@mrt", remtitle);
+
+            try
+            {
+                long medrem_id = (long)cmd.ExecuteScalar();
+                return medrem_id;
             }
             catch(SqlException ex)
             {
@@ -605,6 +633,44 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
             
+        }
+
+        public void UpdateReminderInformation(long user_id, string initial_remtitle, string new_remtitle, string new_remtext)
+        {
+            long medrem_id = SearchMedRemByUserIDAndTitle(user_id, initial_remtitle);
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand updateTitleCmd = new SqlCommand("sp_UpdateMedRemTitle", connection);
+            updateTitleCmd.CommandType = CommandType.StoredProcedure;
+
+            using SqlCommand updateMsgCmd = new SqlCommand("sp_UpdateMedRemMessage", connection);
+            updateMsgCmd.CommandType = CommandType.StoredProcedure;
+
+            updateTitleCmd.Parameters.AddWithValue("@mrd", medrem_id);
+            updateMsgCmd.Parameters.AddWithValue("@mrd", medrem_id);
+
+            updateTitleCmd.Parameters.AddWithValue("@mrt", new_remtitle);
+            updateMsgCmd.Parameters.AddWithValue("@mrs", new_remtext);
+
+            try
+            {
+                updateTitleCmd.ExecuteNonQuery();
+                updateMsgCmd.ExecuteNonQuery();
+
+                MessageBox.Show("Customized reminder set.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Failed to set customized reminder.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
         }
 
     }
