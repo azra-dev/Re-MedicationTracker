@@ -1,5 +1,6 @@
 ﻿using MedicationTracker.Core;
 using MedicationTracker.MVVM.Model;
+using MedicationTracker.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,13 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Navigation;
 
 namespace MedicationTracker.MVVM.ViewModel
 {
     internal class LoginViewModel : ObservableObject
     {
         public DataAccessLayer DAL { get; set; }
-        public RelayCommand ValidateCredentialsCmd => new RelayCommand(execute => ValidateLoginCredentials());
+        public RelayCommand ValidateCredentialsCmd => new RelayCommand(execute => ValidateLoginCredentials(execute));
 
         public LoginViewModel()
         {
@@ -35,10 +38,14 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
-        public void ValidateLoginCredentials()
+        public void ValidateLoginCredentials(object parameter)
         {
-            
-            DAL.ValidateUserLoginCredentials(LoginCredentials.Email, LoginCredentials.Password);
+            if (DAL.ValidateUserLoginCredentials(LoginCredentials.Email, LoginCredentials.Password)) {
+                Dashboard dashboard = new Dashboard();
+                dashboard.Show();
+                Window window = parameter as Window;
+                window.Close();
+            }
             
         }
     }

@@ -32,9 +32,9 @@ namespace MedicationTracker.MVVM.View
             Close();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender.Equals(CancelButton)) { Close(); }
-        }
+        //private void CancelButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (sender.Equals(CancelButton)) { Close(); }
+        //}
     }
 }

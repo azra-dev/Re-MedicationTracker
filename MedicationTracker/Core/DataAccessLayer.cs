@@ -41,7 +41,8 @@ namespace MedicationTracker.Core
         // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!) 
 
         //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
+        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
+        public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -177,7 +178,7 @@ namespace MedicationTracker.Core
             }
         }
 
-        public void ValidateUserLoginCredentials(string email, string password)
+        public bool ValidateUserLoginCredentials(string email, string password)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -187,19 +188,22 @@ namespace MedicationTracker.Core
 
             cmd.Parameters.AddWithValue("@em", email);
             cmd.Parameters.AddWithValue("@pw", password);
+            // Trace.WriteLine("Email: " + email, "Password: " + password);
 
             int loginCredentialsIsValid = (int)cmd.ExecuteScalar();
+            connection.Close();
 
             if (loginCredentialsIsValid == 1)
             {
                 MessageBox.Show("Login Success.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
             }
             else
             {
                 MessageBox.Show("Login Failed.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
 
-            connection.Close();
         }
 
         public void CreateMediTrackUser(string fn, string ln, string username, string em, string pw, string bd, string path) 

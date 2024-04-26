@@ -41,5 +41,10 @@ namespace MedicationTracker
             register.Show();
             this.Close();
         }
+
+        public void Exit_Window()
+        {
+            this.Close();
+        }
     }
 }
