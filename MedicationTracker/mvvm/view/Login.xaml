@@ -44,6 +44,7 @@
                     <userControls:medPasswordBox PasswordPlaceholder="Password" PasswordInputted="{Binding LoginCredentials.Password, Mode=TwoWay}"/>
                 </Grid>
                 <TextBlock HorizontalAlignment="Right">Don't have an account? <Hyperlink NavigateUri="MVVM/View/Register.xaml" Click="RegisterLink_Click">Register</Hyperlink> here!</TextBlock>
+                <TextBlock HorizontalAlignment="Right"> <Hyperlink NavigateUri="MVVM/View/ForgetPassword.xaml" Click="ForgetPassword_Click">Forgot your Password?</Hyperlink> </TextBlock>
                 <Button Width="75" Height="25" Margin="0,30,0,0" HorizontalAlignment="Right"
                         Background="#2a43de" Foreground="#fff" Command="{Binding ValidateCredentialsCmd}" CommandParameter="{Binding ElementName=LoginWindow}">Log in</Button>
             </StackPanel>

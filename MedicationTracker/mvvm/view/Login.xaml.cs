@@ -42,6 +42,13 @@ namespace MedicationTracker
             this.Close();
         }
 
+        private void ForgetPassword_Click(object sender, RoutedEventArgs e)
+        {
+            ForgetPassword forgetPassword = new ForgetPassword();
+            forgetPassword.Show();
+            this.Close();
+        }
+
         public void Exit_Window()
         {
             this.Close();
