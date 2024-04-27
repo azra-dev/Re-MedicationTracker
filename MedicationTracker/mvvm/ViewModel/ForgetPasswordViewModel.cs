@@ -17,13 +17,18 @@ using Mailjet.Client;
 using Mailjet.Client.Resources;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
+using MedicationTracker.MVVM.View;
+using System.Windows.Controls;
+using System.Globalization;
+using System.Windows.Data;
 
 
 namespace MedicationTracker.MVVM.ViewModel
 {
     internal class ForgetPasswordViewModel : ObservableObject
     {
-        public RelayCommand SendEmailCommand => new RelayCommand(execute => SendMail());
+        // Bindings
+        public RelayCommand SendEmailCommand => new RelayCommand(execute => SendMail(execute));
 
         public ForgetPasswordViewModel()
         {
@@ -37,22 +42,29 @@ namespace MedicationTracker.MVVM.ViewModel
             set { emailCredential = value; OnPropertyChanged("EmailAddressInput");  }
         }
 
-        public void SendMail()
+        public void SendMail(object parameter)
         {
-            RunAsync();
+
+            var pages = (object[])parameter;
+            StackPanel firstPage = pages[0] as StackPanel;
+            StackPanel secondPage = pages[1] as StackPanel;
+            RunAsync(firstPage, secondPage);
         }
-        public void RunAsync()
+        public void RunAsync(StackPanel firstPage, StackPanel secondPage)
         {
-            string to = "acanonas@mymail.mapua.edu.ph";
-            string from = "acanonas@mymail.mapua.edu.ph";
-            string subject = "MediTrack";
-            string body = "this is a test email. you have forgoten your password due to not taking your memory-allocation medication.";
-            MailMessage message = new MailMessage(from, to, subject, body);
-            SmtpClient smtp = new SmtpClient("in-v3.mailjet.com", 587);
-            smtp.Credentials = new NetworkCredential("473c936e94650da78c723e31ce02bda9", "7c7cd63a1299381acec1483b3bae1ac2");
-            smtp.EnableSsl = true;
-            smtp.Timeout = 5000;
-            smtp.Send(message);
+            //under-development (always being soft-bounced
+            //string to = "acanonas@mymail.mapua.edu.ph";
+            //string from = "acanonas@mymail.mapua.edu.ph";
+            //string subject = "MediTrack";
+            //string body = "this is a test email. you have forgoten your password due to not taking your memory-allocation medication.";
+            //MailMessage message = new MailMessage(from, to, subject, body);
+            //SmtpClient smtp = new SmtpClient("in-v3.mailjet.com", 587);
+            //smtp.Credentials = new NetworkCredential("473c936e94650da78c723e31ce02bda9", "7c7cd63a1299381acec1483b3bae1ac2");
+            //smtp.EnableSsl = true;
+            //smtp.Timeout = 5000;
+            //smtp.Send(message);
+            firstPage.Visibility = System.Windows.Visibility.Collapsed;
+            secondPage.Visibility = System.Windows.Visibility.Visible;
 
 
         }

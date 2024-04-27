@@ -341,6 +341,7 @@
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\TimeSpanToTimeStringConverter.cs" />
+    <Compile Include="MultiValueConverter\Converter.cs" />
     <Compile Include="MVVM\Model\CreateScheduleModel.cs" />
     <Compile Include="MVVM\Model\CustomReminderModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel.cs" />

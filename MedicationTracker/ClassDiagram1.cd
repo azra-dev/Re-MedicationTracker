@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MedicationTracker.MVVM.Model.DashboardModel">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Position X="9" Y="6" Width="3.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -51,7 +51,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MedicationTracker.MVVM.Model.RegisterModel">
-    <Position X="4" Y="1.75" Width="1.5" />
+    <Position X="5.25" Y="14.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAQAAAAQAAAAAAAACAAAAIgAAAAg=</HashCode>
       <FileName>MVVM\Model\RegisterModel.cs</FileName>
@@ -92,6 +92,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVVM\Model\ScheduleModalModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.CustomReminderModel">
+    <Position X="9" Y="11.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>MVVM\Model\CustomReminderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.UserProfileModel">
+    <Position X="9" Y="12.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAQAAAAQAAAAAAAACAAAAIgAAAAg=</HashCode>
+      <FileName>MVVM\Model\UserProfileModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
