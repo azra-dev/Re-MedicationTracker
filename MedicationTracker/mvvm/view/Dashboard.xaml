@@ -63,7 +63,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
-                                <userControls:menuBox ImageSource="/Images/DEFAULT_home.png" MenuText="Home"/>
+                                <userControls:menuBox ImageSource="/Images/DEFAULT_home.png" MenuText="Home" ActiveMenu="#2a43de"/>
                                 <userControls:menuBox ImageSource="/Images/DEFAULT_schedule.png" MenuText="Create Schedule"/>
                                 <userControls:menuBox ImageSource="/Images/DEFAULT_logs.png" MenuText="Logs"/>
                             </StackPanel>

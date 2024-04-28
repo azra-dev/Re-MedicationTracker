@@ -35,5 +35,11 @@ namespace MedicationTracker.MVVM.View
                 DragMove();
             }
         }
+
+        private void AddSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            ScheduleModal scheduleModal = new ScheduleModal();
+            scheduleModal.ShowDialog();
+        }
     }
 }

@@ -10,6 +10,7 @@
         WindowStyle="None"
         Height="400" Width="600"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="Transparent">
 
@@ -17,10 +18,10 @@
         <VM:ScheduleModalViewModel/>
     </Window.DataContext>
     
-    <Border CornerRadius="5" Background="#f4fafa">
+    <Border CornerRadius="5" Background="#f4fafa" BorderBrush="LightGray" BorderThickness="1">
         <Grid>
             <!--Without prescription-->
-            <StackPanel Margin="30" Visibility="Collapsed" Name="MedicationSchedulePage">
+            <StackPanel Margin="30" Visibility="Visible" Name="MedicationSchedulePage">
                 <TextBlock FontFamily="Comfortaa" FontSize="20" FontWeight="Bold" Margin="0 0 0 10">Create Schedule</TextBlock>
 
                 <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 10" Foreground="#51628f">Medication Information:</TextBlock>
@@ -163,7 +164,7 @@
 
             </StackPanel>
             <!--With prescription-->
-            <StackPanel Margin="30" Visibility="Visible" Name="PrescriptionPage">
+            <StackPanel Margin="30" Visibility="Collapsed" Name="PrescriptionPage">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
