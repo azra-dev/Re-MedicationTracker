@@ -48,10 +48,5 @@ namespace MedicationTracker
             forgetPassword.Show();
             this.Close();
         }
-
-        public void Exit_Window()
-        {
-            this.Close();
-        }
     }
 }
