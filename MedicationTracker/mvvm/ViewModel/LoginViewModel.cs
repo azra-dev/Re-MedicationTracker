@@ -1,4 +1,5 @@
-﻿using MedicationTracker.Core;
+﻿using Mailjet.Client.Resources;
+using MedicationTracker.Core;
 using MedicationTracker.MVVM.Model;
 using MedicationTracker.MVVM.View;
 using System;
@@ -41,6 +42,11 @@ namespace MedicationTracker.MVVM.ViewModel
         public void ValidateLoginCredentials(object parameter)
         {
             if (DAL.ValidateUserLoginCredentials(LoginCredentials.Email, LoginCredentials.Password)) {
+                long loggedInUserID = (long)DAL.SearchUserIDByEmail(LoginCredentials.Email);
+                ServiceLocator.CurrentUser = new LoggedInUser(loggedInUserID);     // To ensure post-login pages are based on the user that logged in.
+
+                Trace.WriteLine(ServiceLocator.CurrentUser.UserID);
+
                 Dashboard dashboard = new Dashboard();
                 dashboard.Show();
                 Window window = parameter as Window;

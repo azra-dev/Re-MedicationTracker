@@ -14,8 +14,10 @@ namespace MedicationTracker.MVVM.ViewModel
     internal class ScheduleModalViewModel : ObservableObject
     {
         public DataAccessLayer DAL { get; set; }
+        public CreateScheduleViewModel RefreshMedSchedInfo { get; set; }
         public RelayCommand CreateMed => new RelayCommand(execute => CreateMedicine());
         public RelayCommand CreatePrescDoc => new RelayCommand(execute => CreatePrescriptionAndDoctor());
+        
         public ScheduleModalViewModel()
         {
             DAL = new DataAccessLayer();
@@ -24,6 +26,8 @@ namespace MedicationTracker.MVVM.ViewModel
             MedicationReminderInformation = new ScheduleModalModel.MedicationReminderInfo();
             MedicationPrescriptionInformation = new ScheduleModalModel.MedicationPrescriptionInfo();
             MedicationPrescriptionDoctorInformation = new ScheduleModalModel.MedicationPrescriptionDoctor();
+
+            RefreshMedSchedInfo = new CreateScheduleViewModel();
         }
 
         private ScheduleModalModel.MedicationInfo medicationInformation;
@@ -91,30 +95,37 @@ namespace MedicationTracker.MVVM.ViewModel
         {
             try
             {
-                Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_1, "HH:mm", CultureInfo.InvariantCulture));
-                if (MedicationScheduleInformation.Time_2 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_2, "HH:mm", CultureInfo.InvariantCulture));
-                if (MedicationScheduleInformation.Time_3 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_3, "HH:mm", CultureInfo.InvariantCulture));
-                if (MedicationScheduleInformation.Time_4 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_4, "HH:mm", CultureInfo.InvariantCulture));
+                if(medicationScheduleInformation.MedicationPeriod is not "As Needed")
+                {
+                    Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_1, "HH:mm", CultureInfo.InvariantCulture));
+                    if (MedicationScheduleInformation.Time_2 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_2, "HH:mm", CultureInfo.InvariantCulture));
+                    if (MedicationScheduleInformation.Time_3 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_3, "HH:mm", CultureInfo.InvariantCulture));
+                    if (MedicationScheduleInformation.Time_4 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_4, "HH:mm", CultureInfo.InvariantCulture));
+                }
 
-                MessageBox.Show("Successsssssssss", "You are a Successsss.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
+                //MessageBox.Show("Time Input Success", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
+                DAL.CreateMedication(ServiceLocator.CurrentUser.UserID, MedicationInformation); 
 
-                MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
+                MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(ServiceLocator.CurrentUser.UserID, MedicationInformation.MedicationName);    // userID here is temporary
 
                 DAL.CreateSchedule(MedicationScheduleInformation);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Invalid Time Input. \n Exception: " + ex, "You are a Faillure.", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Invalid Time Input. \n\n Exception: " + ex, "ERROR", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
+
+            RefreshMedSchedInfo.RefreshMedicationsAndSchedulesInfo();
+
+            OnPropertyChanged();
+
         }
 
         public void CreatePrescriptionAndDoctor()
         {
-            DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
+            DAL.CreateMedication(ServiceLocator.CurrentUser.UserID, MedicationInformation);
 
-            MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
+            MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(ServiceLocator.CurrentUser.UserID, MedicationInformation.MedicationName);    // userID here is temporary
             MedicationPrescriptionInformation.MedicationID = MedicationScheduleInformation.MedicationID;
 
             DAL.CreateSchedule(MedicationScheduleInformation);
@@ -123,6 +134,10 @@ namespace MedicationTracker.MVVM.ViewModel
             MedicationPrescriptionDoctorInformation.MedicationPrescriptionID = DAL.SearchPrescID(MedicationPrescriptionInformation.MedicationID);
 
             DAL.CreateDoctor(MedicationPrescriptionDoctorInformation);
+
+            RefreshMedSchedInfo.RefreshMedicationsAndSchedulesInfo();
+
+            OnPropertyChanged();
         }
 
 

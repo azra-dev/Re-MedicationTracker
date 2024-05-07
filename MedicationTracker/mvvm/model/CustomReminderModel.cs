@@ -10,8 +10,8 @@ namespace MedicationTracker.MVVM.Model
 {
     public class CustomReminderModel
     {
-        public string? CustomReminderTitle;
+        public string? CustomReminderTitle { get; set; }
 
-        public string? CustomReminderMessage;
+        public string? CustomReminderMessage {  get; set; }
     }
 }

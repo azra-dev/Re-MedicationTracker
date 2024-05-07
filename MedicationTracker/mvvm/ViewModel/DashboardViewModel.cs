@@ -1,5 +1,6 @@
 ﻿using MedicationTracker.Core;
 using MedicationTracker.MVVM.Model;
+using MedicationTracker.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,7 +82,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void ReadMediTrackUserInformation()
         {
-            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(1);    // user_id here is temporary
+            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(ServiceLocator.CurrentUser.UserID);    // user_id here is temporary
 
             byte[] imageData = MediTrackUserInfo.Image;
             var image = new BitmapImage();
@@ -100,16 +101,17 @@ namespace MedicationTracker.MVVM.ViewModel
             MediTrackUserInfo.ProfilePicture = image;
 
             OnPropertyChanged("MediTrackUserInfo");
+
         }
 
         public void ReadMedicationReminders()
         {
-            DAL.JoinsMedicationSchedulesReminders(1, MedicationRemindersContent, MedicationReminders); // user_id parameter here is temporary
+            DAL.JoinsMedicationSchedulesReminders(ServiceLocator.CurrentUser.UserID, MedicationRemindersContent, MedicationReminders); // user_id parameter here is temporary
 
         }
         public void ReadMedicationSchedules()
         {
-            DAL.JoinMedicationsSchedules(1, MedicationSchedulesContent, JoinedMedicationsSchedulesContent); // user_id parameter here is temporary
+            DAL.JoinMedicationsSchedules(ServiceLocator.CurrentUser.UserID, MedicationSchedulesContent, JoinedMedicationsSchedulesContent); // user_id parameter here is temporary
 
         }
 
@@ -119,9 +121,12 @@ namespace MedicationTracker.MVVM.ViewModel
 
             if (reminderToUpdate != null)
             {
-                Trace.WriteLine(reminderToUpdate);
 
-                // TO BE IMPLEMENTED BY RJLDG WHEN CONNECTED TO CUSTOMREMINDER MODAL
+                ServiceLocator.CustomRem = new CustomReminderID(DAL.SearchMedRemByUserIDAndTitle(ServiceLocator.CurrentUser.UserID, reminderToUpdate));
+
+                MedicationReminders.Clear();
+
+                ReadReminders.Execute(null);
             }
         }
 
@@ -131,7 +136,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
             if(reminderTitle != null)
             {
-                DAL.CreateLogs(1, reminderTitle);   // user_id here is temporary
+                DAL.CreateLogs(ServiceLocator.CurrentUser.UserID, reminderTitle);   // user_id here is temporary
             }
         }
 

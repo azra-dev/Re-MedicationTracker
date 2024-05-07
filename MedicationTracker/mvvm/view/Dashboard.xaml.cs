@@ -39,7 +39,7 @@ namespace MedicationTracker.MVVM.View
         private void CustomReminder_Click(object sender, RoutedEventArgs e)
         {
             CustomReminder customReminder = new CustomReminder();
-            customReminder.ShowDialog();
+            customReminder.Show();
         }
 
         // Sidebar Default Events

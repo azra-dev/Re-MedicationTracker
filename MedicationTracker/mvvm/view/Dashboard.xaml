@@ -152,8 +152,7 @@
                                                 <TextBlock FontFamily="Comfortaa" FontSize="12" Foreground="#51628f">
                                                         <Run Text="Take"/>
                                                         <Run Text="{Binding MedicationPeriod, StringFormat=dddd, Mode=TwoWay}"/>
-                                                        <Run Text="at"/>
-                                                        <Run Text="{Binding Time_1, Converter={StaticResource ResourceKey=TimeSpanToTimeStringConverter}, Mode=TwoWay}"/>
+
                                                         <Run Text="{Binding MedicationPeriodWeekday, Mode=TwoWay}"/>
                                                 </TextBlock>
                                                 </StackPanel>

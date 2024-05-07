@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
+        xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -14,16 +15,20 @@
         Background="Transparent"
         Title="CustomReminder" Height="250" Width="500">
 
+    <Window.DataContext>
+        <VM:CustomReminderViewModel/>
+    </Window.DataContext>
+    
     <Border CornerRadius="25" BorderBrush="#031329" BorderThickness="2" Background="#e5edf3">
         <StackPanel Margin="30">
             <TextBlock FontFamily="Comfortaa" FontSize="12" FontWeight="Bold" Margin="0 0 0 10" Foreground="#51628f">Custom Reminder:</TextBlock>
-            <userControls:scheduleTextBox Placeholder="Title: " WidthSize="100" Margin="0 0 0 5"/>
-            <userControls:scheduleTextBox Placeholder="Text: " WidthSize="435" TextboxHeightSize="80" Margin="0 0 0 15" TextPos="Top"/>
+            <userControls:scheduleTextBox Placeholder="Title: " WidthSize="100" Margin="0 0 0 5" TextInputted="{Binding CustomReminderInfo.CustomReminderTitle, Mode=TwoWay}"/>
+            <userControls:scheduleTextBox Placeholder="Text: " WidthSize="435" TextboxHeightSize="80" Margin="0 0 0 15" TextPos="Top" TextInputted="{Binding CustomReminderInfo.CustomReminderMessage, Mode=TwoWay}"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Row="1">
                 <Button Name="CancelButton" Width="60" Height="20" Margin="0,0,10,0" HorizontalAlignment="Right"
             Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Cancel</Button>
                 <Button Width="60" Height="20" Margin="0,0,0,0" HorizontalAlignment="Right" Visibility="Visible"
-            Background="#2a43de" Foreground="#fff" Content="Create" Name="SubmitButton" Command="{Binding CreateMed}"></Button>
+            Background="#2a43de" Foreground="#fff" Content="Create" Name="SubmitButton" Command="{Binding UpdateRemInfo}"></Button>
             </StackPanel>
         </StackPanel>
     </Border>

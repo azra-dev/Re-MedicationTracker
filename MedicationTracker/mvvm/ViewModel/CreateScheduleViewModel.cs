@@ -58,7 +58,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void ReadMediTrackUserInformation()
         {
-            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(1);    // user_id here is temporary
+            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(ServiceLocator.CurrentUser.UserID);    // user_id here is temporary
 
             byte[] imageData = MediTrackUserInfo.Image;
             var image = new BitmapImage();
@@ -82,7 +82,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void ReadMedicationsAndSchedules()
         {
-            DAL.JoinMedicationsSchedulesComplete(1, JoinedMedicationInfoAndSchedule, MedicationInfoAndSchedule);    // user_id is temporary
+            DAL.JoinMedicationsSchedulesComplete(ServiceLocator.CurrentUser.UserID, JoinedMedicationInfoAndSchedule, MedicationInfoAndSchedule);    // user_id is temporary
         }
 
         public void DeleteMedicationsAndSchedules(object parameter)
@@ -99,6 +99,13 @@ namespace MedicationTracker.MVVM.ViewModel
 
                 ReadMedAndSched.Execute(null);
             }
+        }
+
+        public void RefreshMedicationsAndSchedulesInfo()
+        {
+            JoinedMedicationInfoAndSchedule.Clear();
+
+            ReadMedAndSched.Execute(null);
         }
 
     }

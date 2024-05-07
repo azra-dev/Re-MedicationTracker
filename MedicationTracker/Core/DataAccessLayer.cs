@@ -1,5 +1,6 @@
 ﻿using Mailjet.Client.Resources;
 using MedicationTracker.MVVM.Model;
+using MedicationTracker.MVVM.ViewModel;
 using RestSharp;
 using System;
 using System.CodeDom;
@@ -41,8 +42,9 @@ namespace MedicationTracker.Core
         // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!) 
 
         //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
+        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
         //public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
+        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -124,7 +126,7 @@ namespace MedicationTracker.Core
             }
         }
 
-        public long SearchMedRemByUserIDAndTitle(long user_id, string remtitle)
+        public long? SearchMedRemByUserIDAndTitle(long user_id, string remtitle)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -137,8 +139,14 @@ namespace MedicationTracker.Core
 
             try
             {
-                long medrem_id = (long)cmd.ExecuteScalar();
-                return medrem_id;
+                object result = cmd.ExecuteScalar();
+
+                if (result != null && result is long med_id && med_id > 0)
+                {
+                    return med_id;
+                }
+
+                return null;
             }
             catch(SqlException ex)
             {
@@ -376,7 +384,7 @@ namespace MedicationTracker.Core
 
                         OnPropertyChanged();
 
-                        Trace.WriteLine(MedicationInfoAndSchedule.MedicationID);
+                        //Trace.WriteLine(MedicationInfoAndSchedule.MedicationID);
 
                         JoinedMedicationInfoAndSchedule.Add(MedicationInfoAndSchedule);
                     }
@@ -488,6 +496,8 @@ namespace MedicationTracker.Core
             {
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Medication and schedule information created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                OnPropertyChanged();
             }
             catch(SqlException ex)
             {
@@ -619,7 +629,7 @@ namespace MedicationTracker.Core
                         LastName = reader.GetString(1)
                     };
 
-                    Trace.WriteLine(meditrackuser.BirthDate);
+                    //Trace.WriteLine(meditrackuser.BirthDate);
 
                     OnPropertyChanged();
 
@@ -681,9 +691,8 @@ namespace MedicationTracker.Core
             
         }
 
-        public void UpdateReminderInformation(long user_id, string initial_remtitle, string new_remtitle, string new_remtext)
+        public void UpdateReminderInformation(long user_id, long? rem_id, string new_remtitle, string new_remtext)
         {
-            long medrem_id = SearchMedRemByUserIDAndTitle(user_id, initial_remtitle);
 
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -694,8 +703,8 @@ namespace MedicationTracker.Core
             using SqlCommand updateMsgCmd = new SqlCommand("sp_UpdateMedRemMessage", connection);
             updateMsgCmd.CommandType = CommandType.StoredProcedure;
 
-            updateTitleCmd.Parameters.AddWithValue("@mrd", medrem_id);
-            updateMsgCmd.Parameters.AddWithValue("@mrd", medrem_id);
+            updateTitleCmd.Parameters.AddWithValue("@mrd", rem_id);
+            updateMsgCmd.Parameters.AddWithValue("@mrd", rem_id);
 
             updateTitleCmd.Parameters.AddWithValue("@mrt", new_remtitle);
             updateMsgCmd.Parameters.AddWithValue("@mrs", new_remtext);
@@ -706,6 +715,7 @@ namespace MedicationTracker.Core
                 updateMsgCmd.ExecuteNonQuery();
 
                 MessageBox.Show("Customized reminder set.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
             catch(SqlException ex)
             {

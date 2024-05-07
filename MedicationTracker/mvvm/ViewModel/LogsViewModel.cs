@@ -54,7 +54,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void ReadMediTrackUserInformation()
         {
-            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(1);    // user_id here is temporary
+            MediTrackUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(ServiceLocator.CurrentUser.UserID);    // user_id here is temporary
 
             byte[] imageData = MediTrackUserInfo.Image;
             var image = new BitmapImage();
@@ -77,7 +77,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void ReadJoinedLogInformation()
         {
-            DAL.JoinMedicationsLogsByUserID(1, JoinedMedicationLogInformation, LogsInformation);
+            DAL.JoinMedicationsLogsByUserID(ServiceLocator.CurrentUser.UserID, JoinedMedicationLogInformation, LogsInformation);
         }
 
         }

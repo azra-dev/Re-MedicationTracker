@@ -336,11 +336,15 @@
     <Compile Include="Controls\taskbarUI.xaml.cs">
       <DependentUpon>taskbarUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\CustomReminderID.cs" />
     <Compile Include="Core\DataAccessLayer.cs" />
     <Compile Include="Core\MailJetService.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="Core\ReminderIDAttachedProperty.cs" />
+    <Compile Include="Core\ServiceLocator.cs" />
     <Compile Include="Core\TimeSpanToTimeStringConverter.cs" />
+    <Compile Include="Core\LoggedInUser.cs" />
     <Compile Include="MultiValueConverter\Converter.cs" />
     <Compile Include="MVVM\Model\CreateScheduleModel.cs" />
     <Compile Include="MVVM\Model\CustomReminderModel.cs" />
