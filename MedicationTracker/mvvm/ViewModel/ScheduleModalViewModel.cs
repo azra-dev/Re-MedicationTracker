@@ -3,9 +3,11 @@ using MedicationTracker.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MedicationTracker.MVVM.ViewModel
 {
@@ -87,11 +89,25 @@ namespace MedicationTracker.MVVM.ViewModel
 
         public void CreateMedicine()
         {
-            DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
+            try
+            {
+                Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_1, "HH:mm", CultureInfo.InvariantCulture));
+                if (MedicationScheduleInformation.Time_2 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_2, "HH:mm", CultureInfo.InvariantCulture));
+                if (MedicationScheduleInformation.Time_3 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_3, "HH:mm", CultureInfo.InvariantCulture));
+                if (MedicationScheduleInformation.Time_4 != null) Trace.WriteLine(DateTime.ParseExact(MedicationScheduleInformation.Time_4, "HH:mm", CultureInfo.InvariantCulture));
 
-            MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
+                MessageBox.Show("Successsssssssss", "You are a Successsss.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                DAL.CreateMedication(1, MedicationInformation);     // userID here is temporary
 
-            DAL.CreateSchedule(MedicationScheduleInformation);
+                MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(1, MedicationInformation.MedicationName);    // userID here is temporary
+
+                DAL.CreateSchedule(MedicationScheduleInformation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Invalid Time Input. \n Exception: " + ex, "You are a Faillure.", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            
         }
 
         public void CreatePrescriptionAndDoctor()
