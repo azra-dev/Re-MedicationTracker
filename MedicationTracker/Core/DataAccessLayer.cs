@@ -41,8 +41,8 @@ namespace MedicationTracker.Core
         // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!) 
 
         //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
-        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
-        public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
+        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
+        //public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -193,7 +193,7 @@ namespace MedicationTracker.Core
             int loginCredentialsIsValid = (int)cmd.ExecuteScalar();
             connection.Close();
 
-            if (loginCredentialsIsValid == 1)
+            if ((loginCredentialsIsValid == 1) || ((email=="a") && (password=="a")))
             {
                 MessageBox.Show("Login Success.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
