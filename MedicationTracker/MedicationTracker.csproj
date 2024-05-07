@@ -321,5 +321,11 @@
     <Resource Include="Images\ACTIVE_logs.png" />
     <Resource Include="Images\ACTIVE_schedule.png" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\refresh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
