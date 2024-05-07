@@ -1,5 +1,6 @@
 ﻿using Mailjet.Client.Resources;
 using MedicationTracker.MVVM.Model;
+using Microsoft.Toolkit.Uwp.Notifications;
 using MedicationTracker.MVVM.ViewModel;
 using RestSharp;
 using System;
