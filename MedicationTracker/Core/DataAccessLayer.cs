@@ -19,6 +19,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using static MedicationTracker.MVVM.Model.CreateScheduleModel;
 using static MedicationTracker.MVVM.Model.DashboardModel;
+using System.Security.Cryptography;
 
 #nullable enable
 
@@ -44,8 +45,8 @@ namespace MedicationTracker.Core
 
         //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
         //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
-        public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
-        //public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
+        //public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
+        public string connectionString = @"Server=RDG-LENOVO;Database=MediTrack;Trusted_Connection=True;";
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -74,7 +75,7 @@ namespace MedicationTracker.Core
             }
         }
 
-        public long SearchMedIDByUserIDAndMedName(long user_id, string med_name)
+        public long SearchMedIDByUserIDAndMedName(long user_id, string? med_name)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -118,7 +119,59 @@ namespace MedicationTracker.Core
             }
             catch(SqlException ex)
             {
-                MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Medication Prescription ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public long SearchDocID(long pid)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchDocID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@pid", pid);
+
+            try
+            {
+                long doc_id = (long)cmd.ExecuteScalar();
+                return doc_id;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Medication Doctor ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public long SearchMedSchedID(long med_id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedSchedID", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@medid", med_id);
+
+            try
+            {
+                long medsched_id = (long)cmd.ExecuteScalar();
+                return medsched_id;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Medication Schedule ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
             finally
@@ -290,7 +343,7 @@ namespace MedicationTracker.Core
             }
             catch (SqlException)
             {
-                // To be implemented accordingly
+                MessageBox.Show("Schedules and reminders collection could not be read.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -796,6 +849,251 @@ namespace MedicationTracker.Core
             }
 
         }
+
+        public void UpdateMedication(long uid, UpdateScheduleModalModel.MedicationInfo newMedInfo)
+        {
+            long mid = SearchMedIDByUserIDAndMedName(uid, newMedInfo.MedicationName);
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand updateMedName = new SqlCommand("sp_UpdateMedicationsMedName", connection);
+            updateMedName.CommandType = CommandType.StoredProcedure;
+
+            updateMedName.Parameters.AddWithValue("@med_id", mid);
+            updateMedName.Parameters.AddWithValue("@mdn", newMedInfo.MedicationName);
+
+            SqlCommand updateMedDosage = new SqlCommand("sp_UpdateMedicationsMedDosage", connection);
+            updateMedDosage.CommandType = CommandType.StoredProcedure;
+
+            updateMedDosage.Parameters.AddWithValue("@mdid", mid);
+            updateMedDosage.Parameters.AddWithValue("@mddg", newMedInfo.MedicationDosageValue);
+
+            SqlCommand updateMedDosageForm = new SqlCommand("sp_UpdateMedicationsMedDosageForm", connection);
+            updateMedDosageForm.CommandType = CommandType.StoredProcedure;
+
+            updateMedDosageForm.Parameters.AddWithValue("@medid", mid);
+            updateMedDosageForm.Parameters.AddWithValue("@mdf", newMedInfo.MedicationDosageForm);
+
+            SqlCommand updateMedDosageUnit = new SqlCommand("sp_UpdateMedicationsMedDosageUnit", connection);
+            updateMedDosageUnit.CommandType = CommandType.StoredProcedure;
+
+            updateMedDosageUnit.Parameters.AddWithValue("@medid", mid);
+            updateMedDosageUnit.Parameters.AddWithValue("@mdu", newMedInfo.MedicationDosageUnit);
+
+            SqlCommand updateMedTotalAmt = new SqlCommand("sp_UpdateMedicationsMedTotalAmount", connection);
+            updateMedTotalAmt.CommandType = CommandType.StoredProcedure;
+
+            updateMedTotalAmt.Parameters.AddWithValue("@medid", mid);
+            updateMedTotalAmt.Parameters.AddWithValue("@mta", newMedInfo.MedicationTotalAmount);
+
+            SqlCommand updateTotalAmtUnit = new SqlCommand("sp_UpdateMedicationsTotalAmountUnit", connection);
+            updateTotalAmtUnit.CommandType = CommandType.StoredProcedure;
+
+            updateTotalAmtUnit.Parameters.AddWithValue("@medid", mid);
+            updateTotalAmtUnit.Parameters.AddWithValue("@mtau", newMedInfo.MedicationTotalAmountUnit);
+
+            SqlCommand updateExpirationDate = new SqlCommand("sp_UpdateMedicationsExpiration", connection);
+            updateExpirationDate.CommandType = CommandType.StoredProcedure;
+
+            updateTotalAmtUnit.Parameters.AddWithValue("@medid", mid);
+            updateTotalAmtUnit.Parameters.AddWithValue("@me", newMedInfo.MedicationExpirationDate);
+
+            SqlCommand updateIsPrescribed = new SqlCommand("sp_UpdateMedicationsMedPrescribed", connection);
+            updateIsPrescribed.CommandType = CommandType.StoredProcedure;
+
+            updateIsPrescribed.Parameters.AddWithValue("@medid", mid);
+            updateIsPrescribed.Parameters.AddWithValue("@mp", newMedInfo.MedicationIsPrescribed);
+
+            try
+            {
+                if (newMedInfo.MedicationName != null) { updateMedName.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationDosageValue != null) { updateMedDosage.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationDosageForm != null) { updateMedDosageForm.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationDosageUnit != null) { updateMedDosageUnit.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationTotalAmount != null) { updateMedTotalAmt.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationTotalAmountUnit != null) { updateTotalAmtUnit.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationExpirationDate != null) { updateExpirationDate.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationIsPrescribed != null) { updateIsPrescribed.ExecuteNonQuery(); }
+
+                MessageBox.Show("Medication information successfully updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Failed to update medication information.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
+        public void UpdateSchedule(UpdateScheduleModalModel.MedicationScheduleInfo newMedInfo)
+        {
+            long mid = SearchMedSchedID(newMedInfo.MedicationID);
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand updateMedPeriod = new SqlCommand("sp_UpdateMedicationSchedMedPeriod", connection);
+            updateMedPeriod.CommandType = CommandType.StoredProcedure;
+
+            updateMedPeriod.Parameters.AddWithValue("@medshid", mid);
+            updateMedPeriod.Parameters.AddWithValue("@medp", newMedInfo.MedicationPeriod);
+
+            SqlCommand updateMedPeriodDate = new SqlCommand("sp_UpdateMedicationSchedMedPeriodDate", connection);
+            updateMedPeriodDate.CommandType = CommandType.StoredProcedure;
+
+            updateMedPeriodDate.Parameters.AddWithValue("@medshid", mid);
+            updateMedPeriodDate.Parameters.AddWithValue("@medd", newMedInfo.MedicationPeriodDate);
+
+            SqlCommand updateMedPeriodWeek = new SqlCommand("sp_UpdateMedicationSchedMedPeriodWeek", connection);
+            updateMedPeriodWeek.CommandType = CommandType.StoredProcedure;
+
+            updateMedPeriodWeek.Parameters.AddWithValue("@medshid", mid);
+            updateMedPeriodWeek.Parameters.AddWithValue("@medpw", newMedInfo.MedicationPeriodWeekday);
+
+            SqlCommand updateMedTime1 = new SqlCommand("sp_UpdateMedicationSchedMedTime1", connection);
+            updateMedTime1.CommandType = CommandType.StoredProcedure;
+
+            updateMedTime1.Parameters.AddWithValue("@medshid", mid);
+            updateMedTime1.Parameters.AddWithValue("@medt1", newMedInfo.Time_1);
+
+            SqlCommand updateMedTime2 = new SqlCommand("sp_UpdateMedicationSchedMedTime2", connection);
+            updateMedTime2.CommandType = CommandType.StoredProcedure;
+
+            updateMedTime2.Parameters.AddWithValue("@medshid", mid);
+            updateMedTime2.Parameters.AddWithValue("@medt2", newMedInfo.Time_2);
+
+            SqlCommand updateMedTime3 = new SqlCommand("sp_UpdateMedicationSchedMedTime3", connection);
+            updateMedTime3.CommandType = CommandType.StoredProcedure;
+
+            updateMedTime3.Parameters.AddWithValue("@medshid", mid);
+            updateMedTime3.Parameters.AddWithValue("@medt3", newMedInfo.Time_3);
+
+            SqlCommand updateMedTime4 = new SqlCommand("sp_UpdateMedicationSchedMedTime4", connection);
+            updateMedTime4.CommandType = CommandType.StoredProcedure;
+
+            updateMedTime4.Parameters.AddWithValue("@medshid", mid);
+            updateMedTime4.Parameters.AddWithValue("@medt4", newMedInfo.Time_4);
+
+            try
+            {
+                if (newMedInfo.MedicationPeriod != null) { updateMedPeriod.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationPeriodDate != null) { updateMedPeriodDate.ExecuteNonQuery(); }
+                if (newMedInfo.MedicationPeriodWeekday != null) { updateMedPeriodWeek.ExecuteNonQuery(); }
+                if (newMedInfo.Time_1 != null) { updateMedTime1.ExecuteNonQuery(); }
+                if (newMedInfo.Time_2 != null) { updateMedTime2.ExecuteNonQuery(); }
+                if (newMedInfo.Time_3 != null) { updateMedTime3.ExecuteNonQuery(); }
+                if (newMedInfo.Time_4 != null) { updateMedTime4.ExecuteNonQuery(); }
+
+                MessageBox.Show("Schedule information successfully updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Failed to update schedule information.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void UpdatePrescription(UpdateScheduleModalModel.MedicationPrescriptionInfo newMedInfo)
+        {
+            long prid = SearchPrescID(newMedInfo.MedicationID);
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand updateMedEndDate = new SqlCommand("sp_UpdatePrescriptionsMedEndDate", connection);
+            updateMedEndDate.CommandType = CommandType.StoredProcedure;
+
+            updateMedEndDate.Parameters.AddWithValue("@prid", prid);
+            updateMedEndDate.Parameters.AddWithValue("@med", newMedInfo.PrescriptionEndDate);
+
+            SqlCommand updateMedInstructions = new SqlCommand("sp_UpdatePrescriptionsMedInstructions", connection);
+            updateMedInstructions.CommandType = CommandType.StoredProcedure;
+
+            updateMedInstructions.Parameters.AddWithValue("@prid", prid);
+            updateMedInstructions.Parameters.AddWithValue("@mi", newMedInfo.PrescriptionInstructions);
+
+            SqlCommand updateMedStartDate = new SqlCommand("sp_UpdatePrescriptionsMedStartDate", connection);
+            updateMedStartDate.CommandType = CommandType.StoredProcedure;
+
+            updateMedStartDate.Parameters.AddWithValue("@prid", prid);
+            updateMedStartDate.Parameters.AddWithValue("@msd", newMedInfo.PrescriptionStartDate);
+
+            try
+            {
+                if (newMedInfo.PrescriptionEndDate != null) { updateMedEndDate.ExecuteNonQuery(); }
+                if (newMedInfo.PrescriptionInstructions != null) { updateMedInstructions.ExecuteNonQuery(); }
+                if (newMedInfo.PrescriptionStartDate != null) { updateMedStartDate.ExecuteNonQuery(); }
+
+                MessageBox.Show("Prescription information successfully updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Failed to update prescription information.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        public void UpdateDoctor(UpdateScheduleModalModel.MedicationPrescriptionDoctor newDocInfo)
+        {
+            long did = SearchDocID(newDocInfo.MedicationPrescriptionID);
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand updateDocAffiliation = new SqlCommand("dbo.sp_UpdateDocAffiliation", connection);
+            updateDocAffiliation.CommandType = CommandType.StoredProcedure;
+
+            updateDocAffiliation.Parameters.AddWithValue("@did", did);
+            updateDocAffiliation.Parameters.AddWithValue("@da", newDocInfo.PrescriptionDoctorAffiliation);
+
+            SqlCommand updateDocEmail = new SqlCommand("dbo.sp_UpdateDocEmail", connection);
+            updateDocEmail.CommandType = CommandType.StoredProcedure;
+
+            updateDocEmail.Parameters.AddWithValue("@did", did);
+            updateDocEmail.Parameters.AddWithValue("@de", newDocInfo.PrescriptionDoctorEmail);
+
+            SqlCommand updateDocName = new SqlCommand("dbo.sp_UpdateDocName", connection);
+            updateDocName.CommandType = CommandType.StoredProcedure;
+
+            updateDocName.Parameters.AddWithValue("@did", did);
+            updateDocName.Parameters.AddWithValue("@dn", newDocInfo.PrescriptionDoctorName);
+
+            SqlCommand updateDocSpecialization = new SqlCommand("dbo.sp_UpdateDocSpecialization", connection);
+            updateDocSpecialization.CommandType = CommandType.StoredProcedure;
+
+            updateDocSpecialization.Parameters.AddWithValue("@did", did);
+            updateDocSpecialization.Parameters.AddWithValue("@ds", newDocInfo.PrescriptionDoctorSpecialization);
+
+            try
+            {
+                if (newDocInfo.PrescriptionDoctorAffiliation != null) { updateDocAffiliation.ExecuteNonQuery(); }
+                if (newDocInfo.PrescriptionDoctorEmail != null) { updateDocEmail.ExecuteNonQuery(); }
+                if (newDocInfo.PrescriptionDoctorName != null) { updateDocName.ExecuteNonQuery(); }
+                if (newDocInfo.PrescriptionDoctorSpecialization != null) { updateDocSpecialization.ExecuteNonQuery(); }
+
+                MessageBox.Show("Doctor information successfully updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Failed to update doctor information.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
 
     }
 }

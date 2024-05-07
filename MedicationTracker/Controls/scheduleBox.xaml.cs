@@ -144,8 +144,8 @@ namespace MedicationTracker.Controls
         // create schedule
         private void AddSchedule_Click(object sender, RoutedEventArgs e)
         {
-            ScheduleModal scheduleModal = new ScheduleModal();
-            scheduleModal.ShowDialog();
+            UpdateScheduleModal updateScheduleModal = new UpdateScheduleModal();
+            updateScheduleModal.ShowDialog();
         }
     }
 }

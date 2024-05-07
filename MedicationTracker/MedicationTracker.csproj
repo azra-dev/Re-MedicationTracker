@@ -184,6 +184,7 @@
     <Compile Include="MVVM\Model\LogsModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\ScheduleModalModel.cs" />
+    <Compile Include="MVVM\Model\UpdateScheduleModalModel.cs" />
     <Compile Include="MVVM\Model\UserProfileModel.cs" />
     <Compile Include="MVVM\ViewModel\CreateScheduleViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CustomReminderViewModel.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="MVVM\ViewModel\LogsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ScheduleModalViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\UpdateScheduleModalViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserProfileViewModel.cs" />
     <Compile Include="MVVM\View\CreateSchedule.xaml.cs">
       <DependentUpon>CreateSchedule.xaml</DependentUpon>
@@ -218,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\ScheduleModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\UpdateScheduleModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,6 +271,9 @@
     </Compile>
     <Compile Include="MVVM\View\ScheduleModal.xaml.cs">
       <DependentUpon>ScheduleModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\UpdateScheduleModal.xaml.cs">
+      <DependentUpon>UpdateScheduleModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\UserProfile.xaml.cs">
       <DependentUpon>UserProfile.xaml</DependentUpon>
