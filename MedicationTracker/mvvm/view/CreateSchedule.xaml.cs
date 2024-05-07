@@ -70,5 +70,12 @@ namespace MedicationTracker.MVVM.View
             profile.Show();
             this.Close();
         }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            CreateSchedule createSchedule2 = new CreateSchedule();
+            createSchedule2.Show();
+            this.Close();
+        }
     }
 }

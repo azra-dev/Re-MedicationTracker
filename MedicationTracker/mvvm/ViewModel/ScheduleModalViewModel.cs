@@ -15,7 +15,7 @@ namespace MedicationTracker.MVVM.ViewModel
     {
         public DataAccessLayer DAL { get; set; }
         public CreateScheduleViewModel RefreshMedSchedInfo { get; set; }
-        public RelayCommand CreateMed => new RelayCommand(execute => CreateMedicine());
+        public RelayCommand CreateMed => new RelayCommand(execute => CreateMedicine(execute));
         public RelayCommand CreatePrescDoc => new RelayCommand(execute => CreatePrescriptionAndDoctor());
         
         public ScheduleModalViewModel()
@@ -91,7 +91,7 @@ namespace MedicationTracker.MVVM.ViewModel
             }
         }
 
-        public void CreateMedicine()
+        public void CreateMedicine(object parameter)
         {
             try
             {
@@ -109,6 +109,10 @@ namespace MedicationTracker.MVVM.ViewModel
                 MedicationScheduleInformation.MedicationID = DAL.SearchMedIDByUserIDAndMedName(ServiceLocator.CurrentUser.UserID, MedicationInformation.MedicationName);    // userID here is temporary
 
                 DAL.CreateSchedule(MedicationScheduleInformation);
+
+                Window window = parameter as Window;
+                window.Close();
+
             }
             catch (Exception ex)
             {

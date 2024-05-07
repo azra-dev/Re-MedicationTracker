@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
         xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
+        x:Name="ModalWindow"
         mc:Ignorable="d"
         WindowStyle="None"
         MouseDown="Window_MouseDown"
@@ -155,7 +156,7 @@
                             <Button Name="CancelButton" Width="60" Height="20" Margin="0,0,10,0" HorizontalAlignment="Right"
                                     Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Cancel</Button>
                             <Button Width="60" Height="20" Margin="0,0,0,0" HorizontalAlignment="Right" Visibility="Visible"
-                                    Background="#2a43de" Foreground="#fff" Content="Create" Name="SubmitButton" Command="{Binding CreateMed}"></Button>
+                                    Background="#2a43de" Foreground="#fff" Content="Create" Name="SubmitButton" Command="{Binding CreateMed}" CommandParameter="{Binding ElementName=ModalWindow}"></Button>
                             <Button Width="60" Height="20" Margin="0,0,0,0" HorizontalAlignment="Right" Visibility="Collapsed" Click="NextButton_Click"
                                     Background="#2a43de" Foreground="#fff" Content="Next" Name="NextButton"></Button>
                         </StackPanel>
