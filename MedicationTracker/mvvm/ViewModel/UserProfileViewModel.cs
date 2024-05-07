@@ -16,14 +16,14 @@ namespace MedicationTracker.MVVM.ViewModel
     {
         public DataAccessLayer DAL { get; set; }
 
-        // public RelayCommand UpdateInfo => new RelayCommand(execute => SetMediTrackUserProfilePicture());
-        public RelayCommand SetUserPFP => new RelayCommand(execute => UpdateUserInformation());
+        public RelayCommand UpdateInfo => new RelayCommand(execute => UpdateUserInformation());
+        public RelayCommand SetUserPFP => new RelayCommand(execute => SetMediTrackUserProfilePicture());
         public UserProfileViewModel() 
         { 
             DAL = new DataAccessLayer();
             NewUserInformation = new UserProfileModel();
             CurrentUserInfo = new DataAccessLayer.MediTrackUser();
-            CurrentUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(1);  // user_id here is temporary
+            CurrentUserInfo = (DataAccessLayer.MediTrackUser)DAL.ReadMediTrackUserByID(ServiceLocator.CurrentUser.UserID);  // user_id here is temporary
 
             byte[] imageData = CurrentUserInfo.Image;
             var image = new BitmapImage();
@@ -122,11 +122,11 @@ namespace MedicationTracker.MVVM.ViewModel
         {
             if (ConfirmPasswordInput != NewUserInformation.Password)
             {
-                MessageBox.Show("Passwords do not match.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Passwords do not match.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
-                DAL.UpdateUserInformation(1, newUserInformation);
+                DAL.UpdateUserInformation(ServiceLocator.CurrentUser.UserID, newUserInformation);
             }
 
 

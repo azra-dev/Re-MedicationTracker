@@ -17,11 +17,4 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
-    
-<!--code snippet for toast for implementation-->
-var builder = new ToastContentBuilder()
-    .AddText("Take Darkacetamol at 8:30pm!")
-    .AddButton(new ToastButton()
-        .SetContent("Taken")
-        .AddArgument("action", "taken"));
-builder.Show();
+

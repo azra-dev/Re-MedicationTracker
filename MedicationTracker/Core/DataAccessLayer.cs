@@ -730,7 +730,7 @@ namespace MedicationTracker.Core
 
         }
 
-        public void UpdateUserInformation(long user_id, UserProfileModel userInfo)
+        public void UpdateUserInformation(long uid, UserProfileModel userInfo)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -753,7 +753,47 @@ namespace MedicationTracker.Core
             SqlCommand updateBirthDateCmd = new SqlCommand("sp_UpdateMediTrackUserBirthDate", connection);
             updateBirthDateCmd.CommandType = CommandType.StoredProcedure;
 
-            // To be implemented further by rjldg
+            SqlCommand updatePFP = new SqlCommand("sp_CreateOrUpdateUserPFP", connection);
+            updatePFP.CommandType = CommandType.StoredProcedure;
+
+            updateFirstNameCmd.Parameters.AddWithValue("@user_id", uid);
+            updateLastNameCmd.Parameters.AddWithValue("@user_id", uid);
+            updateUsernameCmd.Parameters.AddWithValue("@usid", uid);
+            updatePasswordCmd.Parameters.AddWithValue("@user_id", uid);
+            updateEmailCmd.Parameters.AddWithValue("@user_id", uid);
+            updateBirthDateCmd.Parameters.AddWithValue("@user_id", uid);
+            updatePFP.Parameters.AddWithValue("@user_id", uid);
+
+            updateFirstNameCmd.Parameters.AddWithValue("@fn", userInfo.FirstName);
+            updateLastNameCmd.Parameters.AddWithValue("@ln", userInfo.LastName);
+            updateUsernameCmd.Parameters.AddWithValue("@user", userInfo.Username);
+            updatePasswordCmd.Parameters.AddWithValue("@pw", userInfo.Password);
+            updateEmailCmd.Parameters.AddWithValue("@em", userInfo.EmailAddress);
+            updateBirthDateCmd.Parameters.AddWithValue("@bd", userInfo.BirthDate);
+            updatePFP.Parameters.AddWithValue("@full_path", userInfo.ProfilePicturePath);
+
+
+            try
+            {
+                if (userInfo.FirstName != null) { updateFirstNameCmd.ExecuteNonQuery(); }
+                if (userInfo.LastName != null) { updateLastNameCmd.ExecuteNonQuery(); }
+                if (userInfo.Username != null) { updateUsernameCmd.ExecuteNonQuery(); }
+                if (userInfo.Password != null) { updatePasswordCmd.ExecuteNonQuery(); }
+                if (userInfo.EmailAddress != null) { updateEmailCmd.ExecuteNonQuery(); }
+                if (userInfo.BirthDate != null) { updateBirthDateCmd.ExecuteNonQuery(); }
+                if (userInfo.ProfilePicturePath != null) { updatePFP.ExecuteNonQuery(); }
+
+                MessageBox.Show("User credentials successfully updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Failed to edit user credentials.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
 
         }
 
