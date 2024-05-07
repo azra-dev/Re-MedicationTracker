@@ -9,7 +9,8 @@
              x:Name="Root"
              d:DataContext="{d:DesignInstance {x:Type local:menuBox}}">
     
-    <StackPanel x:Name="RootUserControl" FlowDirection="LeftToRight" Orientation="Horizontal" Height="25" Margin="0 2">
+    <StackPanel x:Name="RootUserControl" FlowDirection="LeftToRight" Orientation="Horizontal" Height="25" Margin="0 2" MouseLeftButtonUp="RootUserControl_MouseLeftButtonUp">
+        <!--img-->
         <Grid Margin="0 0 12 0" Visibility="{Binding NegateDefaultIconMode}">
             <Grid.OpacityMask>
                 <VisualBrush Visual="{Binding ElementName=bFrame}"/>
@@ -18,11 +19,11 @@
             <Border BorderBrush="#6a787c" BorderThickness="1" CornerRadius="255" Width="25">
                 <Image Source="{Binding ImageSource}" Width="25" VerticalAlignment="Center"/>
             </Border>
-            <!-- /Images/default_pfp.jpg -->
         </Grid>
         <Image Source="{Binding ImageSource}" Width="32" VerticalAlignment="Center" Margin="0 0 12 0" Visibility="{Binding DefaultIconMode}"/>
+        <!--txt-->
         <Border BorderBrush="{x:Null}" Margin="0 5 0 0">
-            <TextBlock FontFamily="Comfortaa" FontSize="18"
+            <TextBlock FontFamily="Comfortaa" FontSize="18" Foreground="{Binding ActiveMenu}"
                        VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding MenuText, TargetNullValue={StaticResource Button.Disabled.Background}}"></TextBlock>
         </Border>
     </StackPanel>

@@ -180,6 +180,11 @@ namespace MedicationTracker.Core
 
         public bool ValidateUserLoginCredentials(string email, string password)
         {
+            if (email == null || password == null)
+            {
+                MessageBox.Show("Login Failed. Inputs must be filled up.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
@@ -188,7 +193,6 @@ namespace MedicationTracker.Core
 
             cmd.Parameters.AddWithValue("@em", email);
             cmd.Parameters.AddWithValue("@pw", password);
-            // Trace.WriteLine("Email: " + email, "Password: " + password);
 
             int loginCredentialsIsValid = (int)cmd.ExecuteScalar();
             connection.Close();

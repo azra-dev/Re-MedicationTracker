@@ -116,7 +116,7 @@
                         <Border x:Name="frame" BorderBrush="#6a787c" CornerRadius="512" BorderThickness="0" Background="#f0f4f4"/>
                         <Border BorderBrush="#fff" CornerRadius="512" BorderThickness="0" Background="#2a43de"/>
                         <Button Foreground="#fff" FontFamily="Comfortaa" FontWeight="ExtraBlack" FontSize="24" BorderBrush="Transparent" Background="Transparent"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50">+</Button>
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50" Click="AddSchedule_Click">+</Button>
                     </Grid>
                 </Grid>
 
