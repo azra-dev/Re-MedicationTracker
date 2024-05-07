@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MedicationTracker.MVVM.View"
         xmlns:userControls="clr-namespace:MedicationTracker.Controls"
         mc:Ignorable="d"
+        MouseDown="Window_MouseDown"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"

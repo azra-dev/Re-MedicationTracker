@@ -35,5 +35,11 @@ namespace MedicationTracker.MVVM.View
                 DragMove();
             }
         }
+
+        private void CustomReminder_Click(object sender, RoutedEventArgs e)
+        {
+            CustomReminder customReminder = new CustomReminder();
+            customReminder.ShowDialog();
+        }
     }
 }

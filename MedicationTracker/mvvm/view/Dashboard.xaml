@@ -200,7 +200,7 @@
                                                                Margin="0 0 0 5" TextAlignment="Justify"/>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0">Edit</Button>
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0" Click="CustomReminder_Click">Edit</Button>
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
                                                             Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="20 5 0 0">Taken</Button>
                                                 </StackPanel>
