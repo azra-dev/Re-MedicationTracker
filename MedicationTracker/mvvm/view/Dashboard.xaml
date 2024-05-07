@@ -41,7 +41,7 @@
             </Grid.ColumnDefinitions>
 
             <!--sidebar-->
-            <Border>
+            <Border Grid.Column="0">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10"
                                       ShadowDepth="0"
@@ -75,8 +75,25 @@
                     </StackPanel>
                 </Border>
             </Border>
+            <StackPanel Grid.Column="0">
+                <Grid Height="525">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
+                        <Button Style="{DynamicResource TransparentButton}" Click="Home_Click" Height="29"/>
+                        <Button Style="{DynamicResource TransparentButton}" Click="Schedule_Click"  Height="29"/>
+                        <Button Style="{DynamicResource TransparentButton}" Click="Logs_Click"  Height="29"/>
+                    </StackPanel>
 
-                <!--content-->
+                    <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <Button  Style="{DynamicResource TransparentButton}" Click="Profile_Click" Height="29" Width="200"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <!--content-->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="36"/>
@@ -201,7 +218,7 @@
                                                                Margin="0 0 0 5" TextAlignment="Justify"/>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0"
+                                                            Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="0 5 20 0" Click="CustomReminder_Click"
                                                             Command="{Binding ElementName=RootUiControl, Path=DataContext.GetInitialRemTitle}" CommandParameter="{Binding MedicationReminderTitle}">Edit</Button>
                                                     <Button Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
                                                             Foreground="#2a43de" FontFamily="Comfortaa" FontWeight="Bold" Margin="20 5 0 0"

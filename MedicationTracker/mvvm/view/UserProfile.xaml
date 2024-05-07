@@ -83,10 +83,12 @@
                 </Grid>
 
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Name="SignOutButton" Width="75" Height="25" Margin="0,10,10,0" HorizontalAlignment="Right"
+                    Background="#fff" Foreground="#e81a46" Click="SignOut_Click" BorderBrush="#e81a46">Sign Out</Button>
                     <Button Name="CancelButton" Width="75" Height="25" Margin="0,10,10,0" HorizontalAlignment="Right"
-            Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Cancel</Button>
+                    Background="#fff" Foreground="#2a43de" Click="CancelButton_Click">Cancel</Button>
                     <Button Width="75" Height="25" Margin="0,10,0,0" HorizontalAlignment="Right"
-            Background="#2a43de" Foreground="#fff" Command="{Binding RegisterUser}">Confirm Edit</Button>
+                    Background="#2a43de" Foreground="#fff" Command="{Binding RegisterUser}">Confirm Edit</Button>
                 </StackPanel>
 
             </StackPanel>

@@ -32,6 +32,15 @@ namespace MedicationTracker.MVVM.View
             Close();
         }
 
+        // Drag the window without taskbar
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
         //private void CancelButton_Click(object sender, RoutedEventArgs e)
         //{
         //    if (sender.Equals(CancelButton)) { Close(); }

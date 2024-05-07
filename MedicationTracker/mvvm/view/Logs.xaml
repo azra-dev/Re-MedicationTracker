@@ -70,6 +70,23 @@
                     </StackPanel>
                 </Border>
             </Border>
+            <StackPanel Grid.Column="0">
+                <Grid Height="525">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="20 40" Orientation="Vertical" FlowDirection="LeftToRight">
+                        <Button Style="{DynamicResource TransparentButton}" Click="Home_Click" Height="29"/>
+                        <Button Style="{DynamicResource TransparentButton}" Click="Schedule_Click"  Height="29"/>
+                        <Button Style="{DynamicResource TransparentButton}" Click="Logs_Click"  Height="29"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="20 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <Button  Style="{DynamicResource TransparentButton}" Click="Profile_Click" Height="29" Width="200"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

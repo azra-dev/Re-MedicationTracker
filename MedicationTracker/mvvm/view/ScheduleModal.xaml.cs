@@ -98,5 +98,14 @@ namespace MedicationTracker.MVVM.View
             MedicationSchedulePage.Visibility = Visibility.Collapsed;
             PrescriptionPage.Visibility = Visibility.Visible;
         }
+
+        // Drag the window without taskbar
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
     }
 }

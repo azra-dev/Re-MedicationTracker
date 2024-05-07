@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -138,6 +139,13 @@ namespace MedicationTracker.Controls
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // create schedule
+        private void AddSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            ScheduleModal scheduleModal = new ScheduleModal();
+            scheduleModal.ShowDialog();
         }
     }
 }

@@ -8,6 +8,7 @@
         xmlns:VM="clr-namespace:MedicationTracker.MVVM.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
+        MouseDown="Window_MouseDown"
         Height="400" Width="600"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -17,8 +18,8 @@
     <Window.DataContext>
         <VM:ScheduleModalViewModel/>
     </Window.DataContext>
-    
-    <Border CornerRadius="5" Background="#f4fafa" BorderBrush="LightGray" BorderThickness="1">
+
+    <Border CornerRadius="15" Background="#f4fafa" BorderBrush="#031329" BorderThickness="1">
         <Grid>
             <!--Without prescription-->
             <StackPanel Margin="30" Visibility="Visible" Name="MedicationSchedulePage">

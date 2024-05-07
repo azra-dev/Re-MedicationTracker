@@ -35,5 +35,40 @@ namespace MedicationTracker.MVVM.View
                 DragMove();
             }
         }
+
+        private void CustomReminder_Click(object sender, RoutedEventArgs e)
+        {
+            CustomReminder customReminder = new CustomReminder();
+            customReminder.ShowDialog();
+        }
+
+        // Sidebar Default Events
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            Dashboard dashboard = new Dashboard();
+            dashboard.Show();
+            this.Close();
+        }
+
+        private void Schedule_Click(object sender, RoutedEventArgs e)
+        {
+            CreateSchedule createSchedule = new CreateSchedule();
+            createSchedule.Show();
+            this.Close();
+        }
+
+        private void Logs_Click(object sender, RoutedEventArgs e)
+        {
+            Logs logs = new Logs();
+            logs.Show();
+            this.Close();
+        }
+
+        private void Profile_Click(object sender, RoutedEventArgs e)
+        {
+            UserProfile profile = new UserProfile();
+            profile.Show();
+            this.Close();
+        }
     }
 }
