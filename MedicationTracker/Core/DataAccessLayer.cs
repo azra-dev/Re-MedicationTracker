@@ -1,5 +1,6 @@
 ﻿using Mailjet.Client.Resources;
 using MedicationTracker.MVVM.Model;
+using Microsoft.Toolkit.Uwp.Notifications;
 using RestSharp;
 using System;
 using System.CodeDom;
@@ -41,8 +42,8 @@ namespace MedicationTracker.Core
         // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!) 
 
         //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
-        //public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
+        //public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
+        public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
