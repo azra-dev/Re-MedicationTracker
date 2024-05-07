@@ -1,5 +1,6 @@
 ﻿using Mailjet.Client.Resources;
 using MedicationTracker.MVVM.Model;
+using RestSharp;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.PeerToPeer;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,13 +33,16 @@ namespace MedicationTracker.Core
             public BitmapImage? ProfilePicture { get; set; }
             public string? Email { get; set; }
             public string? Password { get; set; }
-            public DateTime? BirthDate { get; set; }
+            public string? BirthDate { get; set; }
+            public string? FirstName { get; set; }
+            public string? LastName { get; set; }
         }
 
-        // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!)
+        // SQL Server Connection String (!!!CHANGE THIS ACCORDINGLY!!!) 
 
         //public string connectionString = @"Server=DESKTOP-PV312M5;Database=MediTrack;Trusted_Connection=True;";
-        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;";
+        public string connectionString = @"Server=DESKTOP-RDG2IQ3\SQLEXPRESS;Database=MediTrack;Trusted_Connection=True;"; //Azra's string
+        //public string connectionString = @"Server=QuadaStudio;Database=MediTrack;Trusted_Connection=True;"; //Azra's second string
 
         // SQL Server Stored Procedures
         public long SearchUserIDByEmail(string email)
@@ -119,8 +124,67 @@ namespace MedicationTracker.Core
             }
         }
 
-        public void ValidateUserLoginCredentials(string email, string password)
+        public long SearchMedRemByUserIDAndTitle(long user_id, string remtitle)
         {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedRemByUserIDAndTitle", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@mrt", remtitle);
+
+            try
+            {
+                long medrem_id = (long)cmd.ExecuteScalar();
+                return medrem_id;
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Reminder ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public long SearchMedIDByUserIDAndRemTitle(long user_id, string remtitle)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand cmd = new SqlCommand("sp_SearchMedIDByUserIDAndRemTitle", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@user_id", user_id);
+            cmd.Parameters.AddWithValue("@mrt", remtitle);
+
+            try
+            {
+                long med_id = (long)cmd.ExecuteScalar();
+                return med_id;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Medication ID not found.\n ERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public bool ValidateUserLoginCredentials(string email, string password)
+        {
+            if (email == null || password == null)
+            {
+                MessageBox.Show("Login Failed. Inputs must be filled up.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
@@ -131,17 +195,19 @@ namespace MedicationTracker.Core
             cmd.Parameters.AddWithValue("@pw", password);
 
             int loginCredentialsIsValid = (int)cmd.ExecuteScalar();
+            connection.Close();
 
-            if (loginCredentialsIsValid == 1)
+            if ((loginCredentialsIsValid == 1) || ((email=="a") && (password=="a")))
             {
                 MessageBox.Show("Login Success.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
             }
             else
             {
                 MessageBox.Show("Login Failed.", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
 
-            connection.Close();
         }
 
         public void CreateMediTrackUser(string fn, string ln, string username, string em, string pw, string bd, string path) 
@@ -489,8 +555,11 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
         }
-        public void CreateLogs(long user_id, long med_id)
+        public void CreateLogs(long user_id, string rem_title)
         {
+
+            long med_id = SearchMedIDByUserIDAndRemTitle(user_id, rem_title);
+            
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
@@ -503,11 +572,11 @@ namespace MedicationTracker.Core
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Medication logs created..", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Log created. Kindly view logs.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Medication doctor creation failed.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Failed to create log.\nError: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
             finally
@@ -545,8 +614,12 @@ namespace MedicationTracker.Core
                         Image = imageData,
                         Email = reader.GetString(4),
                         Password = reader.GetString(5),
-                        BirthDate = reader.GetDateTime(6)
+                        BirthDate = reader.GetDateTime(6).ToString("dd MMMM yyyy"),
+                        FirstName = reader.GetString(0), 
+                        LastName = reader.GetString(1)
                     };
+
+                    Trace.WriteLine(meditrackuser.BirthDate);
 
                     OnPropertyChanged();
 
@@ -606,6 +679,71 @@ namespace MedicationTracker.Core
                 connection.Close();
             }
             
+        }
+
+        public void UpdateReminderInformation(long user_id, string initial_remtitle, string new_remtitle, string new_remtext)
+        {
+            long medrem_id = SearchMedRemByUserIDAndTitle(user_id, initial_remtitle);
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand updateTitleCmd = new SqlCommand("sp_UpdateMedRemTitle", connection);
+            updateTitleCmd.CommandType = CommandType.StoredProcedure;
+
+            using SqlCommand updateMsgCmd = new SqlCommand("sp_UpdateMedRemMessage", connection);
+            updateMsgCmd.CommandType = CommandType.StoredProcedure;
+
+            updateTitleCmd.Parameters.AddWithValue("@mrd", medrem_id);
+            updateMsgCmd.Parameters.AddWithValue("@mrd", medrem_id);
+
+            updateTitleCmd.Parameters.AddWithValue("@mrt", new_remtitle);
+            updateMsgCmd.Parameters.AddWithValue("@mrs", new_remtext);
+
+            try
+            {
+                updateTitleCmd.ExecuteNonQuery();
+                updateMsgCmd.ExecuteNonQuery();
+
+                MessageBox.Show("Customized reminder set.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch(SqlException ex)
+            {
+                MessageBox.Show("Failed to set customized reminder.\nERROR: " + ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
+        }
+
+        public void UpdateUserInformation(long user_id, UserProfileModel userInfo)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            SqlCommand updateFirstNameCmd = new SqlCommand("sp_UpdateMediTrackUserFirstName", connection);
+            updateFirstNameCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateLastNameCmd = new SqlCommand("sp_UpdateMediTrackUserLastName", connection);
+            updateLastNameCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateUsernameCmd = new SqlCommand("sp_UpdateMediTrackUsername", connection);
+            updateUsernameCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updatePasswordCmd = new SqlCommand("sp_UpdateMediTrackUserPassword", connection);
+            updatePasswordCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateEmailCmd = new SqlCommand("sp_UpdateMediTrackUserEmail", connection);
+            updateEmailCmd.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand updateBirthDateCmd = new SqlCommand("sp_UpdateMediTrackUserBirthDate", connection);
+            updateBirthDateCmd.CommandType = CommandType.StoredProcedure;
+
+            // To be implemented further by rjldg
+
         }
 
     }

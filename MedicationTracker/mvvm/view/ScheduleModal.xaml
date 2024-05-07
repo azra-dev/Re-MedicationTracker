@@ -10,6 +10,7 @@
         WindowStyle="None"
         Height="400" Width="600"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="Transparent">
 
@@ -17,7 +18,7 @@
         <VM:ScheduleModalViewModel/>
     </Window.DataContext>
     
-    <Border CornerRadius="5" Background="#f4fafa">
+    <Border CornerRadius="5" Background="#f4fafa" BorderBrush="LightGray" BorderThickness="1">
         <Grid>
             <!--Without prescription-->
             <StackPanel Margin="30" Visibility="Visible" Name="MedicationSchedulePage">

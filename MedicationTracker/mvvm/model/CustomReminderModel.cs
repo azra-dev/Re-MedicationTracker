@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+
+#nullable enable
 
 namespace MedicationTracker.MVVM.Model
 {
-    public class LoginModel
+    public class CustomReminderModel
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string? CustomReminderTitle;
+
+        public string? CustomReminderMessage;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace MedicationTracker.MVVM.View
         public CustomReminder()
         {
             InitializeComponent();
+            CustomReminderViewModel vm = new CustomReminderViewModel();
+            DataContext = vm;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

@@ -239,10 +239,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\home.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\homeScheduleBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,9 +306,6 @@
     <Compile Include="Controls\createNewSchedule.xaml.cs">
       <DependentUpon>createNewSchedule.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\home.xaml.cs">
-      <DependentUpon>home.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\homeScheduleBox.xaml.cs">
       <DependentUpon>homeScheduleBox.xaml</DependentUpon>
     </Compile>
@@ -348,18 +341,23 @@
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\TimeSpanToTimeStringConverter.cs" />
+    <Compile Include="MultiValueConverter\Converter.cs" />
     <Compile Include="MVVM\Model\CreateScheduleModel.cs" />
+    <Compile Include="MVVM\Model\CustomReminderModel.cs" />
     <Compile Include="MVVM\Model\DashboardModel.cs" />
     <Compile Include="MVVM\Model\ForgetPasswordModel.cs" />
     <Compile Include="MVVM\Model\LogsModel.cs" />
     <Compile Include="MVVM\Model\RegisterModel.cs" />
     <Compile Include="MVVM\Model\ScheduleModalModel.cs" />
+    <Compile Include="MVVM\Model\UserProfileModel.cs" />
     <Compile Include="MVVM\ViewModel\CreateScheduleViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CustomReminderViewModel.cs" />
     <Compile Include="MVVM\ViewModel\DashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ForgetPasswordViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LogsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RegisterViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ScheduleModalViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\UserProfileViewModel.cs" />
     <Compile Include="MVVM\View\CreateSchedule.xaml.cs">
       <DependentUpon>CreateSchedule.xaml</DependentUpon>
     </Compile>
@@ -385,6 +383,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\ScheduleModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\UserProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -428,6 +430,9 @@
     </Compile>
     <Compile Include="MVVM\View\ScheduleModal.xaml.cs">
       <DependentUpon>ScheduleModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\UserProfile.xaml.cs">
+      <DependentUpon>UserProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -478,6 +483,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ACTIVE_home.png" />
+    <Resource Include="Images\ACTIVE_logs.png" />
+    <Resource Include="Images\ACTIVE_schedule.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

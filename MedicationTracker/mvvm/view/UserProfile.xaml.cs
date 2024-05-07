@@ -1,8 +1,6 @@
-﻿using MedicationTracker.MVVM.Model;
-using MedicationTracker.MVVM.ViewModel;
+﻿using MedicationTracker.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,29 +15,31 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    public partial class CreateSchedule : Window
+    /// <summary>
+    /// Interaction logic for UserProfile.xaml
+    /// </summary>
+    public partial class UserProfile : Window
     {
-        public CreateSchedule()
+        public UserProfile()
         {
             InitializeComponent();
-            CreateScheduleViewModel vm = new CreateScheduleViewModel();
+            UserProfileViewModel vm = new UserProfileViewModel();
             DataContext = vm;
-            vm.ReadMedAndSched.Execute(null);
-            vm.ReadUserInfo.Execute(null);
         }
 
+        // Drag the window without taskbar
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
+
         }
 
-        private void AddSchedule_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            ScheduleModal scheduleModal = new ScheduleModal();
-            scheduleModal.ShowDialog();
+            Close();
         }
     }
 }

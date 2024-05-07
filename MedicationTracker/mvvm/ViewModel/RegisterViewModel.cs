@@ -17,7 +17,7 @@ namespace MedicationTracker.MVVM.ViewModel
     {
 
         public DataAccessLayer DAL { get; set; }
-        public RelayCommand RegisterUser => new RelayCommand(execute => RegisterMediTrackUser(), canexecute => RegisterCredentials != null);
+        public RelayCommand RegisterUser => new RelayCommand(execute => RegisterMediTrackUser(execute), canexecute => RegisterCredentials != null);
         public RelayCommand SetUserPFP => new RelayCommand(execute => SetMediTrackUserProfilePicture());
 
 
@@ -74,7 +74,7 @@ namespace MedicationTracker.MVVM.ViewModel
 
         }
 
-        public void RegisterMediTrackUser()
+        public void RegisterMediTrackUser(object parameter)
         {
             if (ConfirmPasswordInput != RegisterCredentials.Password)
             {
@@ -84,6 +84,10 @@ namespace MedicationTracker.MVVM.ViewModel
             {
                 DAL.CreateMediTrackUser(RegisterCredentials.FirstName, RegisterCredentials.LastName, RegisterCredentials.Username,
                     RegisterCredentials.EmailAddress, RegisterCredentials.Password, RegisterCredentials.BirthDate, RegisterCredentials.ProfilePicturePath);
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                Window currentWindow = parameter as Window;
+                currentWindow.Close();
             }
             
             
