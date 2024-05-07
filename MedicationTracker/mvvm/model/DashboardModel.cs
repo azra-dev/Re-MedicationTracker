@@ -30,5 +30,6 @@ namespace MedicationTracker.MVVM.Model
             public string? MedicationReminderTitle { get; set; }
             public string? MedicationReminderMessage { get; set; }
         }
+
     }
 }

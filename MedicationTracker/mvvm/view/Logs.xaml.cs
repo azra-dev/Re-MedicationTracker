@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicationTracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +15,15 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for Logs.xaml
-    /// </summary>
     public partial class Logs : Window
     {
         public Logs()
         {
             InitializeComponent();
+            LogsViewModel vm = new LogsViewModel();
+            DataContext = vm;
+            vm.ReadUserInfo.Execute(null);
+            vm.ReadJoinedLogInfo.Execute(null);
         }
         
         // Drag the window without taskbar
