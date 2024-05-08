@@ -1,4 +1,5 @@
-﻿using MedicationTracker.MVVM.ViewModel;
+﻿using MedicationTracker.MVVM.View;
+using MedicationTracker.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace MedicationTracker
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -35,6 +33,24 @@ namespace MedicationTracker
             {
                 DragMove();
             }
+        }
+
+        private void RegisterLink_Click(object sender, RoutedEventArgs e)
+        {
+            Register register = new Register();
+            register.Show();
+            this.Close();
+        }
+
+        private void ForgetPassword_Click(object sender, RoutedEventArgs e)
+        {
+            ForgetPassword forgetpass = new ForgetPassword();
+            forgetpass.ShowDialog();
+        }
+
+        public void Exit_Window()
+        {
+            this.Close();
         }
     }
 }

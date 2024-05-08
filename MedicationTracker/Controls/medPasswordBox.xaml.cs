@@ -22,15 +22,37 @@ namespace MedicationTracker.Controls
     /// </summary>
     public partial class medPasswordBox : UserControl, INotifyPropertyChanged
     {
+
+        public static readonly DependencyProperty PasswordInputtedProperty =
+        DependencyProperty.Register(
+            "PasswordInputted",
+            typeof(string),
+            typeof(medPasswordBox),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public string PasswordInputted
+        {
+            get { return (string)GetValue(PasswordInputtedProperty); }
+            set { SetValue(PasswordInputtedProperty, value); }
+        }
+
         public medPasswordBox()
         {
-            DataContext = this;
             InitializeComponent();
+            RootUserControl.DataContext = this;
         }
 
         // data binding
         public string passwordPlaceholder;
-        public string PasswordPlaceholder { get { return passwordPlaceholder; } set { passwordPlaceholder = value; OnPropertyChanged("PasswordPlaceholder"); } }
+        public string PasswordPlaceholder 
+        { 
+            get { return passwordPlaceholder; } 
+            set 
+            { 
+                passwordPlaceholder = value; 
+                OnPropertyChanged("PasswordPlaceholder"); 
+            } 
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -48,8 +70,11 @@ namespace MedicationTracker.Controls
 
         private void textInput_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(textInput.Password)) passPlaceholder.Visibility = Visibility.Hidden;
-            else passPlaceholder.Visibility = Visibility.Visible;
+            PasswordInputted = textInput.Password;
+
+            passPlaceholder.Visibility = string.IsNullOrEmpty(textInput.Password) ? Visibility.Visible : Visibility.Hidden;
+
+            
         }
     }
 }

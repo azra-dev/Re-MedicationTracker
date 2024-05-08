@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MedicationTracker.MVVM.Model.CreateScheduleModel">
+    <Position X="5.25" Y="6" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>CCAAACAAAAAAAEAAAAAQCAAAAQAAAAAAAAAAAAACGAA=</HashCode>
+      <FileName>MVVM\Model\CreateScheduleModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.DashboardModel">
+    <Position X="9" Y="6" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="MedicationTracker.MVVM.Model.DashboardModel.JoinedMedicationSchedule">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\DashboardModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="MedicationTracker.MVVM.Model.DashboardModel.MedicationReminder">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\DashboardModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\DashboardModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.ForgetPasswordModel">
+    <Position X="5.25" Y="11.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>MVVM\Model\ForgetPasswordModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.LoginModel">
+    <Position X="5.25" Y="9.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\LoginModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.LogsModel">
+    <Position X="5.25" Y="12.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAEAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\LogsModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.RegisterModel">
+    <Position X="5.25" Y="14.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAQAAAAQAAAAAAAACAAAAIgAAAAg=</HashCode>
+      <FileName>MVVM\Model\RegisterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.ScheduleModalModel">
+    <Position X="0.5" Y="6" Width="4.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="MedicationTracker.MVVM.Model.ScheduleModalModel.MedicationInfo">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\ScheduleModalModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="MedicationTracker.MVVM.Model.ScheduleModalModel.MedicationScheduleInfo">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\ScheduleModalModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="MedicationTracker.MVVM.Model.ScheduleModalModel.MedicationReminderInfo">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\ScheduleModalModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="MedicationTracker.MVVM.Model.ScheduleModalModel.MedicationPrescriptionInfo">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\ScheduleModalModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="MedicationTracker.MVVM.Model.ScheduleModalModel.MedicationPrescriptionDoctor">
+        <TypeIdentifier>
+          <NewMemberFileName>MVVM\Model\ScheduleModalModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVVM\Model\ScheduleModalModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.CustomReminderModel">
+    <Position X="9" Y="11.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>MVVM\Model\CustomReminderModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicationTracker.MVVM.Model.UserProfileModel">
+    <Position X="9" Y="12.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAQAAAAQAAAAAAAACAAAAIgAAAAg=</HashCode>
+      <FileName>MVVM\Model\UserProfileModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
