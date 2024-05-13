@@ -50,6 +50,8 @@ namespace MedicationTracker
 
         public void Exit_Window()
         {
+            ForgetPassword forgetPassword = new ForgetPassword();
+            forgetPassword.Show();
             this.Close();
         }
     }
